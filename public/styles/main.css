@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+footer {
+    color: white;
+    background-color: #272727;
+    display: grid;
+    place-content: center;
+    height: 150px;
+}
+
+footer a {
+    text-decoration: none;
+    color: orangered;
+    transition: .1s;
+}
+
+footer a:hover {
+    color: orange;
+    transition: .1s;
+}
+
+.erreur {
+    display: grid;
+    place-content: center;
+    height: calc(100vh - 231px);
+}
