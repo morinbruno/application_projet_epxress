@@ -80,7 +80,12 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/profil', function (req, res) {
 	username = req.session.username;
-	res.render('pages/profil', { title: `Profil - ${username}` });
+	if (req.session.loggedin) {
+		res.render('pages/profil', { title: `Profil - ${username}` });
+	}
+	else {
+		res.redirect('/');
+	}
 });
 
 app.get('/se-deconnecter', function (req, res) {
@@ -90,7 +95,12 @@ app.get('/se-deconnecter', function (req, res) {
 
 // Retour d'une page erreur de type 404
 app.use((req, res, next) => {
-	res.status(404).render('erreurs/404', { title: 'Page non trouvé' })
+	if (req.session.loggedin) {
+		res.status(404).render('erreurs/404', { title: 'Page non trouvé' })
+	} else {
+		res.redirect('/')
+	}
+	res.end();
 })
 
 // Lancement du serveur
