@@ -10,7 +10,7 @@ footer {
     background-color: #272727;
     display: grid;
     place-content: center;
-    height: 150px;
+    height: 50px;
 }
 
 footer a {
@@ -27,5 +27,5 @@ footer a:hover {
 .erreur {
     display: grid;
     place-content: center;
-    height: calc(100vh - 231px);
+    height: calc(100vh - 140px);
 }

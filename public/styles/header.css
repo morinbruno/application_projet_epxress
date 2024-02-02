@@ -1,9 +1,9 @@
 header {
-    display: grid;
+    display: flex;
     place-items: center;
     justify-content: center;
     padding: 20px 50px;
-    background-color: brown;
+    background-color: #3274d6;
     height: auto;
 }
 
@@ -15,7 +15,7 @@ nav ul{
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 nav ul li{
@@ -23,12 +23,7 @@ nav ul li{
     width: 150px;
     text-align: center;
     position: relative;
-}
-
-nav ul::after{
-    content: "";
-    display: table;
-    clear: both;
+    margin: 0 15px;
 }
 
 nav a{
@@ -41,8 +36,7 @@ nav a{
 }
 
 nav a:hover{
-    color: orange;
-    border-bottom: 2px solid gold;
+    border-bottom: 2px solid white;
 }
 
 .sous-menu{
@@ -73,4 +67,28 @@ nav > ul li:hover .sous-menu{
 
 i {
     margin-right: 10px;
+}
+
+.deconnexion {
+    display: grid;
+    place-content: center;
+    color: white;
+    margin: 0;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px #0004ff8a;
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+    transition: .1s;
+}
+
+.deconnexion:hover {
+    color: #3274d6;
+    background-color: white;
+    transition: .1s;
+}
+
+.deconnexion i {
+    margin: 0 auto;
 }

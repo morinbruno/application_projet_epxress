@@ -70,12 +70,9 @@ app.post('/auth', function (req, res) {
 
 app.get('/dashboard', function (req, res) {
 	username = req.session.username;
-	// If the user is loggedin
 	if (req.session.loggedin) {
-		// Output username
 		res.render('pages/dashboard', { title: `Dashboard - ${username}` });
 	} else {
-		// Not logged in
 		res.redirect('/');
 	}
 	res.end();
@@ -83,7 +80,7 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/profil', function (req, res) {
 	username = req.session.username;
-	res.render('pages/dashboard', { title: `Profil - ${username}` });
+	res.render('pages/profil', { title: `Profil - ${username}` });
 });
 
 app.get('/se-deconnecter', function (req, res) {
@@ -91,6 +88,7 @@ app.get('/se-deconnecter', function (req, res) {
 	res.redirect('/');
 });
 
+// Retour d'une page erreur de type 404
 app.use((req, res, next) => {
 	res.status(404).render('erreurs/404', { title: 'Page non trouvé' })
 })
