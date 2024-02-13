@@ -27,9 +27,8 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'static')));
+// app.use(express.static(path.join(__dirname, 'static')));
 
-// http://localhost:3000/
 app.get('/', function (req, res) {
 	if (req.session.loggedin) {
 		res.redirect('/dashboard');
@@ -39,8 +38,7 @@ app.get('/', function (req, res) {
 	
 });
 
-// http://localhost:3000/auth
-app.post('/auth', function (req, res) {
+app.post('/se-connecter', function (req, res) {
 	// Capture the input fields
 	let username = req.body.username;
 	let password = req.body.password;
@@ -68,7 +66,7 @@ app.post('/auth', function (req, res) {
 	}
 });
 
-app.get('/dashboard', function (req, res) {
+app.get(`/dashboard`, function (req, res) {
 	username = req.session.username;
 	if (req.session.loggedin) {
 		res.render('pages/dashboard', { title: `Dashboard - ${username}` });
@@ -93,6 +91,10 @@ app.get('/se-deconnecter', function (req, res) {
 	res.redirect('/');
 });
 
+app.get('/easter-egg', function (req, res) {
+	res.redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUZbmV2ZXIgZ2l2ZSB1cCByaWNrIGFzdGxleQ%3D%3D');
+});
+
 // Retour d'une page erreur de type 404
 app.use((req, res, next) => {
 	if (req.session.loggedin) {
@@ -101,7 +103,9 @@ app.use((req, res, next) => {
 		res.redirect('/')
 	}
 	res.end();
-})
+});
+
+
 
 // Lancement du serveur
 app.listen(port, function () {

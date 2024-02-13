@@ -7,21 +7,29 @@
 
 footer {
     color: white;
-    background-color: #272727;
+    background-color: #0f2647;
     display: grid;
     place-content: center;
     height: 50px;
 }
 
-footer a {
+.github {
     text-decoration: none;
-    color: orangered;
+    color: white;
+    border-radius: 15px;
+    background-color: #3274d6;
+    padding: 3px 6px;
     transition: .1s;
+    margin-left: 5px;
 }
 
-footer a:hover {
-    color: orange;
-    transition: .1s;
+.github:hover {
+    background-color: #2a5eac;
+}
+
+.github i{
+    margin: 0;
+    margin-left: 5px;
 }
 
 .erreur {
