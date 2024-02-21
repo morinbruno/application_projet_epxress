@@ -1,0 +1,6 @@
+{
+    "host": "localhost",
+    "user": "user_expressjs",
+    "password": "Express123",
+    "database": "projet_expressjs"
+}
