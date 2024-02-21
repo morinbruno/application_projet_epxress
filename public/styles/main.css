@@ -5,6 +5,9 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+form {
+    background-color: gray;
+}
 footer {
     color: white;
     background-color: #0f2647;
