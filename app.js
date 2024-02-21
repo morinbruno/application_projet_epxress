@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const ejs = require('ejs');
 const app = express();
 const path = require('path');
+const db_connect = require('./settings/db_connection.json');
 
 // Moteur de vue
 app.set('view engine', 'ejs');
@@ -14,10 +15,10 @@ const port = 3000;
 app.use(express.static('public'));
 
 const connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'test',
-	password: 'Test123',
-	database: 'projet_expressjs'
+	host: "localhost",
+	user: "user_expressjs",
+	password: "Express123",
+	database: "projet_expressjs"
 });
 
 app.use(session({
@@ -26,33 +27,35 @@ app.use(session({
 	saveUninitialized: true
 }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, 'static')));
 
 app.get('/', function (req, res) {
 	if (req.session.loggedin) {
 		res.redirect('/dashboard');
 	} else {
-		res.render('pages/se-connecter');
+		res.render('pages/connection/login',{
+			title: "Page de connexion"
+		});
 	}
 	
 });
 
 app.post('/se-connecter', function (req, res) {
 	// Capture the input fields
-	let username = req.body.username;
+	let user_email = req.body.user_email;
 	let password = req.body.password;
 	// Ensure the input fields exists and are not empty
-	if (username && password) {
+	if (user_email && password) {
 		// Execute SQL query that'll select the account from the database based on the specified username and password
-		connection.query('SELECT * FROM utilisateurs WHERE utilisateur = ? AND mot_de_passe = ?', [username, password], function (error, results, fields) {
+		connection.query('SELECT * FROM users WHERE user = ? OR email = ? AND password = ?', [user_email, user_email, password], function (error, results, fields) {
 			// If there is an issue with the query, output the error
 			if (error) throw error;
 			// If the account exists
 			if (results.length > 0) {
 				// Authenticate the user
 				req.session.loggedin = true;
-				req.session.username = username;
+				req.session.username = results[0]['user'];
 				// Redirect to home page
 				res.redirect('/dashboard');
 			} else {
