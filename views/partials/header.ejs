@@ -1,9 +1,36 @@
-<header>
-    <nav>
-        <ul>
-            <li><a href="/dashboard"><i class="fa-solid fa-house"></i>Dashboard</a></li>
-            <li><a href="/profil"><i class="fa-solid fa-user"></i>Profil</a></li>
-        </ul>
-    </nav>
-    <a href="/se-deconnecter" class="btn btn-danger text-center p-3 d-flex justify-content-center"><i class="fa-solid fa-right-from-bracket m-auto"></i></a>
+<header class="shadow border-bottom">
+  <nav class="navbar navbar-expand-lg px-5" style="background-color: #343a40;">
+    <div class="container-fluid">
+      <h2 class="navbar-brand text-white m-0">\\<%- type_user %>\<%- username %></h2>
+      <ul class="navbar-nav mb-0 d-flex justify-content-center gap-3">
+        <% for (let i = 0; i < nav.length; i++) { %>
+        <% if (nav[i].title === title && nav[i].display === true) { %>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+        </li>
+        <% } else if (nav[i].blank === true && nav[i].display === true) { %>
+        <li class="nav-item">
+          <a class="nav-link" style="color: #a7acb1;" href="<%- nav[i].url %>" target="_blank"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+        </li>
+        <% } else if (nav[i].display === true) { %>
+        <li class="nav-item">
+          <a class="nav-link" style="color: #a7acb1;" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+        </li>
+        <% } %>
+        <% } %>
+        <% if (type_user == "Admin") { %>
+          <% if (title === "Admin") { %>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/admin"><i class="me-2 fa-solid fa-screwdriver-wrench"></i>Admin</a>
+            </li>
+           <% } else { %> 
+            <li class="nav-item">
+              <a class="nav-link" style="color: #a7acb1;" href="/admin"><i class="me-2 fa-solid fa-screwdriver-wrench"></i>Admin</a>
+            </li>
+            <% } %>
+        <% } %>
+      </ul>
+      <a href="/se-deconnecter" class="btn btn-danger text-center p-3 d-flex justify-content-center"><i class="fa-solid fa-right-from-bracket m-auto"></i></a>
+    </div>
+  </nav>
 </header>
