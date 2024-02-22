@@ -1,9 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
     <%- include('../partials/head') %>
-<body>
-    <%- include('../partials/header') %>
-    <div class="erreur"><h1>Bienvenue <%= username %></h1></div>
+<body class="bg-dark">
+    <!-- Header -->
+        <%- include('../partials/header') %>
+    <!-- Header -->
+    <div class="container mt-5" style="height: 100vh;">
+        <!-- Ajout d'un produit -->
+        <div class="container mb-5 text-white shadow rounded border p-3" style="background-color: #343a40;">
+            <h1 class="text-white mb-3 border-bottom pb-3">Ajouter un aliment</h1>
+            <form class="row m-0">
+                <div class="col-auto">
+                    <label for="produit" class="col-form-label">Produit</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="produit" name="produit">
+                </div>
+            </form>
+        </div>
+        <!-- Gestionnaire des produits -->
+        <div class="container mb-5 text-white shadow rounded border p-3" style="background-color: #343a40;">
+            <h1 class="text-white mb-3 border-bottom pb-3">Tableau des aliments</h1>
+            <% if (useralimentaire == undefined || useralimentaire.length == 0) {%>
+                <div class="alert alert-info mt-3 shadow">Votre gestion alimentaire est vide</div>
+            <% } else { %>
+            <table class="table table-dark table-striped border mt-3">
+                <thead>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Date d'achat</th>
+                    <th>Date d'expiration</th>
+                    <th>Etat du produit</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <% for(i=0; i<useralimentaire.length; i++){ %>
+                        <tr class="align-middle">
+                            <td><%- useralimentaire[i]['nom_produit'] %></td>
+                            <td><%- useralimentaire[i]['quantité'] %></td>
+                            <td><%- useralimentaire[i]['date_achat'].toLocaleDateString() %></td>
+                            <td><%- date2 = new Date(useralimentaire[i]['date_expiration']).toLocaleDateString() %></td>
+                            <td><%- new Date().toLocaleDateString() < date2 ? "Bon" : "A jeter"%></td>
+                            <td><a href="/supprimer-produit?id=<%- useralimentaire[i]['id_produit'] %>" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <% } %>
+        </div>
+    </div>
+    <!-- Footer -->
     <%- include('../partials/footer') %>
+    <!-- Footer -->
 </body>
 </html>
