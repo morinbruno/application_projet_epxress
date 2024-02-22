@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <%- include('../../partials/head') %>
+<body class="vh-100 d-flex justify-content-center align-items-center bg-dark">
+  <div class="w-25 p-4 rounded border shadow" style="background-color: #343a40;">
+    <h2 class="text-white mb-4 pb-3 border-bottom text-center">Se connecter</h2>
+    <form class="form-floating" method="post" action="/se-connecter">
+      <div class="form-floating mb-3 px-auto">
+        <input type="text" class="form-control" id="user_email" name="user_email" placeholder="name@example.com">
+        <label for="user_email">Pseudo/Email</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe">
+        <label for="password">Mot de passe</label>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+    </form>
+    </div>
+</body>
+</html>
