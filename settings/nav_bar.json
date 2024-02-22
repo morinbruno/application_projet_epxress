@@ -1,0 +1,16 @@
+[
+    {
+        "title": "Dashboard",
+        "url": "/dashboard",
+        "blank": false,
+        "display": true,
+        "icon": "fa-solid fa-house"
+    },
+    {
+        "title": "Profil",
+        "url": "/profil",
+        "blank": false,
+        "display": true,
+        "icon": "fa-solid fa-user"
+    }
+]
