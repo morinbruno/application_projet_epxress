@@ -4,7 +4,6 @@ const session = require('express-session');
 const mysql = require('mysql');
 const app = express();
 const bodyParser = require('body-parser');
-const fs = require('fs');
 
 // Paramètres
 const db_connect = require('./settings/db_connection.json');
@@ -13,7 +12,7 @@ const nav = require('./settings/nav_bar.json');
 // Moteur de vue
 app.set('view engine', 'ejs');
 
-
+// const testToast = toast.success('Successfully saved!');
 
 /**
  * 	Paramètres du serveur
@@ -22,6 +21,15 @@ app.set('view engine', 'ejs');
 const port = 3000;
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 
 // Création d'une connexion à la base de données
 const connection = mysql.createConnection({
@@ -31,15 +39,33 @@ const connection = mysql.createConnection({
 	database: db_connect.database
 });
 
-// Mise en place d'une session
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
+/**
+ * 	Page du dashboard de l'utilisateur
+ */
+
+app.get(`/dashboard`, function (req, res) {
+	username = req.session.username;
+	userinfo = req.session.userinfo;
+
+	let sql = 'SELECT * FROM users JOIN produits_acheter ON users.id_user=produits_acheter.id_user JOIN produits ON produits_Acheter.id_produit=produits.id_produit WHERE users.user = ?';
+	connection.query(sql, [username], function (error, results, fields) {
+		let useralimentaire = results;
+		type_user = req.session.typeuser;
+		if (req.session.loggedin) {
+			res.render('pages/dashboard', { 
+				title: "Dashboard",
+				nav,
+				useralimentaire,
+				type_user
+			});
+		} else {
+			res.redirect('/');
+		}
+		res.end();
+	});
+});
 
 
 
@@ -133,32 +159,6 @@ app.post('/creer-compte', function (req, res) {
 		res.redirect('/creer-compte?invalid=true');
 	}
 })
-
-/**
- * 	Page du dashboard de l'utilisateur
- */
-
-app.get(`/dashboard`, function (req, res) {
-	username = req.session.username;
-	userinfo = req.session.userinfo;
-
-	let sql = 'SELECT * FROM users JOIN produits_acheter ON users.id_user=produits_acheter.id_user JOIN produits ON produits_Acheter.id_produit=produits.id_produit WHERE users.user = ?';
-	connection.query(sql, [username], function (error, results, fields) {
-		let useralimentaire = results;
-		type_user = req.session.typeuser;
-		if (req.session.loggedin) {
-			res.render('pages/dashboard', { 
-				title: "Dashboard",
-				nav,
-				useralimentaire,
-				type_user
-			});
-		} else {
-			res.redirect('/');
-		}
-		res.end();
-	});
-});
 
 
 
