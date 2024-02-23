@@ -8,7 +8,7 @@
     <div class="container mt-5" style="height: 100vh;">
         <!-- Ajout d'un produit -->
         <div class="container mb-5 text-white shadow rounded border p-3" style="background-color: #343a40;">
-            <h1 class="text-white mb-3 border-bottom pb-3">Ajouter un aliment</h1>
+            <h1 class="text-white mb-3 border-bottom pb-3">Ajouter un produit</h1>
             <form class="row m-0">
                 <div class="col-auto">
                     <label for="produit" class="col-form-label">Produit</label>
@@ -20,7 +20,7 @@
         </div>
         <!-- Gestionnaire des produits -->
         <div class="container mb-5 text-white shadow rounded border p-3" style="background-color: #343a40;">
-            <h1 class="text-white mb-3 border-bottom pb-3">Tableau des aliments</h1>
+            <h1 class="text-white mb-3 border-bottom pb-3">Tableau des produits</h1>
             <% if (useralimentaire == undefined || useralimentaire.length == 0) {%>
                 <div class="alert alert-info mt-3 shadow">Votre gestion alimentaire est vide</div>
             <% } else { %>
@@ -36,12 +36,14 @@
                 <tbody>
                     <% for(i=0; i<useralimentaire.length; i++){ %>
                         <tr class="align-middle">
-                            <td><%- useralimentaire[i]['nom_produit'] %></td>
-                            <td><%- useralimentaire[i]['quantité'] %></td>
-                            <td><%- useralimentaire[i]['date_achat'].toLocaleDateString() %></td>
-                            <td><%- date2 = new Date(useralimentaire[i]['date_expiration']).toLocaleDateString() %></td>
-                            <td><%- new Date().toLocaleDateString() < date2 ? "Bon" : "A jeter"%></td>
-                            <td><a href="/supprimer-produit?id=<%- useralimentaire[i]['id_produit'] %>" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></td>
+                            <form>
+                                <td><input class="form-control w-75" type="text" value="<%- useralimentaire[i]['nom_produit'] %>"></td>
+                                <td><input class="form-control w-25" type="text" value="<%- useralimentaire[i]['quantite'] %>"></td>
+                                <td><input type="date" class="form-control w-auto" value="<%- (useralimentaire[i]['date_achat'].toLocaleDateString('JPN', { year: "numeric", month: '2-digit', day: '2-digit'})).replaceAll('/','-') %>"></td>
+                                <td><input type="date" class="form-control w-auto" value="<%- (date2 = new Date(useralimentaire[i]['date_expiration']).toLocaleDateString('JPN', { year: "numeric", month: '2-digit', day: '2-digit'})).replaceAll('/','-') %>"></td>
+                                <td><%- new Date().toLocaleDateString() < date2 ? "Bon" : "Périmé"%></td>
+                                <td><a href="/supprimer-produit?id=<%- useralimentaire[i]['id_produit'] %>" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></td>
+                            </form>
                         </tr>
                         <% } %>
                 </tbody>
