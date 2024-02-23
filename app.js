@@ -2,10 +2,9 @@
 const express = require('express');
 const session = require('express-session');
 const mysql = require('mysql');
-const ejs = require('ejs');
 const app = express();
-const path = require('path');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 
 // Paramètres
 const db_connect = require('./settings/db_connection.json');
@@ -14,50 +13,69 @@ const nav = require('./settings/nav_bar.json');
 // Moteur de vue
 app.set('view engine', 'ejs');
 
-// Paramètres du serveur
+
+
+/**
+ * 	Paramètres du serveur
+ */
+
 const port = 3000;
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Création d'une connexion à la base de données
 const connection = mysql.createConnection({
-	host: "localhost",
-	user: "user_expressjs",
-	password: "Express123",
-	database: "projet_expressjs"
+	host: db_connect.host,
+	user: db_connect.user,
+	password: db_connect.password,
+	database: db_connect.database
 });
 
+// Mise en place d'une session
 app.use(session({
 	secret: 'secret',
 	resave: true,
 	saveUninitialized: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(express.static(path.join(__dirname, 'static')));
+
+
+
+/**
+ *	Page de connexion et validation de la connexion
+ */
 
 app.get('/', function (req, res) {
 	if (req.session.loggedin) {
 		res.redirect('/dashboard');
 	} else {
+		let is_invalid = req.query.invalid;
 		res.render('pages/connection/se-connecter',{
-			title: "Se connecter"
+			title: "Se connecter",
+			is_invalid
 		});
 	}
 	
 });
 
+// Vérification de la connexion
+
 app.post('/se-connecter', function (req, res) {
-	// Capture the input fields
 	let user_email = req.body.user_email;
 	let password = req.body.password;
-	// Ensure the input fields exists and are not empty
+
 	if (user_email && password) {
-		// Execute SQL query that'll select the account from the database based on the specified username and password
-		let sql = 'SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE users.user = ? OR users.email = ? AND users.password = ?';
-		connection.query(sql, [user_email, user_email, password], function (error, results, fields) {
-			// If there is an issue with the query, output the error
-			if (error) throw error;
-			// If the account exists
+		let sql_username = 'SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE users.user = ? AND users.password = ?';
+		let sql_email = 'SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE users.email = ? AND users.password = ?';
+
+		if (user_email.includes('@')) {
+			sql = sql_email;
+		} else {
+			sql = sql_username;
+		}
+		connection.query(sql, [user_email, password], function (error, results, fields) {
 			if (results.length > 0) {
 				// Authenticate the user
 				req.session.loggedin = true;
@@ -68,15 +86,57 @@ app.post('/se-connecter', function (req, res) {
 				// Redirect to home page
 				res.redirect('/dashboard');
 			} else {
-				res.send('Incorrect Username and/or Password!');
+				res.redirect('/?invalid=true');
 			}
-			res.end();
 		});
 	} else {
-		res.send('Please enter Username and Password!');
-		res.end();
+		res.redirect('/?invalid=true');
 	}
 });
+
+
+
+/**
+ *	Page de création d'un utilisateur
+ */
+
+
+app.get('/creer-compte', function (req, res) {
+	let is_invalid = req.query.invalid;
+
+	res.render('pages/connection/creer-compte', {
+		title: "Créer un compte",
+		is_invalid
+	})
+})
+
+app.post('/creer-compte', function (req, res) {
+	let pseudo = req.body.pseudo;
+	let email = req.body.email;
+	let password = req.body.password;
+
+	if (pseudo && password && email) {
+		let sql = "INSERT INTO users values(DEFAULT, ?, ?, ?, 2);";
+
+		connection.query(sql, [pseudo, email, password], function (error, results, fields) {
+				connection.query('SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE user = ?', [pseudo], function (error, resultats, fields) {
+					req.session.loggedin = true;
+					req.session.username = resultats[0]['user'];
+					req.session.typeuser = resultats[0]['name_typeUser'];
+					req.session.id_user = resultats[0]['id_user'];
+					req.session.userinfo = resultats;
+					// Redirect to home page
+					res.redirect('/dashboard');
+				})
+		});
+	} else {
+		res.redirect('/creer-compte?invalid=true');
+	}
+})
+
+/**
+ * 	Page du dashboard de l'utilisateur
+ */
 
 app.get(`/dashboard`, function (req, res) {
 	username = req.session.username;
@@ -86,7 +146,6 @@ app.get(`/dashboard`, function (req, res) {
 	connection.query(sql, [username], function (error, results, fields) {
 		let useralimentaire = results;
 		type_user = req.session.typeuser;
-		console.log(type_user)
 		if (req.session.loggedin) {
 			res.render('pages/dashboard', { 
 				title: "Dashboard",
@@ -101,8 +160,13 @@ app.get(`/dashboard`, function (req, res) {
 	});
 });
 
-// Ajouter un aliment à l'utilisateur
-app.post('/ajouter-aliment', function (req, res) {
+
+
+/**
+ *	Ajouter un produit à l'utilisateur
+*/ 
+
+app.post('/ajouter-produit', function (req, res) {
 	id_user = req.session.id_user;
 
 	const aliment = req.body.aliment;
