@@ -23,17 +23,7 @@ CREATE TABLE localite (
 CREATE TABLE magasins (
     id_magasin int AUTO_INCREMENT not null,
     nom_magasin VARCHAR(50) not null,
-    code_postal INT not null,
-    PRIMARY KEY (id_magasin),
-    FOREIGN KEY (code_postal) REFERENCES localite(code_postal)
-);
-
-CREATE TABLE produits (
-    id_produit int AUTO_INCREMENT,
-    nom_produit VARCHAR(100) not null,
-    code_categories INT not null,
-    PRIMARY KEY (id_produit)
-    FOREIGN KEY (code_categories) REFERENCES categories(code_categorie)
+    PRIMARY KEY (id_magasin)
 );
 
 CREATE TABLE categories (
@@ -42,29 +32,30 @@ CREATE TABLE categories (
     PRIMARY KEY (code_categorie)
 );
 
+CREATE TABLE produits (
+    id_produit int AUTO_INCREMENT,
+    nom_produit VARCHAR(100) not null,
+    code_categorie INT not null,
+    PRIMARY KEY (id_produit),
+    FOREIGN KEY (code_categorie) REFERENCES categories(code_categorie)
+);
+
 CREATE TABLE magasins_produits (
     id_produit INT not null,
     id_magasin INT not null,
+    code_postal INT not null,
     FOREIGN KEY (id_produit) REFERENCES produits(id_produit),
-    FOREIGN KEY (id_magasin) REFERENCES magasins(id_magasin)
-);
-
-CREATE TABLE produits_categoriser (
-  id_produit INT not null,
-  code_categorie INT not null,
-  FOREIGN KEY (id_produit) REFERENCES produits(id_produit),
-  FOREIGN KEY (code_categorie) REFERENCES categories(code_categorie)
+    FOREIGN KEY (id_magasin) REFERENCES magasins(id_magasin),
+    FOREIGN KEY (code_postal) REFERENCES localite(code_postal)
 );
 
 CREATE TABLE produits_acheter (
     id_produit INT not null,
     id_user INT not null,
-    id_magasin INT not null,
     quantite int not null,
     date_achat DATE not null,
     date_expiration DATE not null,
     FOREIGN KEY (id_produit) REFERENCES produits(id_produit),
-    FOREIGN KEY (id_magasin) REFERENCES magasins(id_magasin),
     FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
 
