@@ -143,17 +143,6 @@ INSERT INTO `produits_acheter` (`id_produit`, `id_user`, `id_magasin`, `quantite
 -- --------------------------------------------------------
 
 --
--- Structure de la table `produits_categoriser`
---
-
-CREATE TABLE `produits_categoriser` (
-  `id_produit` int NOT NULL,
-  `code_categorie` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `typeuser`
 --
 
