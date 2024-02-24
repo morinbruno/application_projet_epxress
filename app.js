@@ -42,15 +42,48 @@ const connection = mysql.createConnection({
 
 
 /**
+ * 	Fonctions
+ */
+
+function date_local(date) {
+		return date.toLocaleDateString()
+}
+
+function date_local_input(date) {
+		return date.toLocaleDateString('JPN', { year: "numeric", month: '2-digit', day: '2-digit'}).replaceAll('/','-')
+}
+
+function date_peremption_etat(date) {
+	if (date_local(new Date) == date) {
+		return "Dernier jour de consommation"
+	} else if (date_local(new Date) < date) {
+		return "Comestible"
+	} else {
+		return "Non comestible"
+	}
+}
+
+
+
+/**
  * 	Page du dashboard de l'utilisateur
  */
 
 app.get(`/dashboard`, function (req, res) {
 	username = req.session.username;
 	userinfo = req.session.userinfo;
+	id_user = req.session.id_user;
 
-	let sql = 'SELECT * FROM users JOIN produits_acheter ON users.id_user=produits_acheter.id_user JOIN produits ON produits_Acheter.id_produit=produits.id_produit WHERE users.user = ?';
-	connection.query(sql, [username], function (error, results, fields) {
+	let sql = `SELECT * FROM users JOIN produits_acheter 
+	ON users.id_user=produits_acheter.id_user JOIN produits 
+	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+	ON magasins_produits.code_postal=localite.code_postal JOIN categories
+	ON produits.code_categorie=categories.code_categorie
+	WHERE produits_acheter.id_user = ?`;
+
+	connection.query(sql, [id_user], function (error, results, fields) {
 		let useralimentaire = results;
 		type_user = req.session.typeuser;
 		if (req.session.loggedin) {
@@ -58,7 +91,10 @@ app.get(`/dashboard`, function (req, res) {
 				title: "Dashboard",
 				nav,
 				useralimentaire,
-				type_user
+				type_user,
+				date_local,
+				date_local_input,
+				date_peremption_etat
 			});
 		} else {
 			res.redirect('/');
@@ -179,7 +215,10 @@ app.post('/ajouter-produit', function (req, res) {
 app.get('/supprimer-produit', function(req, res) {
 	let id_produit = req.query.id;
 
-	let sql = 'DELETE produits_acheter, produits FROM produits_acheter JOIN produits ON produits_acheter.id_produit=produits.id_produit WHERE produits_acheter.id_produit = ? AND produits.id_produit = ?';
+	let sql = `DELETE produits_acheter, produits 
+	FROM produits_acheter JOIN produits 
+	ON produits_acheter.id_produit=produits.id_produit 
+	WHERE produits_acheter.id_produit = ? AND produits.id_produit = ?`;
 
 	connection.query(sql, [id_produit, id_produit], function (error, resultats, fields) {
 		res.redirect('/dashboard');
