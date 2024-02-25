@@ -47,7 +47,7 @@ const connection = mysql.createConnection({
  */
 
 function date_local(date) {
-	return date.toLocaleDateString()
+	return date.toLocaleDateString();
 }
 
 function date_local_input(date) {
@@ -55,15 +55,14 @@ function date_local_input(date) {
 }
 
 function date_peremption_etat(date) {
-	if (date_local(new Date) == date_local(date)) {
+	if (date_local(new Date()) == date_local(date)) {
 		return "Dernier jour de consommation"
-	} else if (date_local(new Date) < date_local(date)) {
+	} else if (date_local(new Date()) < date_local(date)) {
 		return "Comestible"
 	} else {
 		return "Non comestible"
 	}
 }
-
 
 
 /**
@@ -154,11 +153,11 @@ app.post('/se-connecter', function (req, res) {
 				req.session.userinfo = resultat;
 				res.redirect('/dashboard');
 			} else {
-				res.redirect('/?invalid=true');
+				res.redirect('/');
 			}
 		});
 	} else {
-		res.redirect('/?invalid=true');
+		res.redirect('/');
 	}
 });
 
@@ -210,10 +209,30 @@ app.post('/creer-compte', function (req, res) {
 */
 
 app.post('/ajouter-produit', function (req, res) {
-	const aliment = req.body.aliment;
+	const produit = req.body.produit;
 	const quantite = req.body.quantite;
-	const date_achat = (req.body.date_achat).toLocaleDateString();
-	const date_expiration = (req.body.date_expiration).toLocaleDateString();
+	const date_achat = req.body.date_achat;
+	const date_expiration = req.body.date_expiration;
+	const magasin = req.body.magasin;
+	const categorie = req.body.categorie;
+	const localite = req.body.localite;
+	const id_user = req.session.id_user
+
+	let sql = `INSERT INTO produits VALUES(DEFAULT, ?, ?);
+			   INSERT INTO produits_acheter VALUES((SELECT LAST_INSERT_ID()), ?, ?, ?, ?);
+			   INSERT INTO magasins_produits VALUES((SELECT LAST_INSERT_ID()), ?, ?);`
+
+	if (produit && quantite && date_achat && date_achat && date_expiration && magasin && categorie && localite) {
+		connection.query(sql, [produit, categorie, id_user, quantite, date_achat ,date_expiration, magasin, localite], function (erreur, resultat) {
+			if (erreur) {
+				console.log(erreur);
+			}
+			res.redirect('/dashboard');
+		});
+	} else {
+		res.redirect('/dashboard');
+	}
+		
 });
 
 // Supprime un aliment de l'utilisateur
@@ -270,7 +289,7 @@ app.get('/easter-egg', function (req, res) {
 // Retour d'une page erreur de type 404
 app.use((req, res, next) => {
 	if (req.session.loggedin) {
-		res.status(404).render('erreurs/404', { title: 'Page non trouvé', nav })
+		res.status(404).render('erreurs/404', { title: 'Page non trouvé', nav, req })
 	} else {
 		res.redirect('/')
 	}

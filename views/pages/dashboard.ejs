@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
+<!-- Début du Head -->
 <%- include('../partials/head') %>
+<!-- Fin du Head -->
 
 <body class="bg-dark">
   <!-- Header -->
@@ -21,6 +23,16 @@
           <div class="form-floating p-0 col-auto" data-bs-theme="dark">
             <input type="text" class="form-control" placeholder="Quantité" id="quantite" name="quantite">
             <label class="col-form-label text-body-secondary" for="quantite">Quantité</label>
+          </div>
+          <!-- Date d'achat -->
+          <div class="form-floating p-0 col-auto" data-bs-theme="dark">
+            <input type="date" class="form-control" placeholder="Date d'achat" id="date_achat" name="date_achat">
+            <label class="col-form-label text-body-secondary" for="date_achat">Date d'achat</label>
+          </div>
+          <!-- Date d'expiration -->
+          <div class="form-floating p-0 col-auto" data-bs-theme="dark">
+            <input type="date" class="form-control" placeholder="Date d'expiration" id="date_expiration" name="date_expiration">
+            <label class="col-form-label text-body-secondary" for="date_expiration">Date d'expiration</label>
           </div>
           <!-- Catégorie du produit -->
           <div class="form-floating p-0 col-auto" data-bs-theme="dark">
@@ -51,25 +63,25 @@
           <!-- Ville du magasin -->
           <div class="form-floating p-0 col-auto" data-bs-theme="dark">
             <select class="form-select" id="localite" name="localite" aria-label="Localité">
-              <% if (resultat[3] == undefined) { %>
+              <% if (list_localite == undefined) { %>
               <option selected>Aucune ville disponible</option>
               <% } else { %>
               <option selected>Choississez la ville</option>
-              <% for(i = 0; i < resultat[3].length; i++){ %>
-              <option value="<%- resultat[3][i]['code_postal'] %>"><%- resultat[3][i]['nom_localite'] %></option>
+              <% for(i = 0; i < list_localite.length; i++){ %>
+              <option value="<%- list_localite[i]['code_postal'] %>"><%- list_localite[i]['nom_localite'] %></option>
               <% }} %>
             </select>
             <label for="floatingSelect">Ville</label>
           </div>
         </div>
         <!-- Bouton d'ajout du produit -->
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button type="submit" class="btn btn-primary" id="ajout_produit">Ajouter</button>
       </form>
     </div>
     <!-- Gestionnaire des produits -->
     <div class="container mb-5 text-white shadow rounded border p-3" style="background-color: #343a40;">
       <h1 class="text-white mb-1">Tableau des produits</h1>
-      <h5 class="text-white text-opacity-75 mb-3 border-bottom pb-3"><%- list_produit.length %> produit<%- list_produit.length > 0 ? "s" : "" %> dans votre liste</h5>
+      <h5 class="text-white text-opacity-75 mb-3 border-bottom pb-3"><%- list_produit.length %> produit<%- list_produit.length > 1 ? "s" : "" %> dans votre liste</h5>
       <% if (list_produit == undefined || list_produit.length == 0) {%>
       <div class="alert alert-info mt-3 shadow">Votre gestion alimentaire est vide</div>
       <% } else { %>
@@ -109,20 +121,30 @@
       <% } %>
     </div>
   </div>
+  <!-- Toast connexion réussi -->
+  <div class="toast align-items-center text-bg-success border-0 bottom-0 end-0 position-absolute m-4" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true" id="success-login">
+    <div class="d-flex">
+      <div class="toast-body">
+        Connexion réussi !
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+  <!-- Toast produit ajouter -->
+  <div class="toast align-items-center text-bg-success border-0 bottom-0 end-0 position-absolute m-4"  data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true" id="toast_ajout_produit">
+    <div class="d-flex">
+      <div class="toast-body">
+        Ajout du produit réussi !
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
   <!-- Footer -->
   <%- include('../partials/footer') %>
   <!-- Footer -->
   <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-  </script>
-  <script type="module">
-    import {
-      Toast
-    } from '/assets/bootstrap/js/bootstrap.esm.min.js'
-
-    Array.from(document.querySelectorAll('.toast'))
-      .forEach(toastNode => new Toast(toastNode))
   </script>
 </body>
 
