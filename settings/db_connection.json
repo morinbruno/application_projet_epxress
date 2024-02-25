@@ -1,5 +1,5 @@
 {
-    "host": "localhost",
+    "host": "morinbruno.tplinkdns.com",
     "user": "user_expressjs",
     "password": "Express123",
     "database": "projet_expressjs"
