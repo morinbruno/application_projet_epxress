@@ -2,23 +2,27 @@
 <html lang="fr">
     <%- include('../../partials/head') %>
 <body class="vh-100 d-flex justify-content-center align-items-center bg-dark">
-  <div class="p-4 rounded border shadow" style="background-color: #343a40; width: 400px;">
+  <div class="p-4 rounded border shadow mx-5" style="background-color: #343a40; width: 400px;">
     <h2 class="text-white mb-4 pb-3 border-bottom text-center">Se connecter</h2>
     <form class="form-floating" method="post" action="/se-connecter">
-      <div class="form-floating mb-3 px-auto">
+      <!-- Partie email -->
+      <div class="form-floating mb-3 px-auto" data-bs-theme="dark">
         <input type="text" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="user_email" name="user_email" placeholder="name@example.com">
-        <label for="user_email">Pseudo/Email</label>
+        <label for="user_email" class="text-body-secondary">Pseudo/Email</label>
       </div>
-      <div class="form-floating mb-3">
+      <!-- Partie mot de passe -->
+      <div class="form-floating mb-3" data-bs-theme="dark">
         <input type="password" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe">
-        <label for="password">Mot de passe</label>
+        <label for="password" class="text-body-secondary">Mot de passe</label>
         <div class="invalid-feedback">
           Pseudo/Email ou Mot de passe invalide
         </div>
       </div>
+      <!-- Se créer un compte -->
       <div class="mb-2">
         <a href="/creer-compte" class="link">Créer un compte</a>
       </div>
+      <!-- Envoie de demande de connexion -->
       <button type="submit" class="btn btn-primary w-100">Se connecter</button>
     </form>
     </div>
