@@ -1,41 +1,49 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <%- include('../../partials/head') %>
-<body class="vh-100 d-flex justify-content-center align-items-center bg-dark">
-  <div class="p-4 mx-5 rounded border shadow" style="background-color: #343a40; width: 400px;">
+  <%- include('../../partials/head') %>
+<body class="min-vh-100 vw-100 d-flex justify-content-center align-items-center bg-dark">
+  <div class="p-4 mx-5 rounded border shadow w-auto" style="background-color: #343a40;">
     <a href="/" class="link text-white"><i class="fa-solid fa-arrow-left-long me-2 mb-4"></i>Revenir en arrière</a>
     <h2 class="text-white mb-4 pb-3 border-bottom text-center">Créer un compte</h2>
     <form class="form-floating" method="post" action="/creer-compte">
-      <div class="form-floating mb-3 px-auto" data-bs-theme="dark">
-        <input type="text" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="pseudo" name="pseudo" placeholder="Pseudo">
-        <label for="user_email" class="text-body-secondary">Pseudo</label>
-        <div class="invalid-feedback">
-          Pseudo déjà existant
+      <div class="row">
+        <!-- Pseudo -->
+        <div class="input-group has-validation mb-3 px-auto col-sm" data-bs-theme="dark">
+          <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+          <div class="form-floating <%= is_invalid ? "is-invalid" : "" %>">
+            <input type="text" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="pseudo" name="pseudo" placeholder="Pseudo">
+            <label for="user_email" class="text-body-secondary">Pseudo</label>
+          </div>
+          <div class="invalid-feedback">
+            Pseudo déjà existant
+          </div>
+        </div>
+        <!-- Mot de passe -->
+        <div class="input-group has-validation mb-3 col-sm" data-bs-theme="dark">
+          <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+          <div class="form-floating <%= is_invalid ? "is-invalid" : "" %>">
+            <input type="password" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe">
+            <label for="password" class="text-body-secondary">Mot de passe</label>
+          </div>
+          <div class="invalid-feedback">
+            Ne respecte pas les règles
+          </div>
         </div>
       </div>
-      <div class="form-floating mb-3 px-auto" data-bs-theme="dark">
-        <input type="email" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="email" name="email" placeholder="name@example.com">
-        <label for="user_email" class="text-body-secondary">Email</label>
+      <!-- Email -->
+      <div class="input-group has-validation mb-4 px-auto" data-bs-theme="dark">
+        <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
+        <div class="form-floating <%= is_invalid ? "is-invalid" : "" %>">
+          <input type="email" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="email" name="email" placeholder="name@example.com">
+          <label for="user_email" class="text-body-secondary">Email</label>
+        </div>
         <div class="invalid-feedback">
           Email déjà existant
         </div>
       </div>
-      <div class="form-floating mb-3" data-bs-theme="dark">
-        <input type="password" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe">
-        <label for="password" class="text-body-secondary">Mot de passe</label>
-        <div class="invalid-feedback">
-          Ne respecte pas les règles
-        </div>
-        <div class="form-text mt-2">
-          <ul class="text-white p-0 mx-3" style="list-style: none;">
-            <li><i class="fa-solid fa-plus me-2 text-success"></i>Longueur entre 8-20 caractères</li>
-            <li><i class="fa-solid fa-plus me-2 text-success"></i>Au moins des lettres et des chiffres</li>
-            <li><i class="fa-solid fa-minus me-2 text-danger"></i>Pas d'espaces, caractères spécial, ou d'émoji.</li>
-          </ul>
-        </div>
-      </div>
       <button type="submit" class="btn btn-primary w-100">Créer un compte</button>
     </form>
-    </div>
+  </div>
 </body>
+
 </html>
