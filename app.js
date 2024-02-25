@@ -1,9 +1,10 @@
 // Importation des dépendances
 const express = require('express');
 const session = require('express-session');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const app = express();
 const bodyParser = require('body-parser');
+const { Toast } = require('@popperjs/core');
 
 // Paramètres
 const db_connect = require('./settings/db_connection.json');
@@ -12,7 +13,7 @@ const nav = require('./settings/nav_bar.json');
 // Moteur de vue
 app.set('view engine', 'ejs');
 
-// const testToast = toast.success('Successfully saved!');
+
 
 /**
  * 	Paramètres du serveur
@@ -36,7 +37,8 @@ const connection = mysql.createConnection({
 	host: db_connect.host,
 	user: db_connect.user,
 	password: db_connect.password,
-	database: db_connect.database
+	database: db_connect.database,
+	multipleStatements: true
 });
 
 
@@ -46,11 +48,11 @@ const connection = mysql.createConnection({
  */
 
 function date_local(date) {
-		return date.toLocaleDateString()
+	return date.toLocaleDateString()
 }
 
 function date_local_input(date) {
-		return date.toLocaleDateString('JPN', { year: "numeric", month: '2-digit', day: '2-digit'}).replaceAll('/','-')
+	return date.toLocaleDateString('JPN', { year: "numeric", month: '2-digit', day: '2-digit' }).replaceAll('/', '-')
 }
 
 function date_peremption_etat(date) {
@@ -70,10 +72,6 @@ function date_peremption_etat(date) {
  */
 
 app.get(`/dashboard`, function (req, res) {
-	username = req.session.username;
-	userinfo = req.session.userinfo;
-	id_user = req.session.id_user;
-
 	let sql = `SELECT * FROM users JOIN produits_acheter 
 	ON users.id_user=produits_acheter.id_user JOIN produits 
 	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
@@ -83,18 +81,17 @@ app.get(`/dashboard`, function (req, res) {
 	ON produits.code_categorie=categories.code_categorie
 	WHERE produits_acheter.id_user = ?`;
 
-	connection.query(sql, [id_user], function (error, results, fields) {
-		let useralimentaire = results;
-		type_user = req.session.typeuser;
+	connection.query(sql, [req.session.id_user], function (erreur, resultat) {
 		if (req.session.loggedin) {
-			res.render('pages/dashboard', { 
+			res.render('pages/dashboard', {
 				title: "Dashboard",
 				nav,
-				useralimentaire,
-				type_user,
+				resultat,
 				date_local,
 				date_local_input,
-				date_peremption_etat
+				date_peremption_etat,
+				Toast,
+				req
 			});
 		} else {
 			res.redirect('/');
@@ -114,12 +111,13 @@ app.get('/', function (req, res) {
 		res.redirect('/dashboard');
 	} else {
 		let is_invalid = req.query.invalid;
-		res.render('pages/connection/se-connecter',{
+		res.render('pages/connection/se-connecter', {
 			title: "Se connecter",
-			is_invalid
+			is_invalid,
+			req
 		});
 	}
-	
+
 });
 
 // Vérification de la connexion
@@ -137,15 +135,13 @@ app.post('/se-connecter', function (req, res) {
 		} else {
 			sql = sql_username;
 		}
-		connection.query(sql, [user_email, password], function (error, results, fields) {
-			if (results.length > 0) {
-				// Authenticate the user
+		connection.query(sql, [user_email, password], function (erreur, resultat) {
+			if (resultat.length > 0) {
 				req.session.loggedin = true;
-				req.session.username = results[0]['user'];
-				req.session.typeuser = results[0]['name_typeUser'];
-				req.session.id_user = results[0]['id_user'];
-				req.session.userinfo = results;
-				// Redirect to home page
+				req.session.username = resultat[0]['user'];
+				req.session.typeuser = resultat[0]['name_typeUser'];
+				req.session.id_user = resultat[0]['id_user'];
+				req.session.userinfo = resultat;
 				res.redirect('/dashboard');
 			} else {
 				res.redirect('/?invalid=true');
@@ -168,7 +164,8 @@ app.get('/creer-compte', function (req, res) {
 
 	res.render('pages/connection/creer-compte', {
 		title: "Créer un compte",
-		is_invalid
+		is_invalid,
+		req
 	})
 })
 
@@ -180,16 +177,16 @@ app.post('/creer-compte', function (req, res) {
 	if (pseudo && password && email) {
 		let sql = "INSERT INTO users values(DEFAULT, ?, ?, ?, 2);";
 
-		connection.query(sql, [pseudo, email, password], function (error, results, fields) {
-				connection.query('SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE user = ?', [pseudo], function (error, resultats, fields) {
-					req.session.loggedin = true;
-					req.session.username = resultats[0]['user'];
-					req.session.typeuser = resultats[0]['name_typeUser'];
-					req.session.id_user = resultats[0]['id_user'];
-					req.session.userinfo = resultats;
-					// Redirect to home page
-					res.redirect('/dashboard');
-				})
+		connection.query(sql, [pseudo, email, password], function (erreur, resultat) {
+			let sql = 'SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE user = ?';
+			connection.query(sql, [pseudo], function (erreur, resultat) {
+				req.session.loggedin = true;
+				req.session.username = resultat[0]['user'];
+				req.session.typeuser = resultat[0]['name_typeUser'];
+				req.session.id_user = resultat[0]['id_user'];
+				req.session.userinfo = resultat;
+				res.redirect('/dashboard');
+			})
 		});
 	} else {
 		res.redirect('/creer-compte?invalid=true');
@@ -200,37 +197,38 @@ app.post('/creer-compte', function (req, res) {
 
 /**
  *	Ajouter un produit à l'utilisateur
-*/ 
+*/
 
 app.post('/ajouter-produit', function (req, res) {
-	id_user = req.session.id_user;
-
 	const aliment = req.body.aliment;
 	const quantite = req.body.quantite;
-	const date_achat = new Date(req.body.date_achat).toLocaleDateString();
-	const date_expiration = new Date(req.body.date_expiration).toLocaleDateString();
+	const date_achat = (req.body.date_achat).toLocaleDateString();
+	const date_expiration = (req.body.date_expiration).toLocaleDateString();
 });
 
 // Supprime un aliment de l'utilisateur
-app.get('/supprimer-produit', function(req, res) {
+app.get('/supprimer-produit', function (req, res) {
 	let id_produit = req.query.id;
+	let id_user = req.session.id_user;
 
-	let sql = `DELETE produits_acheter, produits 
-	FROM produits_acheter JOIN produits 
-	ON produits_acheter.id_produit=produits.id_produit 
-	WHERE produits_acheter.id_produit = ? AND produits.id_produit = ?`;
+	let sql = `DELETE FROM produits_acheter WHERE id_user = ? AND id_produit = ?;
+	DELETE FROM magasins_produits WHERE id_produit = ?;
+	DELETE FROM produits WHERE id_produit = ?;`;
 
-	connection.query(sql, [id_produit, id_produit], function (error, resultats, fields) {
+	connection.query(sql, [id_user, id_produit, id_produit, id_produit], function (erreur, resultat) {
+		if (erreur) {
+			console.log(erreur)
+		}
 		res.redirect('/dashboard');
 	})
 });
 
 app.get('/profil', function (req, res) {
-	username = req.session.username;
 	if (req.session.loggedin) {
-		res.render('pages/profil', { 
+		res.render('pages/profil', {
 			title: "Profil",
-			nav
+			nav,
+			req
 		});
 	}
 	else {
@@ -242,7 +240,8 @@ app.get('/admin', function (req, res) {
 	if (req.session.typeuser === "Admin") {
 		res.render('pages/admin', {
 			title: "Admin",
-			nav
+			nav,
+			req
 		})
 	} else {
 		res.redirect('/')
