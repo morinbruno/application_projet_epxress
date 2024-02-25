@@ -6,31 +6,78 @@
   <!-- Header -->
   <%- include('../partials/header') %>
   <!-- Header -->
-  <div class="container mt-5" style="height: 100vh;">
+  <div class="container mt-5">
     <!-- Ajout d'un produit -->
-    <div class="container mb-5 text-white shadow rounded border p-3" style="background-color: #343a40;">
+    <div class="container mb-5 shadow rounded border p-3" style="background-color: #343a40;">
       <h1 class="text-white mb-3 border-bottom pb-3">Ajouter un produit</h1>
-      <form class="row m-0">
-        <div class="col-auto">
-          <label for="produit" class="col-form-label">Produit</label>
+      <form class="m-0 form-floating gap-3" method="post" action="/ajouter-produit">
+        <div class="row m-0 mb-3 gap-3">
+          <!-- Nom du produit -->
+          <div class="form-floating p-0 col-auto" data-bs-theme="dark">
+            <input type="text" class="form-control" placeholder="Produit" id="produit" name="produit">
+            <label class="col-form-label text-body-secondary" for="produit">Produit</label>
+          </div>
+          <!-- Quantité du produit -->
+          <div class="form-floating p-0 col-auto" data-bs-theme="dark">
+            <input type="text" class="form-control" placeholder="Quantité" id="quantite" name="quantite">
+            <label class="col-form-label text-body-secondary" for="quantite">Quantité</label>
+          </div>
+          <!-- Catégorie du produit -->
+          <div class="form-floating p-0 col-auto" data-bs-theme="dark">
+            <select class="form-select" id="categorie" name="categorie" aria-label="Catégorie">
+              <% if (list_categorie == undefined) { %>
+              <option selected>Aucune catégorie disponible</option>
+              <% } else { %>
+              <option selected>Choississez la catégorie</option>
+              <% for(i = 0; i < list_categorie.length; i++){ %>
+              <option value="<%- list_categorie[i]['code_categorie'] %>"><%- list_categorie[i]['nom_categorie'] %></option>
+              <% }} %>
+            </select>
+            <label for="floatingSelect">Catégorie</label>
+          </div>
+          <!-- Magasin -->
+          <div class="form-floating p-0 col-auto" data-bs-theme="dark">
+            <select class="form-select" id="magasin" name="magasin" aria-label="Magasin">
+              <% if (list_magasin == undefined) { %>
+              <option selected>Aucune magasin disponible</option>
+              <% } else { %>
+              <option selected>Choississez le magasin</option>
+              <% for(i = 0; i < list_magasin.length; i++){ %>
+              <option value="<%- list_magasin[i]['id_magasin'] %>"><%- list_magasin[i]['nom_magasin'] %></option>
+              <% }} %>
+            </select>
+            <label for="floatingSelect">Magasin</label>
+          </div>
+          <!-- Ville du magasin -->
+          <div class="form-floating p-0 col-auto" data-bs-theme="dark">
+            <select class="form-select" id="localite" name="localite" aria-label="Localité">
+              <% if (resultat[3] == undefined) { %>
+              <option selected>Aucune ville disponible</option>
+              <% } else { %>
+              <option selected>Choississez la ville</option>
+              <% for(i = 0; i < resultat[3].length; i++){ %>
+              <option value="<%- resultat[3][i]['code_postal'] %>"><%- resultat[3][i]['nom_localite'] %></option>
+              <% }} %>
+            </select>
+            <label for="floatingSelect">Ville</label>
+          </div>
         </div>
-        <div class="col-auto">
-          <input type="text" class="form-control" id="produit" name="produit">
-        </div>
+        <!-- Bouton d'ajout du produit -->
+        <button type="submit" class="btn btn-primary">Ajouter</button>
       </form>
     </div>
     <!-- Gestionnaire des produits -->
     <div class="container mb-5 text-white shadow rounded border p-3" style="background-color: #343a40;">
-      <h1 class="text-white mb-3 border-bottom pb-3">Tableau des produits</h1>
-      <% if (resultat == undefined || resultat.length == 0) {%>
+      <h1 class="text-white mb-1">Tableau des produits</h1>
+      <h5 class="text-white text-opacity-75 mb-3 border-bottom pb-3"><%- list_produit.length %> produit<%- list_produit.length > 0 ? "s" : "" %> dans votre liste</h5>
+      <% if (list_produit == undefined || list_produit.length == 0) {%>
       <div class="alert alert-info mt-3 shadow">Votre gestion alimentaire est vide</div>
       <% } else { %>
-      <div class="overflow-auto">
+      <div class="table-responsive">
         <table class="table table-dark table-striped border">
           <thead class="align-middle">
             <th scope="col">Produit</th>
             <th scope="col">Quantité</th>
-            <th scope="col">Catégorie</th>
             <th scope="col">Magasin</th>
             <th scope="col">Date d'achat</th>
             <th scope="col">Date d'expiration</th>
@@ -38,19 +85,20 @@
             <th scope="col">Actions</th>
           </thead>
           <tbody>
-            <% for(i = 0; i < resultat.length; i++){ %>
+            <% for(i = 0; i < list_produit.length; i++){ %>
             <tr class="align-middle">
               <form>
-                <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- resultat[i]['nom_categorie'] %>"><%- resultat[i]['nom_produit'] %></span></td>
-                <td><%- resultat[i]['quantite'] %></td>
-                <td><%- resultat[i]['nom_categorie'] %></td>
-                <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- resultat[i]['nom_localite'] %>"><%- resultat[i]['nom_magasin'] %></span></td>
-                <td><%- date_local(resultat[i]['date_achat']) %></td>
-                <td><%- date_local_input(resultat[i]['date_expiration']) %></td>
-                <td><%- date_peremption_etat(date_local(resultat[i]['date_expiration'])) %></td>
-                <td>
-                  <a href="#" class="btn btn-primary me-2"><i class="fa-solid fa-pen"></i></a>
-                  <a href="/supprimer-produit?id=<%- resultat[i]['id_produit'] %>" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- list_produit[i]['nom_categorie'] %>"><%- list_produit[i]['nom_produit'] %></span></td>
+                <td><%- list_produit[i]['quantite'] %></td>
+                <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- list_produit[i]['nom_localite'] %>"><%- list_produit[i]['nom_magasin'] %></span></td>
+                <td><%- date_local(list_produit[i]['date_achat']) %></td>
+                <td><%- date_local(list_produit[i]['date_expiration']) %></td>
+                <td><%- date_peremption_etat(list_produit[i]['date_expiration']) %></td>
+                <td clas="">
+                  <div class="d-flex gap-2">
+                    <a href="#" class="btn btn-primary"><i class="fa-solid fa-pen"></i></a>
+                    <a href="/supprimer-produit?id=<%- list_produit[i]['id_produit'] %>" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                  </div>
                 </td>
               </form>
             </tr>
