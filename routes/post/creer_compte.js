@@ -70,7 +70,7 @@ router.post('/creer-compte', function (req, res) {
 						req.session.username = resultat[0]['user'];
 						req.session.typeuser = resultat[0]['name_typeUser'];
 						req.session.id_user = resultat[0]['id_user'];
-						req.session.userinfo = resultat;
+						req.session.user_info = resultat[0];
 						res.redirect('/dashboard');
 					})
 				});
