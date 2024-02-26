@@ -11,7 +11,7 @@
   <div class="container mt-5">
     <!-- Ajout d'un produit -->
     <div class="container mb-5 shadow rounded border p-3" style="background-color: #343a40;">
-      <h1 class="text-white mb-3 border-bottom pb-3">Ajouter un produit</h1>
+      <h1 class="text-white mb-3 border-bottom pb-3"><i class="fa-solid fa-plus fs-2 me-3"></i>Ajouter un produit</h1>
       <form class="m-0 form-floating gap-3" method="post" action="/ajouter-produit">
         <div class="row m-0 mb-3 gap-3">
           <!-- Nom du produit -->
@@ -85,7 +85,7 @@
     </div>
     <!-- Gestionnaire des produits -->
     <div class="container mb-5 text-white shadow rounded border p-3" style="background-color: #343a40;">
-      <h1 class="text-white mb-1">Tableau des produits</h1>
+      <h1 class="text-white mb-1"><i class="fa-solid fa-pen me-3 fs-2"></i>Tableau des produits</h1>
       <h5 class="text-white text-opacity-75 mb-3 border-bottom pb-3"><%- list_produit.length %> produit<%- list_produit.length > 1 ? "s" : "" %> dans votre liste</h5>
       <% if (list_produit == undefined || list_produit.length == 0) {%>
       <div class="alert alert-info mt-3 shadow">Votre gestion alimentaire est vide</div>
