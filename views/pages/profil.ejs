@@ -9,19 +9,19 @@
       <h1 class="text-white mb-3 border-bottom pb-3"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Paramètres profil</h1>
       <!-- Informations profil -->
       <div class="mb-3 text-white">
-          <h3 class="mb-3"><i class="fa-solid fa-address-card fs-4 me-3"></i>Informations</h3>
-          <div class="mb-3 row">
-            <label for="pseudo" class="col-sm-2 col-form-label">Pseudo</label>
-            <div class="col-sm-2">
-              <input type="text" readonly class="form-control-plaintext text-white" id="pseudo" value="<%- req.session.user_info['user'] %>" name="pseudo">
-            </div>
+        <h3 class="mb-3"><i class="fa-solid fa-address-card fs-4 me-3"></i>Informations</h3>
+        <div class="mb-3 row">
+          <label for="pseudo" class="col-sm-2 col-form-label">Pseudo</label>
+          <div class="col-sm-2">
+            <input type="text" readonly class="form-control-plaintext text-white" id="pseudo" value="<%- req.session.user_info['user'] %>" name="pseudo">
           </div>
-          <div class="mb-3 row mb-4">
-            <label for="email" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-2">
-              <input type="text" readonly class="form-control-plaintext text-white" id="email" value="<%- req.session.user_info['email'] %>" name="email">
-            </div>
+        </div>
+        <div class="mb-3 row mb-4">
+          <label for="email" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-2">
+            <input type="text" readonly class="form-control-plaintext text-white" id="email" value="<%- req.session.user_info['email'] %>" name="email">
           </div>
+        </div>
       </div>
       <!-- Sécurité -->
       <div>
@@ -30,13 +30,13 @@
           <div class="mb-3 row">
             <label for="password" class="col-sm-2 col-form-label">Nouveau mot de passe</label>
             <div class="col-sm-2">
-              <input type="text" class="form-control" id="password" name="password">
+              <input type="password" class="form-control" id="password" name="password" data-bs-theme="dark">
             </div>
           </div>
           <div class="mb-3 row mb-4">
             <label for="repeat-password" class="col-sm-2 col-form-label">Répéter mot de passe</label>
             <div class="col-sm-2">
-              <input type="text" class="form-control" id="repeat-password" name="repeat-password">
+              <input type="password" class="form-control" id="repeat-password" name="repeat-password" data-bs-theme="dark">
             </div>
           </div>
           <button type="submit" class="btn btn-primary">Appliquer</button>
@@ -67,17 +67,17 @@
         </div>
       </div>
     </div>
+    <script>
+      const modal_delete_user = document.getElementById('#delete-user')
+      const button_delete_user = document.getElementById('button-delete-user')
+
+      modal_delete_user.addEventListener('shown.bs.modal', () => {
+        button_delete_user.focus()
+      })
+    </script>
+    <% } %>
   </div>
   <%- include('../partials/footer') %>
-  <script>
-    const modal_delete_user = document.getElementById('#delete-user')
-    const button_delete_user = document.getElementById('button-delete-user')
-
-    modal_delete_user.addEventListener('shown.bs.modal', () => {
-        button_delete_user.focus()
-    })
-  </script>
-  <% } %>
 </body>
 
 </html>
