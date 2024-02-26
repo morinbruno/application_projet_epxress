@@ -23,11 +23,11 @@ function date_local_reverse(date) {
 }
 
 function date_peremption_etat(date) {
-	if (date_local_reverse(new Date()) === date_local_reverse(new Date(date))) {
+	if (date_local_reverse(new Date()) === date_local_reverse(date)) {
 		return "Dernier jour de consommation"
-	} else if (date_local_reverse(new Date()) < date_local_reverse(new Date(date))) {
+	} else if (date_local_reverse(new Date()) < date_local_reverse(date)) {
 		return "Comestible"
-	} else if (date_local_reverse(new Date()) > date_local_reverse(new Date(date))) {
+	} else if (date_local_reverse(new Date()) > date_local_reverse(date)) {
 		return "Non comestible"
 	}
 }
