@@ -18,16 +18,16 @@ function date_local(date) {
 	return date.toLocaleDateString();
 }
 
-function date_local_input(date) {
+function date_local_reverse(date) {
 	return date.toLocaleDateString('JPN', { year: "numeric", month: '2-digit', day: '2-digit' }).replaceAll('/', '-')
 }
 
 function date_peremption_etat(date) {
-	if (date_local(new Date()) == date_local(date)) {
+	if (date_local_reverse(new Date()) === date_local_reverse(new Date(date))) {
 		return "Dernier jour de consommation"
-	} else if (date_local(new Date()) < date_local(date)) {
+	} else if (date_local_reverse(new Date()) < date_local_reverse(new Date(date))) {
 		return "Comestible"
-	} else {
+	} else if (date_local_reverse(new Date()) > date_local_reverse(new Date(date))) {
 		return "Non comestible"
 	}
 }
@@ -60,7 +60,7 @@ router.get('/dashboard', function (req, res, next) {
                 nav,
                 resultat,
                 date_local,
-                date_local_input,
+                date_local_reverse,
                 date_peremption_etat,
                 list_produit: resultat[0],
                 list_categorie: resultat[1],
