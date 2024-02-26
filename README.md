@@ -16,7 +16,7 @@ git clone https://github.com/MorinoBelgotaku/application_projet_epxress.git
    - Base de données : ```projet_expressjs```
    - Utilisateur : ```'user_expressjs'@'localhost'``` identifié par ```'Express123'```
 
-4. Installer les modules requis au bon fonctionnement des scripts.
+4. Installer les modules requis au bon fonctionnement de l'application.
 
 ```shell
 npm i
