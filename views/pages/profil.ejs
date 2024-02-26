@@ -1,9 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <%- include('../partials/head') %>
+<%- include('../partials/head') %>
+
 <body class="bg-dark">
-    <%- include('../partials/header') %>
-    <div class="erreur"></div>
-    <%- include('../partials/footer') %>
+  <%- include('../partials/header') %>
+  <div class="container mt-5">
+    <div class="container mb-5 shadow rounded border p-3" style="background-color: #343a40;">
+      <h1 class="text-white mb-3 border-bottom pb-3">Paramètres profil</h1>
+      <!-- Informations profil -->
+      <div class="mb-5">
+        <form class="text-white">
+          <h3 class="mb-3">Informations profil</h3>
+          <div class="mb-3 row">
+            <label for="pseudo" class="col-sm-2 col-form-label">Pseudo</label>
+            <div class="col-sm-2">
+              <input type="text" readonly class="form-control-plaintext text-white" id="pseudo" value="<%- req.session.user_info['user'] %>" name="pseudo">
+            </div>
+          </div>
+          <div class="mb-3 row mb-4">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-2">
+              <input type="text" readonly class="form-control-plaintext text-white" id="email" value="<%- req.session.user_info['email'] %>" name="email">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Appliquer</button>
+        </form>
+      </div>
+      <!-- Sécurité -->
+      <div class="mb-5">
+        <form class="text-white">
+          <h3 class="mb-3">Sécurité</h3>
+          <div class="mb-3 row">
+            <label for="password" class="col-sm-2 col-form-label">Nouveau mot de passe</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="password" name="password">
+            </div>
+          </div>
+          <div class="mb-3 row mb-4">
+            <label for="repeat-password" class="col-sm-2 col-form-label">Répéter mot de
+              passe</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="repeat-password" name="repeat-password">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Appliquer</button>
+        </form>
+      </div>
+      <!-- Zone dangeureuse -->
+      <div class="mb-5 text-white">
+        <h3 class="mb-3">Zone dangeureuse</h3>
+        <a class="btn btn-danger" href="#">Supression du compte</a>
+      </div>
+    </div>
+  </div>
+  <%- include('../partials/footer') %>
 </body>
+
 </html>
