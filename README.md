@@ -32,6 +32,6 @@ Lien d'accès au site : http://localhost:3000/
 
 5. Connexion à l'application web
 
-Par défaut l'accès en mode Admin se fait avec l'utilisateur ```Admin``` identifié par ```Admin``` (mot de passe modifiable).
+Par défaut l'accès se fait avec l'utilisateur ```Admin``` identifié par ```Admin``` (mot de passe modifiable).
 
-Toute création de nouveau est automatiquement un utilisateur.
+Toute création de nouveau utilisateur est automatiquement un utilisateur.
