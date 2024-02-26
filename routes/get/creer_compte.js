@@ -8,6 +8,10 @@ router.get('/creer-compte', function (req, res) {
 	let pseudo_incorrect = req.query.pseudo_incorrect;
 	let email_incorrect = req.query.email_incorrect;
 	let mdp_invalid = req.query.mdp_invalid;
+	let mdp_short = req.query.mdp_short;
+	let mdp_long = req.query.mdp_long;
+	let pseudo_short = req.query.pseudo_short;
+	let pseudo_long = req.query.pseudo_long;
 
 	res.render('pages/connection/creer-compte', {
 		title: "Créer un compte",
@@ -17,6 +21,10 @@ router.get('/creer-compte', function (req, res) {
 		pseudo_incorrect,
 		email_incorrect,
 		mdp_invalid,
+		mdp_short,
+		mdp_long,
+		pseudo_short,
+		pseudo_long,
 		req
 	})
 })
