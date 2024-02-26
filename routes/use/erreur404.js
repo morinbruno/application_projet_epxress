@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+
+router.use((req, res, next) => {
+	if (req.session.loggedin) {
+		res.status(404).render('erreurs/404', { title: 'Page non trouvé', nav, req })
+	} else {
+		res.redirect('/')
+	}
+	res.end();
+});
+
+module.exports = router;
