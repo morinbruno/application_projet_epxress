@@ -75,7 +75,12 @@
           </div>
         </div>
         <!-- Bouton d'ajout du produit -->
-        <button type="submit" class="btn btn-primary" id="ajout_produit">Ajouter</button>
+        <div class="d-flex align-items-center">
+          <button type="submit" class="btn btn-primary" id="ajout_produit">Ajouter</button>
+          <% if(req.query.produit_manquant) { %>
+          <div class="alert alert-warning ms-3 p-1 m-0"><i class="fa-solid fa-warning me-2"></i>Informations manquantes !</div>
+          <% } %>
+        </div>
       </form>
     </div>
     <!-- Gestionnaire des produits -->
@@ -119,24 +124,6 @@
         </table>
       </div>
       <% } %>
-    </div>
-  </div>
-  <!-- Toast connexion réussi -->
-  <div class="toast align-items-center text-bg-success border-0 bottom-0 end-0 position-absolute m-4" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true" id="success-login">
-    <div class="d-flex">
-      <div class="toast-body">
-        Connexion réussi !
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-  </div>
-  <!-- Toast produit ajouter -->
-  <div class="toast align-items-center text-bg-success border-0 bottom-0 end-0 position-absolute m-4"  data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true" id="toast_ajout_produit">
-    <div class="d-flex">
-      <div class="toast-body">
-        Ajout du produit réussi !
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
   </div>
   <!-- Footer -->
