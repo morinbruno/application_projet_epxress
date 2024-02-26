@@ -6,11 +6,10 @@
   <%- include('../partials/header') %>
   <div class="container mt-5">
     <div class="container mb-5 shadow rounded border p-3" style="background-color: #343a40;">
-      <h1 class="text-white mb-3 border-bottom pb-3">Paramètres profil</h1>
+      <h1 class="text-white mb-3 border-bottom pb-3"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Paramètres profil</h1>
       <!-- Informations profil -->
-      <div class="mb-5">
-        <form class="text-white">
-          <h3 class="mb-3">Informations profil</h3>
+      <div class="mb-5 text-white">
+          <h3 class="mb-3"><i class="fa-solid fa-address-card fs-4 me-3"></i>Informations profil</h3>
           <div class="mb-3 row">
             <label for="pseudo" class="col-sm-2 col-form-label">Pseudo</label>
             <div class="col-sm-2">
@@ -23,13 +22,11 @@
               <input type="text" readonly class="form-control-plaintext text-white" id="email" value="<%- req.session.user_info['email'] %>" name="email">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Appliquer</button>
-        </form>
       </div>
       <!-- Sécurité -->
       <div class="mb-5">
         <form class="text-white">
-          <h3 class="mb-3">Sécurité</h3>
+          <h3 class="mb-3"><i class="fa-solid fa-lock fs-4 me-3"></i>Sécurité</h3>
           <div class="mb-3 row">
             <label for="password" class="col-sm-2 col-form-label">Nouveau mot de passe</label>
             <div class="col-sm-2">
@@ -37,8 +34,7 @@
             </div>
           </div>
           <div class="mb-3 row mb-4">
-            <label for="repeat-password" class="col-sm-2 col-form-label">Répéter mot de
-              passe</label>
+            <label for="repeat-password" class="col-sm-2 col-form-label">Répéter mot de passe</label>
             <div class="col-sm-2">
               <input type="text" class="form-control" id="repeat-password" name="repeat-password">
             </div>
@@ -47,13 +43,39 @@
         </form>
       </div>
       <!-- Zone dangeureuse -->
-      <div class="mb-5 text-white">
-        <h3 class="mb-3">Zone dangeureuse</h3>
-        <a class="btn btn-danger" href="#">Supression du compte</a>
+      <div class="mb-3 text-white">
+        <h3 class="mb-3"><i class="fa-solid fa-user-xmark fs-4 me-3"></i>Suppression du compte</h3>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-user" id="button-delete-user">Supprimer</button>
+        <!-- Modal -->
+        <div class="modal fade" id="modal-delete-user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-theme="dark">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-warning me-3"></i>Avertissement</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer votre compte ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <a class="btn btn-danger"><i class="fa-solid fa-trash me-3"></i>Supprimer</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <%- include('../partials/footer') %>
+  <script>
+    const modal_delete_user = document.getElementById('#delete-user')
+    const button_delete_user = document.getElementById('button-delete-user')
+
+    modal_delete_user.addEventListener('shown.bs.modal', () => {
+        button_delete_user.focus()
+    })
+  </script>
 </body>
 
 </html>
