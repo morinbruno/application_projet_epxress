@@ -8,22 +8,29 @@
     <h2 class="text-white mb-4 pb-3 border-bottom text-center">Se connecter</h2>
     <form class="form-floating" method="post" action="/se-connecter">
       <!-- Pseudo/Email -->
-      <div class="input-group mb-3 px-auto" data-bs-theme="dark">
+      <div class="input-group mb-3 px-auto has-validation" data-bs-theme="dark">
         <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-        <div class="form-floating">
-          <input type="text" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="user_email" name="user_email" placeholder="name@example.com">
+        <div class="form-floating <%- invalid_user ? "is-invalid" : "" %>">
+          <input type="text" class="form-control <%- invalid_user ? "is-invalid" : "" %>" id="user_email" name="user_email" placeholder="name@example.com" required>
           <label for="user_email" class="text-body-secondary">Pseudo/Email</label>
+        </div>
+        <div class="invalid-feedback">
+          <% if(invalid_user) { %>
+            L'utilisateur n'existe pas
+          <% } %>
         </div>
       </div>
       <!-- Mot de passe -->
       <div class="input-group has-validation mb-3" data-bs-theme="dark">
         <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-        <div class="form-floating <%= is_invalid ? "is-invalid" : "" %>">
-          <input type="password" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe">
+        <div class="form-floating <%- invalid_mdp ? "is-invalid" : "" %>">
+          <input type="password" class="form-control <%- invalid_mdp ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe" required>
           <label for="password" class="text-body-secondary">Mot de passe</label>
         </div>
         <div class="invalid-feedback">
-          Pseudo/Email ou Mot de passe invalide
+          <% if(invalid_mdp) { %>
+            Le mot de passe ne correspond pas
+          <% } %>
         </div>
       </div>
       <!-- Se créer un compte -->
