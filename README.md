@@ -13,8 +13,8 @@ git clone https://github.com/MorinoBelgotaku/application_projet_epxress.git
 ```
 
 2. Installer la base de données sur MySQL (avec son utilisateur)
-   - Base de données : projet_expressjs
-   - Utilisateur : 'user_expressjs'@'localhost' identifié par ```'Express123'```
+   - Base de données : ```projet_expressjs```
+   - Utilisateur : ```'user_expressjs'@'localhost'``` identifié par ```'Express123'```
 
 4. Installer les modules requis au bon fonctionnement des scripts.
 
@@ -31,5 +31,5 @@ node app.js
 Lien d'accès au site : http://localhost:3000/
 
 5. Connexion à l'application web
-Par défaut l'accès en mode Admin se fait avec l'utilisateur Admin et son mot de passe Admin (mot de passe modifiable).
+Par défaut l'accès en mode Admin se fait avec l'utilisateur ```Admin``` identifié par ```Admin``` (mot de passe modifiable).
 Toute création de nouveau est automatiquement un utilisateur.
