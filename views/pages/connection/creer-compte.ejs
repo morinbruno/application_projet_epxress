@@ -14,13 +14,15 @@
         <div class="col-sm">
           <div class="input-group has-validation mb-3" data-bs-theme="dark">
             <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-            <div class="form-floating <% if(pseudo_exist || pseudo_short || pseudo_long) { %>is-invalid<% } %>">
-              <input type="text" class="form-control <% if(pseudo_exist || pseudo_short || pseudo_long) { %>is-invalid<% } %>" id="pseudo" name="pseudo" placeholder="Pseudo" required>
+            <div class="form-floating <%- pseudo_exist || pseudo_invalid || pseudo_short || pseudo_long ? "is-invalid" : "" %>">
+              <input type="text" class="form-control <% if(pseudo_exist || pseudo_invalid || pseudo_short || pseudo_long) { %>is-invalid<% } %>" id="pseudo" name="pseudo" placeholder="Pseudo" minlength="3" maxlength="20" required>
               <label for="user_email" class="text-body-secondary">Pseudo</label>
             </div>
             <div class="invalid-feedback">
               <% if(pseudo_exist) { %>
               Pseudo déjà existant
+              <% } else if (pseudo_invalid) { %>
+                Pseudo invalide
               <% } else if (pseudo_short) { %>
                 Pseudo trop court (=> 3)
               <% } else if(pseudo_long) { %>
@@ -33,12 +35,14 @@
         <div class="col-sm">
           <div class="input-group has-validation mb-3" data-bs-theme="dark">
             <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-            <div class="form-floating <%- mdp_short || mdp_long ? "is-invalid" : "" %>">
-              <input type="password" class="form-control <%- mdp_short || mdp_long ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe" required>
+            <div class="form-floating <%- mdp_short || mdp_long || mdp_invalid ? "is-invalid" : "" %>">
+              <input type="password" class="form-control <%- mdp_short || mdp_long || mdp_invalid ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe" minlength="3" maxlength="20" required>
               <label for="password" class="text-body-secondary">Mot de passe</label>
             </div>
             <div class="invalid-feedback">
-              <% if (mdp_short) { %>
+              <% if (mdp_invalid) { %>
+                Mot de passe invalide
+              <% } else if (mdp_short) { %>
                 Mot de passe trop court (=> 3)
               <% } else if(mdp_long) { %>
                 Mot de passe trop long (=> 20)
@@ -51,7 +55,7 @@
       <div class="input-group has-validation px-auto" data-bs-theme="dark">
         <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
         <div class="form-floating <%= email_exist ? "is-invalid" : "" %>">
-          <input type="email" class="form-control <%= email_exist ? "is-invalid" : "" %>" id="email" name="email" placeholder="name@example.com" required>
+          <input type="email" class="form-control <%= email_exist ? "is-invalid" : "" %>" id="email" name="email" placeholder="name@example.com">
           <label for="user_email" class="text-body-secondary">Email</label>
         </div>
         <div class="invalid-feedback">

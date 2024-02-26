@@ -56,20 +56,24 @@ router.post('/creer-compte', function (req, res) {
 				}
 			})
 
-			if (resultat[0].length == 0 && resultat[1].length == 0) {
+			if (pseudo.includes(' ')) {
+				res.redirect('/creer-compte?pseudo_invalid=true')
+			} else if (password.includes(' ')) {
+				res.redirect('/creer-compte?mdp_invalid=true')
+			} else if (resultat[0].length == 0 && resultat[1].length == 0) {
 				let sql = "INSERT INTO users values(DEFAULT, ?, ?, ?, 2);";
 
-					connection.query(sql, [pseudo, email, password], function (erreur, resultat) {
-						let sql = 'SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE user = ?';
-						connection.query(sql, [pseudo], function (erreur, resultat) {
-							req.session.loggedin = true;
-							req.session.username = resultat[0]['user'];
-							req.session.typeuser = resultat[0]['name_typeUser'];
-							req.session.id_user = resultat[0]['id_user'];
-							req.session.userinfo = resultat;
-							res.redirect('/dashboard');
-						})
-					});
+				connection.query(sql, [pseudo, email, password], function (erreur, resultat) {
+					let sql = 'SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE user = ?';
+					connection.query(sql, [pseudo], function (erreur, resultat) {
+						req.session.loggedin = true;
+						req.session.username = resultat[0]['user'];
+						req.session.typeuser = resultat[0]['name_typeUser'];
+						req.session.id_user = resultat[0]['id_user'];
+						req.session.userinfo = resultat;
+						res.redirect('/dashboard');
+					})
+				});
 			} else if (user_statut) {
 				if (email_statut) {
 					res.redirect('/creer-compte?pseudo_exist=true&email_exist=true')
@@ -78,28 +82,10 @@ router.post('/creer-compte', function (req, res) {
 				}
 			} else if (email_statut) {
 				res.redirect('/creer-compte?email_exist=true')
-			} else if (result_user[0]['user'].toLowerCase() === pseudo.toLowerCase()){
+			} else if (result_user[0]['user'].toLowerCase() === pseudo.toLowerCase()) {
 				res.redirect('/creer-compte?pseudo_exist=true')
 			} else if (result_email[0]['email'].toLowerCase() === email.toLowerCase()) {
 				res.redirect('/creer-compte?email_exist=true')
-			} else {
-				if (pseudo && password && email) {
-					let sql = "INSERT INTO users values(DEFAULT, ?, ?, ?, 2);";
-
-					connection.query(sql, [pseudo, email, password], function (erreur, resultat) {
-						let sql = 'SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE user = ?';
-						connection.query(sql, [pseudo], function (erreur, resultat) {
-							req.session.loggedin = true;
-							req.session.username = resultat[0]['user'];
-							req.session.typeuser = resultat[0]['name_typeUser'];
-							req.session.id_user = resultat[0]['id_user'];
-							req.session.userinfo = resultat;
-							res.redirect('/dashboard');
-						})
-					});
-				} else {
-					res.redirect('/creer-compte');
-				}
 			}
 		})
 	}
