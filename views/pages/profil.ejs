@@ -5,11 +5,11 @@
 <body class="bg-dark">
   <%- include('../partials/header') %>
   <div class="container mt-5">
-    <div class="container mb-5 shadow rounded border p-3" style="background-color: #343a40;">
+    <div class="container mb-5 shadow rounded border p-3 pb-4" style="background-color: #343a40;">
       <h1 class="text-white mb-3 border-bottom pb-3"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Paramètres profil</h1>
       <!-- Informations profil -->
-      <div class="mb-5 text-white">
-          <h3 class="mb-3"><i class="fa-solid fa-address-card fs-4 me-3"></i>Informations profil</h3>
+      <div class="mb-3 text-white">
+          <h3 class="mb-3"><i class="fa-solid fa-address-card fs-4 me-3"></i>Informations</h3>
           <div class="mb-3 row">
             <label for="pseudo" class="col-sm-2 col-form-label">Pseudo</label>
             <div class="col-sm-2">
@@ -24,7 +24,7 @@
           </div>
       </div>
       <!-- Sécurité -->
-      <div class="mb-5">
+      <div>
         <form class="text-white">
           <h3 class="mb-3"><i class="fa-solid fa-lock fs-4 me-3"></i>Sécurité</h3>
           <div class="mb-3 row">
@@ -42,13 +42,14 @@
           <button type="submit" class="btn btn-primary">Appliquer</button>
         </form>
       </div>
+      <% if(req.session.username != "Admin") { %>
       <!-- Zone dangeureuse -->
-      <div class="mb-3 text-white">
-        <h3 class="mb-3"><i class="fa-solid fa-user-xmark fs-4 me-3"></i>Suppression du compte</h3>
+      <div class="mb-3 mt-4 text-white">
+        <h3 class="mb-4"><i class="fa-solid fa-user-xmark fs-4 me-3"></i>Suppression du compte</h3>
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-user" id="button-delete-user">Supprimer</button>
         <!-- Modal -->
         <div class="modal fade" id="modal-delete-user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-theme="dark">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-warning me-3"></i>Avertissement</h1>
@@ -59,7 +60,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <a class="btn btn-danger"><i class="fa-solid fa-trash me-3"></i>Supprimer</a>
+                <a class="btn btn-danger" href="#"><i class="fa-solid fa-trash me-3"></i>Supprimer</a>
               </div>
             </div>
           </div>
@@ -76,6 +77,7 @@
         button_delete_user.focus()
     })
   </script>
+  <% } %>
 </body>
 
 </html>
