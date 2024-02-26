@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <!-- Début du Head -->
-    <%- include('../../partials/head') %>
-  <!-- Fin du Head -->
+<!-- Début du Head -->
+<%- include('../../partials/head') %>
+<!-- Fin du Head -->
+
 <body class="min-vh-100 vw-100 d-flex justify-content-center align-items-center bg-dark">
-  <div class="p-4 mx-5 rounded border shadow w-auto" style="background-color: #343a40;">
+  <div class="p-4 mx-5 rounded border shadow" style="background-color: #343a40; width: 600px;">
     <a href="/" class="link text-white"><i class="fa-solid fa-arrow-left-long me-2 mb-4"></i>Revenir en arrière</a>
     <h2 class="text-white mb-4 pb-3 border-bottom text-center">Créer un compte</h2>
     <form class="form-floating" method="post" action="/creer-compte">
-      <div class="row">
+      <div class="row g-2">
         <!-- Pseudo -->
-        <div class="input-group has-validation mb-3 px-auto col-sm" data-bs-theme="dark">
-          <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-          <div class="form-floating <%= is_invalid ? "is-invalid" : "" %>">
-            <input type="text" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="pseudo" name="pseudo" placeholder="Pseudo">
-            <label for="user_email" class="text-body-secondary">Pseudo</label>
-          </div>
-          <div class="invalid-feedback">
-            Pseudo déjà existant
+        <div class="col-sm">
+          <div class="input-group has-validation mb-3" data-bs-theme="dark">
+            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+            <div class="form-floating <%- pseudo_exist ? "is-invalid" : "" %>">
+              <input type="text" class="form-control <%- pseudo_exist ? "is-invalid" : "" %>" id="pseudo" name="pseudo" placeholder="Pseudo" required>
+              <label for="user_email" class="text-body-secondary <%- pseudo_exist ? "floatingInputInvalid" : "" %>">Pseudo</label>
+            </div>
+            <div class="invalid-feedback">
+              <% if(pseudo_exist) { %>
+              Pseudo déjà existant
+              <% } %>
+            </div>
           </div>
         </div>
         <!-- Mot de passe -->
-        <div class="input-group has-validation mb-3 col-sm" data-bs-theme="dark">
-          <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-          <div class="form-floating <%= is_invalid ? "is-invalid" : "" %>">
-            <input type="password" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe">
-            <label for="password" class="text-body-secondary">Mot de passe</label>
-          </div>
-          <div class="invalid-feedback">
-            Ne respecte pas les règles
+        <div class="col-sm">
+          <div class="input-group mb-3" data-bs-theme="dark">
+            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+            <div class="form-floating">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+              <label for="password" class="text-body-secondary">Mot de passe</label>
+            </div>
           </div>
         </div>
       </div>
       <!-- Email -->
       <div class="input-group has-validation mb-4 px-auto" data-bs-theme="dark">
         <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
-        <div class="form-floating <%= is_invalid ? "is-invalid" : "" %>">
-          <input type="email" class="form-control <%= is_invalid ? "is-invalid" : "" %>" id="email" name="email" placeholder="name@example.com">
+        <div class="form-floating <%= email_exist ? "is-invalid" : "" %>">
+          <input type="email" class="form-control <%= email_exist ? "is-invalid" : "" %>" id="email" name="email" placeholder="name@example.com" required>
           <label for="user_email" class="text-body-secondary">Email</label>
         </div>
         <div class="invalid-feedback">
+          <% if(email_exist) { %>
           Email déjà existant
+          <% } %>
         </div>
       </div>
       <button type="submit" class="btn btn-primary w-100">Créer un compte</button>
