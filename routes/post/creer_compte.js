@@ -17,7 +17,7 @@ router.post('/creer-compte', function (req, res) {
 	let email = req.body.email;
 	let password = req.body.password;
 	let sql = `SELECT email FROM users WHERE email = ?;
-					 SELECT user FROM users WHERE user = ?;`
+			   SELECT user FROM users WHERE user = ?;`
 
 	if (pseudo.length < 3 && password.length < 3) {
 		res.redirect('/creer-compte?pseudo_short=true&mdp_short=true')
