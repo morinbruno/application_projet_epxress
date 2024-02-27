@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const nav = require('../../settings/nav_bar.json')
 
 router.use((req, res, next) => {
 	if (req.session.loggedin) {
