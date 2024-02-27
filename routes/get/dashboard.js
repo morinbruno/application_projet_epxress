@@ -55,6 +55,9 @@ router.get('/dashboard', function (req, res, next) {
 
     connection.query(sql, [req.session.id_user], function (erreur, resultat) {
         if (req.session.loggedin) {
+			let quantite_invalid = req.query.quantite_invalid;
+			let produit_manquant = req.query.produit_manquant;
+
             res.render('pages/dashboard', {
                 title: "Dashboard",
                 nav,
@@ -66,6 +69,8 @@ router.get('/dashboard', function (req, res, next) {
                 list_categorie: resultat[1],
                 list_magasin: resultat[2],
                 list_localite: resultat[3],
+				produit_manquant,
+				quantite_invalid,
                 req
             });
         } else {
