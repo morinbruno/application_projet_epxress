@@ -16,7 +16,7 @@ git clone https://github.com/MorinoBelgotaku/application_projet_epxress.git
    - Base de données : ```projet_expressjs```
    - Utilisateur : ```'user_expressjs'@'localhost'``` identifié par ```'Express123'```
   
-Juste à copier les requêtes SQL ou importer les requêtes SQL dans MySQL qui sont dans [```base_de_données``` \ ```base_de_donnes.sql```](/base_de_donnée/base_de_donnees.sql)
+Juste à copier les requêtes SQL ou importer les requêtes SQL dans MySQL qui sont dans [```base_de_données``` \ ```base_de_donnes.sql```](/base_de_donnée/base_de_donnees.sql).
 
 4. Installer les modules requis au bon fonctionnement de l'application.
 
