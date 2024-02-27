@@ -27,17 +27,20 @@ router.post('/ajouter-produit', function (req, res) {
 			   INSERT INTO produits_acheter VALUES((SELECT LAST_INSERT_ID()), ?, ?, ?, ?);
 			   INSERT INTO magasins_produits VALUES((SELECT LAST_INSERT_ID()), ?, ?);`
 
-	if (produit && quantite && date_achat && date_achat && date_expiration && magasin && categorie && localite) {
+	if (produit && !isNaN(quantite) && date_achat && date_achat && date_expiration && !isNaN(magasin) && !isNaN(categorie) && !isNaN(localite)) {
 		connection.query(sql, [produit, categorie, id_user, quantite, date_achat ,date_expiration, magasin, localite], function (erreur, resultat) {
 			if (erreur) {
 				console.log(erreur);
 			}
 			res.redirect('/dashboard');
 		});
+	} else if (produit == undefined && quantite == undefined && date_achat == undefined && date_expiration == undefined && isNaN(magasin) && isNaN(categorie) && isNaN(localite)) {
+		res.redirect('/dashboard?produit_manquant=true');
+	} else if (isNaN(quantite)) {
+		res.redirect('/dashboard?quantite_invalid=true');
 	} else {
 		res.redirect('/dashboard?produit_manquant=true');
 	}
-		
 });
 
 module.exports = router
