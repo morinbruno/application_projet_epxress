@@ -10,33 +10,54 @@
       <!-- Informations profil -->
       <div class="mb-3 text-white">
         <h3 class="mb-3"><i class="fa-solid fa-address-card fs-4 me-3"></i>Informations</h3>
+        <!-- Pseudo -->
         <div class="mb-3 row">
           <label for="pseudo" class="col-sm-2 col-form-label">Pseudo</label>
-          <div class="col-sm-2">
-            <input type="text" readonly class="form-control-plaintext text-white" id="pseudo" value="<%- req.session.user_info['user'] %>" name="pseudo">
+          <div class="col-sm-auto">
+            <input type="text" readonly class="form-control text-white" data-bs-theme="dark" id="pseudo" value="<%- req.session.user_info['user'] %>" name="pseudo">
           </div>
         </div>
+        <!-- Email -->
         <div class="mb-3 row mb-4">
           <label for="email" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-2">
-            <input type="text" readonly class="form-control-plaintext text-white" id="email" value="<%- req.session.user_info['email'] %>" name="email">
+          <div class="col-sm-auto">
+            <input type="text" readonly class="form-control text-white" data-bs-theme="dark" id="email" value="<%- req.session.user_info['email'] ? req.session.user_info['email'] : "Aucun email" %>" name="email">
           </div>
         </div>
       </div>
       <!-- Sécurité -->
       <div>
-        <form class="text-white">
+        <form class="text-white" method="post" action="/password-update">
           <h3 class="mb-3"><i class="fa-solid fa-lock fs-4 me-3"></i>Sécurité</h3>
           <div class="mb-3 row">
             <label for="password" class="col-sm-2 col-form-label">Nouveau mot de passe</label>
-            <div class="col-sm-2">
-              <input type="password" class="form-control" id="password" name="password" data-bs-theme="dark">
+            <div class="col-sm-auto">
+              <input type="password" class="form-control <%- password_different || password_short || password_long || password_invalid ? "is-invalid" : "" %>" id="password" name="password" data-bs-theme="dark" minlength="3" maxlength="20" required>
+              <div class="invalid-feedback mt-2 text-center">
+                <% if (password_invalid) { %>
+                  Mot de passe invalide
+                <% } else if (password_invalid) { %>
+                  Les mot de passes ne correspondent pas
+                <% } else if (password_long) { %>
+                  Mot de passe trop long (=< 20)
+                <% } else if (password_short) { %>
+                  Mot de passe trop court (=> 3)
+                <% } %>
+              </div>
             </div>
           </div>
           <div class="mb-3 row mb-4">
-            <label for="repeat-password" class="col-sm-2 col-form-label">Répéter mot de passe</label>
-            <div class="col-sm-2">
-              <input type="password" class="form-control" id="repeat-password" name="repeat-password" data-bs-theme="dark">
+            <label for="password_repeat" class="col-sm-2 col-form-label">Répéter mot de passe</label>
+            <div class="col-sm-auto">
+              <input type="password" class="form-control <%- password_different ? "is-invalid" : "" %>" id="password_repeat" name="password_repeat" data-bs-theme="dark" minlength="3" maxlength="20" required>
+              <div class="invalid-feedback mt-2 text-center">
+                Les mot de passes ne correspondent pas
+              </div>
+              <% if (password_update_success) { %>
+                <div class="text-success mt-2 text-center">
+                  Mot de passe mis à jour !
+                </div>
+              <% } %>
             </div>
           </div>
           <button type="submit" class="btn btn-primary">Appliquer</button>
@@ -60,7 +81,9 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <a class="btn btn-danger" href="#"><i class="fa-solid fa-trash me-3"></i>Supprimer</a>
+                <form method="get" action="/delete-user">
+                  <button class="btn btn-danger"><i class="fa-solid fa-trash me-3"></i>Supprimer</button>
+                </form>
               </div>
             </div>
           </div>
