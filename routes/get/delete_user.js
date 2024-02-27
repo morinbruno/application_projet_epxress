@@ -19,16 +19,21 @@ router.get('/delete-user', function (req, res) {
     connection.query(sql, [id_user, id_user], function(erreur, resultat) {
         let id_produit_user = new Array();
         let id_user = req.session.id_user;
+        let sql = null;
 
         for (let i=0; i < resultat.length; i++) {
             id_produit_user.push(resultat[i]['id_produit']);
         }
         id_produit_user = id_produit_user.toString();
 
-        let sql = `DELETE FROM magasins_produits WHERE id_produit IN (${id_produit_user});
-                   DELETE FROM produits_acheter WHERE id_produit IN (${id_produit_user});
-                   DELETE FROM produits WHERE id_produit IN (${id_produit_user});
-                   DELETE FROM users WHERE id_user= ?`
+        if (id_produit_user.length == 0) {
+            sql = `DELETE FROM users WHERE id_user= ?;`
+        } else {
+            sql = `DELETE FROM magasins_produits WHERE id_produit IN (${id_produit_user});
+            DELETE FROM produits_acheter WHERE id_produit IN (${id_produit_user});
+            DELETE FROM produits WHERE id_produit IN (${id_produit_user});
+            DELETE FROM users WHERE id_user= ?;`
+        }
 
         connection.query(sql, [id_user], function(erreur, resultat) {
             req.session.loggedin = false;
