@@ -49,6 +49,14 @@ app.use('/', ajouter_produit)
 const profil = require('./routes/get/profil')
 app.use('/', profil)
 
+// Route profil '/password-update'
+const password_update = require('./routes/post/password_update')
+app.use('/', password_update)
+
+// Route supprimer utilisateur '/delete-user'
+const delete_user = require('./routes/get/delete_user')
+app.use('/', delete_user)
+
 // Route admin '/admin'
 const admin = require('./routes/get/admin')
 app.use('/', admin)
