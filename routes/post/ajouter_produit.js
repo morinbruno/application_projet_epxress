@@ -21,7 +21,7 @@ router.post('/ajouter-produit', function (req, res) {
 	const magasin = req.body.magasin;
 	const categorie = req.body.categorie;
 	const localite = req.body.localite;
-	const id_user = req.session.id_user
+	const id_user = req.session.id_user;
 
 	let sql = `INSERT INTO produits VALUES(DEFAULT, ?, ?);
 			   INSERT INTO produits_acheter VALUES((SELECT LAST_INSERT_ID()), ?, ?, ?, ?);
