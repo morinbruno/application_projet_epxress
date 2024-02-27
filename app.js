@@ -49,7 +49,7 @@ app.use('/', ajouter_produit)
 const profil = require('./routes/get/profil')
 app.use('/', profil)
 
-// Route profil '/password-update'
+// Route mise à jour du mot de passe '/password-update'
 const password_update = require('./routes/post/password_update')
 app.use('/', password_update)
 
