@@ -4,13 +4,23 @@
         "url": "/dashboard",
         "blank": false,
         "display": true,
-        "icon": "fa-solid fa-house"
+        "icon": "fa-solid fa-house",
+        "type_user": "Utilisateur"
     },
     {
         "title": "Profil",
         "url": "/profil",
         "blank": false,
         "display": true,
-        "icon": "fa-solid fa-user"
+        "icon": "fa-solid fa-user",
+        "type_user": "Utilisateur"
+    },
+    {
+        "title": "Admin",
+        "url": "/admin",
+        "blank": false,
+        "display": true,
+        "icon": "fa-solid fa-screwdriver-wrench",
+        "type_user": "Admin"
     }
 ]
