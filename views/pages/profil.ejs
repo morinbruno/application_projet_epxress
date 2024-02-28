@@ -2,37 +2,37 @@
 <html lang="fr">
 <%- include('../partials/head') %>
 
-<body class="bg-dark">
+<body class="">
   <%- include('../partials/header') %>
-  <div class="container mt-5">
-    <div class="container mb-5 shadow rounded border p-3 pb-4" style="background-color: #343a40;">
-      <h1 class="text-white mb-3 border-bottom pb-3"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Paramètres profil</h1>
+  <div class="container mt-4">
+    <div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
+      <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Paramètres profil</h1>
       <!-- Informations profil -->
-      <div class="mb-3 text-white">
+      <div class="mb-3">
         <h3 class="mb-3"><i class="fa-solid fa-address-card fs-4 me-3"></i>Informations</h3>
         <!-- Pseudo -->
         <div class="mb-3 row">
           <label for="pseudo" class="col-sm-2 col-form-label">Pseudo</label>
           <div class="col-sm-auto">
-            <input type="text" readonly class="form-control text-white" data-bs-theme="dark" id="pseudo" value="<%- req.session.user_info['user'] %>" name="pseudo">
+            <input type="text" readonly class="form-control" id="pseudo" value="<%- req.session.user_info['user'] %>" name="pseudo">
           </div>
         </div>
         <!-- Email -->
         <div class="mb-3 row mb-4">
           <label for="email" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-auto">
-            <input type="text" readonly class="form-control text-white" data-bs-theme="dark" id="email" value="<%- req.session.user_info['email'] ? req.session.user_info['email'] : "Aucun email" %>" name="email">
+            <input type="text" readonly class="form-control" id="email" value="<%- req.session.user_info['email'] ? req.session.user_info['email'] : "Aucun email" %>" name="email">
           </div>
         </div>
       </div>
       <!-- Sécurité -->
       <div>
-        <form class="text-white" method="post" action="/password-update">
+        <form method="post" action="/password-update">
           <h3 class="mb-3"><i class="fa-solid fa-lock fs-4 me-3"></i>Sécurité</h3>
           <div class="mb-3 row">
             <label for="password" class="col-sm-2 col-form-label">Nouveau mot de passe</label>
             <div class="col-sm-auto">
-              <input type="password" class="form-control <%- password_different || password_short || password_long || password_invalid ? "is-invalid" : "" %>" id="password" name="password" data-bs-theme="dark" minlength="3" maxlength="20" required>
+              <input type="password" class="form-control <%- password_different || password_short || password_long || password_invalid ? "is-invalid" : "" %>" id="password" name="password" minlength="3" maxlength="20" required>
               <div class="invalid-feedback mt-2 text-center">
                 <% if (password_invalid) { %>
                   Mot de passe invalide
@@ -49,7 +49,7 @@
           <div class="mb-3 row mb-4">
             <label for="password_repeat" class="col-sm-2 col-form-label">Répéter mot de passe</label>
             <div class="col-sm-auto">
-              <input type="password" class="form-control <%- password_different ? "is-invalid" : "" %>" id="password_repeat" name="password_repeat" data-bs-theme="dark" minlength="3" maxlength="20" required>
+              <input type="password" class="form-control <%- password_different ? "is-invalid" : "" %>" id="password_repeat" name="password_repeat" minlength="3" maxlength="20" required>
               <div class="invalid-feedback mt-2 text-center">
                 Les mot de passes ne correspondent pas
               </div>
@@ -65,11 +65,11 @@
       </div>
       <% if(req.session.username != "Admin") { %>
       <!-- Zone dangeureuse -->
-      <div class="mb-3 mt-4 text-white">
+      <div class="mb-3 mt-4">
         <h3 class="mb-4"><i class="fa-solid fa-user-xmark fs-4 me-3"></i>Suppression du compte</h3>
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-user" id="button-delete-user">Supprimer</button>
         <!-- Modal -->
-        <div class="modal fade" id="modal-delete-user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-theme="dark">
+        <div class="modal fade" id="modal-delete-user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">

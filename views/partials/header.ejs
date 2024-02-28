@@ -1,14 +1,14 @@
-<header class="shadow border-bottom px-lg-4 py-2" style="background-color: #343a40;">
-  <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Offcanvas navbar large">
+<header class="shadow border-bottom px-lg-4 py-2 bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
     <h2 class="btn btn-success m-0">Session active : <%- req.session.username %></h2>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="nav-bar-mobile">
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="nav-bar-mobile">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="nav-bar-mobile">Menu</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">

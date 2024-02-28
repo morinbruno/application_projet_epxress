@@ -4,19 +4,19 @@
 <%- include('../../partials/head') %>
 <!-- Fin du Head -->
 
-<body class="min-vh-100 vw-100 d-flex justify-content-center align-items-center bg-dark">
-  <div class="p-4 mx-5 rounded border shadow" style="background-color: #343a40; width: 600px;">
-    <a href="/" class="link text-white"><i class="fa-solid fa-arrow-left-long me-2 mb-4"></i>Revenir en arrière</a>
-    <h2 class="text-white mb-4 pb-3 border-bottom text-center">Créer un compte</h2>
+<body class="min-vh-100 vw-100 d-flex justify-content-center align-items-center">
+  <div class="p-4 mx-5 rounded border shadow bg-light-subtle" style="width: 600px;">
+    <a href="/" class="link"><i class="fa-solid fa-arrow-left-long me-2 mb-4"></i>Revenir en arrière</a>
+    <h2 class="mb-4 pb-3 border-bottom text-center">Créer un compte</h2>
     <form class="form-floating" method="post" action="/creer-compte">
       <div class="row g-2">
         <!-- Pseudo -->
         <div class="col-sm">
-          <div class="input-group has-validation mb-3" data-bs-theme="dark">
+          <div class="input-group has-validation mb-3">
             <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
             <div class="form-floating <%- pseudo_exist || pseudo_invalid || pseudo_short || pseudo_long ? "is-invalid" : "" %>">
               <input type="text" class="form-control <% if(pseudo_exist || pseudo_invalid || pseudo_short || pseudo_long) { %>is-invalid<% } %>" id="pseudo" name="pseudo" placeholder="Pseudo" minlength="3" maxlength="20" required>
-              <label for="user_email" class="text-body-secondary">Pseudo</label>
+              <label for="user_email"">Pseudo</label>
             </div>
             <div class="invalid-feedback">
               <% if(pseudo_exist) { %>
@@ -33,11 +33,11 @@
         </div>
         <!-- Mot de passe -->
         <div class="col-sm">
-          <div class="input-group has-validation mb-3" data-bs-theme="dark">
+          <div class="input-group has-validation mb-3">
             <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
             <div class="form-floating <%- mdp_short || mdp_long || mdp_invalid ? "is-invalid" : "" %>">
               <input type="password" class="form-control <%- mdp_short || mdp_long || mdp_invalid ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe" minlength="3" maxlength="20" required>
-              <label for="password" class="text-body-secondary">Mot de passe</label>
+              <label for="password">Mot de passe</label>
             </div>
             <div class="invalid-feedback">
               <% if (mdp_invalid) { %>
@@ -52,11 +52,11 @@
         </div>
       </div>
       <!-- Email -->
-      <div class="input-group has-validation px-auto" data-bs-theme="dark">
+      <div class="input-group has-validation px-auto">
         <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
         <div class="form-floating <%= email_exist ? "is-invalid" : "" %>">
           <input type="email" class="form-control <%= email_exist ? "is-invalid" : "" %>" id="email" name="email" placeholder="name@example.com">
-          <label for="user_email" class="text-body-secondary">Email</label>
+          <label for="user_email"">Email</label>
         </div>
         <div class="invalid-feedback">
           <% if(email_exist) { %>
@@ -64,7 +64,7 @@
           <% } %>
         </div>
       </div>
-      <div class="form-text text-white mb-4">
+      <div class="form-text  mb-4">
         Pseudo/Mot de passe égal ou compris entre 3 à 20 caractères.
       </div>
       <button type="submit" class="btn btn-primary w-100">Créer un compte</button>

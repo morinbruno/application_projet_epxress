@@ -3,16 +3,16 @@
     <!-- Début du Head -->
       <%- include('../../partials/head') %>
     <!-- Fin du Head -->
-<body class="min-vh-100 d-flex vw-100 justify-content-center align-items-center bg-dark">
-  <div class="p-4 rounded border shadow mx-5" style="background-color: #343a40; width: 400px;">
-    <h2 class="text-white mb-4 pb-3 border-bottom text-center">Se connecter</h2>
+<body class="min-vh-100 d-flex vw-100 justify-content-center align-items-center">
+  <div class="p-4 rounded border shadow mx-5 bg-light-subtle" style="width: 400px;">
+    <h2 class="mb-4 pb-3 border-bottom text-center">Se connecter</h2>
     <form class="form-floating" method="post" action="/se-connecter">
       <!-- Pseudo/Email -->
-      <div class="input-group mb-3 px-auto has-validation" data-bs-theme="dark">
+      <div class="input-group mb-3 px-auto has-validation">
         <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
         <div class="form-floating <%- invalid_user ? "is-invalid" : "" %>">
           <input type="text" class="form-control <%- invalid_user ? "is-invalid" : "" %>" id="user_email" name="user_email" placeholder="name@example.com" required>
-          <label for="user_email" class="text-body-secondary">Pseudo/Email</label>
+          <label for="user_email">Pseudo/Email</label>
         </div>
         <div class="invalid-feedback">
           <% if(invalid_user) { %>
@@ -21,11 +21,11 @@
         </div>
       </div>
       <!-- Mot de passe -->
-      <div class="input-group has-validation mb-3" data-bs-theme="dark">
+      <div class="input-group has-validation mb-3">
         <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
         <div class="form-floating <%- invalid_mdp ? "is-invalid" : "" %>">
           <input type="password" class="form-control <%- invalid_mdp ? "is-invalid" : "" %>" id="password" name="password" placeholder="Mot de passe" required>
-          <label for="password" class="text-body-secondary">Mot de passe</label>
+          <label for="password">Mot de passe</label>
         </div>
         <div class="invalid-feedback">
           <% if(invalid_mdp) { %>
