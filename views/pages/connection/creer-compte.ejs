@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-bs-theme="dark">
 <!-- Début du Head -->
 <%- include('../../partials/head') %>
 <!-- Fin du Head -->
@@ -16,7 +16,7 @@
             <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
             <div class="form-floating <%- pseudo_exist || pseudo_invalid || pseudo_short || pseudo_long ? "is-invalid" : "" %>">
               <input type="text" class="form-control <% if(pseudo_exist || pseudo_invalid || pseudo_short || pseudo_long) { %>is-invalid<% } %>" id="pseudo" name="pseudo" placeholder="Pseudo" minlength="3" maxlength="20" required>
-              <label for="user_email"">Pseudo</label>
+              <label for="user_email">Pseudo</label>
             </div>
             <div class="invalid-feedback">
               <% if(pseudo_exist) { %>
@@ -56,7 +56,7 @@
         <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
         <div class="form-floating <%= email_exist ? "is-invalid" : "" %>">
           <input type="email" class="form-control <%= email_exist ? "is-invalid" : "" %>" id="email" name="email" placeholder="name@example.com">
-          <label for="user_email"">Email</label>
+          <label for="user_email">Email</label>
         </div>
         <div class="invalid-feedback">
           <% if(email_exist) { %>
