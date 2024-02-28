@@ -1,36 +1,42 @@
-<header class="shadow border-bottom">
-  <nav class="navbar navbar-expand-lg px-5" style="background-color: #343a40;">
+<header class="shadow border-bottom px-lg-4 py-2" style="background-color: #343a40;">
+  <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
-      <h2 class="navbar-brand text-white m-0 text-bg-success rounded p-2 user-select-none">Session active : <%- req.session.username %></h2>
-      <ul class="navbar-nav mb-0 d-flex justify-content-center gap-3">
-        <% for (let i = 0; i < nav.length; i++) { %>
-        <% if (nav[i].title === title && nav[i].display === true) { %>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
-        </li>
-        <% } else if (nav[i].blank === true && nav[i].display === true) { %>
-        <li class="nav-item">
-          <a class="nav-link" style="color: #a7acb1;" href="<%- nav[i].url %>" target="_blank"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
-        </li>
-        <% } else if (nav[i].display === true) { %>
-        <li class="nav-item">
-          <a class="nav-link" style="color: #a7acb1;" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
-        </li>
-        <% } %>
-        <% } %>
-        <% if (req.session.typeuser === "Admin") { %>
-          <% if (title === "Admin") { %>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="/admin"><i class="me-2 fa-solid fa-screwdriver-wrench"></i>Admin</a>
-            </li>
-           <% } else { %> 
-            <li class="nav-item">
-              <a class="nav-link" style="color: #a7acb1;" href="/admin"><i class="me-2 fa-solid fa-screwdriver-wrench"></i>Admin</a>
-            </li>
+    <h2 class="btn btn-success m-0">Session active : <%- req.session.username %></h2>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="nav-bar-mobile">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="nav-bar-mobile">Menu</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <% for (let i = 0; i < nav.length; i++) { %>
+                <% if(nav[i].title === title && nav[i].display === true) { %>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+                    </li>
+                <% } else if (nav[i].type_user === req.session.typeuser && nav[i].display === true && nav[i].title === title) { %>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+                    </li>
+                <% } else if (nav[i].type_user === req.session.typeuser && nav[i].display === true) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+                    </li>
+                <% } else if (nav[i].display === true || nav[i].type_user === req.session.typeuser) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+                    </li>
+                <% } %>
             <% } %>
-        <% } %>
-      </ul>
-      <a href="/se-deconnecter" class="btn btn-danger text-center p-3 d-flex justify-content-center"><i class="fa-solid fa-right-from-bracket m-auto"></i></a>
+          </ul>
+          <form method="get" action="/se-deconnecter" class="d-flex mt-3 mt-lg-0">
+            <button type="submit" class="btn btn-danger"><i class="fa-solid fa-right-from-bracket me-2"></i>Se déconnecter</button>
+          </form>
+        </div>
+      </div>
     </div>
   </nav>
 </header>
