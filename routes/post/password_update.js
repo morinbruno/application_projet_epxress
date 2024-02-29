@@ -16,8 +16,6 @@ router.post('/password-update', function (req, res) {
 	let password = req.body.password;
 	let password_repeat = req.body.password_repeat;
 
-	console.log(password, password_repeat)
-
 	if(password.includes(' ') || password.length == 0 || password_repeat.length == 0) {
 		res.redirect('/profil?password_invalid=true')
 

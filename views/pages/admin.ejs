@@ -1,9 +1,75 @@
 <!DOCTYPE html>
 <html lang="fr" data-bs-theme="dark">
-    <%- include('../partials/head') %>
+<%- include('../partials/head') %>
+
 <body>
-    <%- include('../partials/header') %>
-    <div class="erreur"></div>
-    <%- include('../partials/footer') %>
+  <%- include('../partials/header') %>
+  <div class="container mt-4">
+    <div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
+      <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Gestion utilisateur</h1>
+      <div class="table-responsive">
+        <table class="table table-striped border">
+          <thead class="align-middle">
+            <th scope="col">ID</th>
+            <th scope="col">Pseudo</th>
+            <th scope="col">Email</th>
+            <th scope="col">Modifier le mot de passe</th>
+            <th scope="col">Suppression</th>
+          </thead>
+          <tbody>
+            <% if(list_users.length == 0) { %>
+            <div class="alert alert-info mt-3">Aucun utilisateur d'enregistrer</div>
+            <% } else { %>
+            <% for(let i=0; i < list_users.length; i++) { %>
+            <tr class="align-middle">
+              <td><%- list_users[i]['id_user'] %></td>
+              <td><%- list_users[i]['user'] %></td>
+              <td><%- list_users[i]['email'] ? list_users[i]['email'] : "Aucun email" %></td>
+              <td style="width: 500px;">
+                <form class="d-flex gap-3 align-items-center" style="width: 500px;" action="" method="">
+                  <div>
+                    <input class="form-control" type="password" name="password" placeholder="Nouveau">
+                  </div>
+                  <div>
+                    <input class="form-control" type="password" name="repeat-password" placeholder="Répéter">
+                  </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                  </div>
+                </form>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-user" id="button-delete-user">Supprimer</button>
+                <!-- Modal -->
+                <div class="modal fade" id="modal-delete-user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-warning me-3"></i>Avertissement</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        Êtes-vous sûr de vouloir supprimer ce compte ?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <form method="post" action="/delete-user">
+                          <button class="btn btn-danger" name="id_user" value="<%- list_users[i]['id_user'] %>"><i class="fa-solid fa-trash me-3"></i>Supprimer</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <% } %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%- include('../partials/footer') %>
 </body>
+
 </html>

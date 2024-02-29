@@ -35,6 +35,10 @@ router.post('/creer-compte', function (req, res) {
 		} else {
 			res.redirect('/creer-compte?mdp_short=true')
 		}
+	} else if (pseudo.includes(' ') || pseudo.includes('@')) {
+		res.redirect('/creer-compte?pseudo_invalid=true')
+	} else if (password.includes(' ')) {
+		res.redirect('/creer-compte?mdp_invalid=true')
 	} else {
 		connection.query(sql, [email, pseudo], function (erreur, resultat) {
 			let result_email = resultat[0];
@@ -55,12 +59,8 @@ router.post('/creer-compte', function (req, res) {
 					return false
 				}
 			})
-
-			if (pseudo.includes(' ')) {
-				res.redirect('/creer-compte?pseudo_invalid=true')
-			} else if (password.includes(' ')) {
-				res.redirect('/creer-compte?mdp_invalid=true')
-			} else if (resultat[0].length == 0 && resultat[1].length == 0) {
+			
+			if (resultat[0].length == 0 && resultat[1].length == 0) {
 				let sql = "INSERT INTO users values(DEFAULT, ?, ?, ?, 2);";
 
 				connection.query(sql, [pseudo, email, password], function (erreur, resultat) {

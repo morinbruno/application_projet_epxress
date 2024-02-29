@@ -30,7 +30,7 @@ const password_update = require('./post/password_update')
 router.use('/', password_update)
 
 // Route supprimer utilisateur '/delete-user'
-const delete_user = require('./get/delete_user')
+const delete_user = require('./post/delete_user')
 router.use('/', delete_user)
 
 // Route admin '/admin'
@@ -42,7 +42,7 @@ const se_connecter = require('./post/se_connecter')
 router.use('/', se_connecter)
 
 // Route supprimer produit '/supprimer-produit'
-const supprimer_produit = require('./get/supprimer_produit')
+const supprimer_produit = require('./post/supprimer_produit')
 router.use('/', supprimer_produit)
 
 // Route se deconnecter '/se-deconnecter'

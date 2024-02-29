@@ -81,8 +81,8 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <form method="get" action="/delete-user">
-                  <button class="btn btn-danger"><i class="fa-solid fa-trash me-3"></i>Supprimer</button>
+                <form method="post" action="/delete-user">
+                  <button class="btn btn-danger" value="<%- req.session.id_user %>" name="id_user"><i class="fa-solid fa-trash me-3"></i>Supprimer</button>
                 </form>
               </div>
             </div>
