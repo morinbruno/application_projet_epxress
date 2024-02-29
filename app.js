@@ -29,7 +29,6 @@ app.use(express.urlencoded({ extended: false }));
 
 
 // Importation des routes
-
 const routes = require('./routes/routes');
 app.use('/', routes);
 
