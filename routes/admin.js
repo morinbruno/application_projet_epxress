@@ -87,10 +87,11 @@ router.post('/admin', function (req, res) {
 
 	let sql = `SELECT * FROM users JOIN typeuser 
 	ON users.typeAccount=typeuser.id_typeUser 
-	WHERE typeuser.name_typeUser='Utilisateur' AND (users.user like '%${username_search}%' OR users.email like '%${username_search}%
-	ORDER BY users.user')`
+	WHERE typeuser.name_typeUser='Utilisateur' AND users.user like '%${username_search}%' OR users.email like '%${username_search}%'
+	ORDER BY users.user'`
 
 	connection.query(sql, function (erreur, resultat) {
+		console.log(resultat)
 		let list_users = resultat;
 		res.render('pages/admin', {
 			title: "Admin",

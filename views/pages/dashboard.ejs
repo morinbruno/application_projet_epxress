@@ -40,9 +40,10 @@
               <option selected>Choississez la catégorie</option>
               <% for(i = 0; i < list_categorie.length; i++){ %>
               <option value="<%- list_categorie[i]['code_categorie'] %>"><%- list_categorie[i]['nom_categorie'] %></option>
-              <% }} %>
+              <% } %>
+              <% } %>
             </select>
-            <label for="floatingSelect">Catégorie</label>
+            <label for="categorie">Catégorie</label>
           </div>
           <!-- Date d'achat -->
           <div class="form-floating p-0 col-md-3">
@@ -63,9 +64,10 @@
               <option selected>Choississez le magasin</option>
               <% for(i = 0; i < list_magasin.length; i++){ %>
               <option value="<%- list_magasin[i]['id_magasin'] %>"><%- list_magasin[i]['nom_magasin'] %></option>
-              <% }} %>
+              <% } %>
+              <% } %>
             </select>
-            <label for="floatingSelect">Magasin</label>
+            <label for="magasin">Magasin</label>
           </div>
           <!-- Ville du magasin -->
           <div class="form-floating p-0 col-md-3">
@@ -76,9 +78,10 @@
               <option selected>Choississez la ville</option>
               <% for(i = 0; i < list_localite.length; i++){ %>
               <option value="<%- list_localite[i]['code_postal'] %>"><%- list_localite[i]['nom_localite'] %></option>
-              <% }} %>
+              <% } %>
+              <% } %>
             </select>
-            <label for="floatingSelect">Ville</label>
+            <label for="localite">Ville</label>
           </div>
         </div>
         <!-- Bouton d'ajout du produit -->
@@ -100,17 +103,19 @@
       <div class="table-responsive">
         <table class="table table-striped border">
           <thead class="align-middle">
-            <th scope="col">Produit</th>
-            <th scope="col">Quantité</th>
-            <th scope="col">Magasin</th>
-            <th scope="col">Date d'achat</th>
-            <th scope="col">Date d'expiration</th>
-            <th scope="col">Etat du produit</th>
-            <th scope="col">Actions</th>
+            <tr>
+              <th scope="col">Produit</th>
+              <th scope="col">Quantité</th>
+              <th scope="col">Magasin</th>
+              <th scope="col">Date d'achat</th>
+              <th scope="col">Date d'expiration</th>
+              <th scope="col">Etat du produit</th>
+              <th scope="col">Actions</th>
+            </tr>
           </thead>
           <tbody>
-            <form>
             <% for(let i = 0; i < list_produit.length; i++){ %>
+            <form>
             <tr class="align-middle">
                 <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- list_produit[i]['nom_categorie'] %>"><%- list_produit[i]['nom_produit'] %></span></td>
                 <td><%- list_produit[i]['quantite'] %></td>
