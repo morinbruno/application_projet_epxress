@@ -34,7 +34,7 @@ router.get('/admin', function (req, res) {
 
 		let sql = `SELECT * FROM users JOIN typeuser 
 		           ON users.typeAccount=typeuser.id_typeUser 
-				   WHERE typeuser.name_typeUser='Utilisateur'`
+				   WHERE typeuser.name_typeUser='Utilisateur' ORDER BY users.user`
 
 		connection.query(sql, function (erreur, resultat) {
 			let list_users = resultat;
@@ -87,7 +87,8 @@ router.post('/admin', function (req, res) {
 
 	let sql = `SELECT * FROM users JOIN typeuser 
 	ON users.typeAccount=typeuser.id_typeUser 
-	WHERE typeuser.name_typeUser='Utilisateur' AND (users.user like '%${username_search}%' OR users.email like '%${username_search}%')`
+	WHERE typeuser.name_typeUser='Utilisateur' AND (users.user like '%${username_search}%' OR users.email like '%${username_search}%
+	ORDER BY users.user')`
 
 	connection.query(sql, function (erreur, resultat) {
 		let list_users = resultat;

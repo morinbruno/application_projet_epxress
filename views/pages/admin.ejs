@@ -9,9 +9,9 @@
 
       <!-- Création d'utilisateur -->
       <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-user-plus fs-2 me-3"></i>Créer un utilisateur</h1>
-      <form class="form-floating row m-0 mb-4 gx-3 gy-3" method="post" action="/creer-compte">
+      <form class="form-floating row m-0 mb-4 gap-3" method="post" action="/creer-compte">
           <!-- Pseudo -->
-          <div class="col-sm">
+          <div class="col-sm p-0">
             <div class="input-group has-validation">
               <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
               <div class="form-floating <%- pseudo_exist || pseudo_invalid || pseudo_short || pseudo_long ? "is-invalid" : "" %>">
@@ -32,7 +32,7 @@
             </div>
           </div>
           <!-- Mot de passe -->
-          <div class="col-sm">
+          <div class="col-sm p-0">
             <div class="input-group has-validation">
               <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
               <div class="form-floating <%- mdp_short || mdp_long || mdp_invalid ? "is-invalid" : "" %>">
@@ -51,7 +51,7 @@
             </div>
           </div>
         <!-- Email -->
-        <div class="col-sm">
+        <div class="col-sm p-0">
           <div class="input-group has-validation">
             <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
             <div class="form-floating <%= email_exist ? "is-invalid" : "" %>">
@@ -65,19 +65,19 @@
             </div>
           </div>
         </div>
-        <div class="form-text mb-3 p-0">
+        <div class="form-text p-0">
           Pseudo/Mot de passe égal ou compris entre 3 à 20 caractères.
         </div>
         <button type="submit" class="btn btn-primary col-auto">Ajouter un utilisateur</button>
       </form>
 
       <!-- Gestion utilisateur -->
-      <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-3 border-bottom pb-3 align-items-end">
-        <div class="">
+      <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-3 border-bottom pb-3 m-0 align-items-end">
+        <div class="p-0">
           <h1 class="m-0"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Gestion utilisateur</h1>
         </div>
         <!-- Barre de recherche -->
-        <div>
+        <div class="p-0">
           <% if(list_users.length != 0 || username_search) { %>
             <form class="row row-cols-lg-auto" method="post" action="/admin">
               <div class="col-sm">
@@ -186,6 +186,11 @@
           </tbody>
         </table>
       </div>
+    </div>
+    <div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
+      <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-city fs-2 me-3"></i>Gestion localité</h1>
+      <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-shop fs-2 me-3"></i>Gestion magasin</h1>
+      <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-list fs-2 me-3"></i>Gestion catégorie</h1>
     </div>
   </div>
   <%- include('../partials/footer') %>
