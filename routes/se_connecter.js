@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2');
-const db_connect = require('../../settings/db_connection.json');
+const db_connect = require('../settings/db_connection.json');
 
 // Création d'une connexion à la base de données
 const connection = mysql.createConnection({

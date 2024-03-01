@@ -9,9 +9,9 @@
 
       <!-- Création d'utilisateur -->
       <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-user-plus fs-2 me-3"></i>Créer un utilisateur</h1>
-      <form class="form-floating row m-0 mb-4" method="post" action="/creer-compte">
+      <form class="form-floating row m-0 mb-4 gx-3 gy-3" method="post" action="/creer-compte">
           <!-- Pseudo -->
-          <div class="col-sm ps-0">
+          <div class="col-sm">
             <div class="input-group has-validation">
               <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
               <div class="form-floating <%- pseudo_exist || pseudo_invalid || pseudo_short || pseudo_long ? "is-invalid" : "" %>">
@@ -51,7 +51,7 @@
             </div>
           </div>
         <!-- Email -->
-        <div class="col-sm pe-0">
+        <div class="col-sm">
           <div class="input-group has-validation">
             <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
             <div class="form-floating <%= email_exist ? "is-invalid" : "" %>">
@@ -72,8 +72,28 @@
       </form>
 
       <!-- Gestion utilisateur -->
-      <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Gestion utilisateur</h1>
-      <% if(list_users.length == 0) { %>
+      <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-3 border-bottom pb-3 align-items-end">
+        <div class="">
+          <h1 class="m-0"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Gestion utilisateur</h1>
+        </div>
+        <!-- Barre de recherche -->
+        <div>
+          <% if(list_users.length != 0 || username_search) { %>
+            <form class="row row-cols-lg-auto" method="post" action="/admin">
+              <div class="col-sm">
+                <div class="input-group">
+                  <input type="search" class="form-control" id="username_search" name="username_search" placeholder="Rechercher..." value="<%- username_search %>">
+                  <button class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+              </div>
+            </form>
+            <% } %>
+        </div>
+      </div>
+      <!-- Tableau -->
+      <% if (username_search && list_users.length == 0) { %>
+        <div class="alert alert-info mt-3">Aucun utilisateur trouvé (<%-username_search %>)</div>
+      <% } else if(list_users.length == 0) { %>
         <div class="alert alert-info mt-3">Aucun utilisateur d'enregistrer</div>
         <% } else { %>
       <div class="table-responsive">

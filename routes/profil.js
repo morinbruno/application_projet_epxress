@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const nav = require('../../settings/nav_bar.json');
+const nav = require('../settings/nav_bar.json');
 
 router.get('/profil', function (req, res) {
 	let password_invalid = req.query.password_invalid;
