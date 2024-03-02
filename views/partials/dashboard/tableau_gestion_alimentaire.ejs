@@ -1,0 +1,70 @@
+<div class="container mb-5 shadow rounded border p-3 bg-light-subtle">
+    <h1 class="mb-1"><i class="fa-solid fa-pen me-3 fs-2"></i>Tableau des produits</h1>
+    <h5 class="text-opacity-75 mb-3 border-bottom pb-3"><%- list_produit.length %> produit<%- list_produit.length > 1 ? "s" : "" %> dans votre liste</h5>
+    <% if (list_produit == undefined || list_produit.length == 0) {%>
+    <div class="alert alert-info mt-3">Votre gestion alimentaire est vide</div>
+    <% } else { %>
+    <div class="table-responsive">
+      <table class="table table-striped border">
+        <thead class="align-middle">
+          <tr>
+            <th scope="col">Produit</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Magasin</th>
+            <th scope="col">Date d'achat</th>
+            <th scope="col">Date d'expiration</th>
+            <th scope="col">Etat du produit</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <% for(let i = 0; i < list_produit.length; i++){ %>
+          <tr class="align-middle">
+              <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- list_produit[i]['nom_categorie'] %>"><%- list_produit[i]['nom_produit'] %></span></td>
+              <td><%- list_produit[i]['quantite'] %></td>
+              <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- list_produit[i]['nom_localite'] %>"><%- list_produit[i]['nom_magasin'] %></span></td>
+              <td><%- date_local(list_produit[i]['date_achat']) %></td>
+              <td><%- date_local(list_produit[i]['date_expiration']) %></td>
+              <td><%- date_peremption_etat(list_produit[i]['date_expiration']) %></td>
+              <td>
+                <div class="d-flex gap-2">
+                  <!-- Modifier un produit -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-modify-food-<%- list_produit[i]['id_produit'] %>" id="button-modify-food-<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-pen"></i></button>
+                  <div class="modal fade" id="modal-modify-food-<%- list_produit[i]['id_produit'] %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-bell me-3"></i>Notification</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Cette fonctionnalité n'est pas encore ajouter.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <script>
+                    const modal_modify_food = document.getElementById('#modal-modify-food')
+                    const button_modify_food = document.getElementById('button-modify-food')
+              
+                    modal_modify_food.addEventListener('shown.bs.modal', () => {
+                      button_modify_food.focus()
+                    })
+                  </script>
+                  
+                  <!-- Supprimer un produit -->
+                  <form method="post" action="/supprimer-produit" id="form-delete-food-<%- list_produit[i]['id_produit'] %>">
+                    <button form="form-delete-food-<%- list_produit[i]['id_produit'] %>" class="btn btn-danger" name="id" value="<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-trash"></i></button>
+                  </form>
+                </div>
+              </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <% } %>
+  </div>
