@@ -34,7 +34,7 @@ router.get('/admin', function (req, res) {
 
 		let sql = `SELECT * FROM users JOIN typeuser 
 		           ON users.typeAccount=typeuser.id_typeUser 
-				   WHERE typeuser.name_typeUser='Utilisateur' ORDER BY users.user`
+				   ORDER BY users.user`
 
 		connection.query(sql, function (erreur, resultat) {
 			let list_users = resultat;
@@ -84,37 +84,42 @@ router.post('/admin', function (req, res) {
 	let pseudo_long = req.query.pseudo_long;
 
 	let username_search = req.body.username_search;
-
+	
 	let sql = `SELECT * FROM users JOIN typeuser 
 	ON users.typeAccount=typeuser.id_typeUser 
-	WHERE typeuser.name_typeUser='Utilisateur' AND users.user like '%${username_search}%' OR users.email like '%${username_search}%'
-	ORDER BY users.user'`
+	WHERE users.user like '%${username_search}%' OR users.email like '%${username_search}%' OR typeuser.name_typeUser like '%${username_search}%'
+	ORDER BY users.user;`
 
-	connection.query(sql, function (erreur, resultat) {
-		console.log(resultat)
-		let list_users = resultat;
-		res.render('pages/admin', {
-			title: "Admin",
-			nav,
-			list_users,
-			password_update_success,
-			id_user,
-			password_different,
-			password_short,
-			password_long,
-			password_invalid,
-			pseudo_exist,
-			email_exist,
-			pseudo_invalid,
-			mdp_invalid,
-			mdp_short,
-			mdp_long,
-			pseudo_short,
-			pseudo_long,
-			username_search,
-			req
+	if(username_search) {
+		connection.query(sql, function (erreur, resultat) {
+			let list_users = resultat;
+			
+			res.render('pages/admin', {
+				title: "Admin",
+				nav,
+				list_users,
+				password_update_success,
+				id_user,
+				password_different,
+				password_short,
+				password_long,
+				password_invalid,
+				pseudo_exist,
+				email_exist,
+				pseudo_invalid,
+				mdp_invalid,
+				mdp_short,
+				mdp_long,
+				pseudo_short,
+				pseudo_long,
+				username_search,
+				req
+			})
 		})
-	})
+	} else {
+		res.redirect('/admin')
+	}
+	
 })
 
 module.exports = router;
