@@ -1,5 +1,64 @@
 <div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
-    <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-city fs-2 me-3"></i>Gestion localité</h1>
-    <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-shop fs-2 me-3"></i>Gestion magasin</h1>
-    <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-list fs-2 me-3"></i>Gestion catégorie</h1>
+    <div class="mb-3">
+        <h1 class="mb-1"><i class="fa-solid fa-city fs-2 me-3"></i>Gestion localité</h1>
+        <h5 class="text-opacity-75 mb-3 border-bottom pb-3"><%- list_localite.length %> localite<%- list_localite.length > 1 ? "s" : "" %> répertoriées</h5>
+        <div class="table-responsive">
+            <table class="table table-striped border">
+                <thead>
+                    <tr>
+                        <th scope="col">Code postal</th>
+                        <th scope="col">Ville</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <% for(let i=0; i < list_localite.length; i++) { %>
+                        <tr>
+                            <td><%- list_localite[i]['code_postal'] %></td>
+                            <td><%- list_localite[i]['nom_localite'] %></td>
+                        </tr>
+                     <% } %>   
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mb-3">
+        <h1 class="mb-1"><i class="fa-solid fa-shop fs-2 me-3"></i>Gestion magasin</h1>
+        <h5 class="text-opacity-75 mb-3 border-bottom pb-3"><%- list_magasins.length %> magasin<%- list_magasins.length > 1 ? "s" : "" %> répertoriés</h5>
+        <div class="table-responsive">
+            <table class="table table-striped border">
+                <thead>
+                    <tr>
+                        <th scope="col">Magasin</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <% for(let i=0; i < list_magasins.length; i++) { %>
+                        <tr>
+                            <td><%- list_magasins[i]['nom_magasin'] %></td>
+                        </tr>
+                     <% } %>   
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <h1 class="mb-1"><i class="fa-solid fa-list fs-2 me-3"></i>Gestion catégorie</h1>
+        <h5 class="text-opacity-75 mb-3 border-bottom pb-3"><%- list_categories.length %> catégories<%- list_categories.length > 1 ? "s" : "" %> répertoriées</h5>
+        <div class="table-responsive">
+            <table class="table table-striped border">
+                <thead>
+                    <tr>
+                        <th scope="col">Catégorie</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <% for(let i=0; i < list_categories.length; i++) { %>
+                        <tr>
+                            <td><%- list_categories[i]['nom_categorie'] %></td>
+                        </tr>
+                     <% } %>   
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

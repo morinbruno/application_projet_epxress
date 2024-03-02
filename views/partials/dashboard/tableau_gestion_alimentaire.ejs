@@ -1,6 +1,19 @@
 <div class="container mb-5 shadow rounded border p-3 bg-light-subtle">
-    <h1 class="mb-1"><i class="fa-solid fa-pen me-3 fs-2"></i>Tableau des produits</h1>
-    <h5 class="text-opacity-75 mb-3 border-bottom pb-3"><%- list_produit.length %> produit<%- list_produit.length > 1 ? "s" : "" %> dans votre liste</h5>
+    <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-3 border-bottom pb-3 m-0 align-items-end">
+      <div class="p-0">
+        <h1 class="mb-1"><i class="fa-solid fa-pen me-3 fs-2"></i>Tableau des produits</h1>
+      <h5 class="text-opacity-75"><%- list_produit.length %> produit<%- list_produit.length > 1 ? "s" : "" %> dans votre liste</h5>
+      </div>
+      <!-- Filtre -->
+      <div class="p-0">
+        <% if(list_produit.length !=0) { %>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+          <i class="fa-solid fa-filter me-2"></i>Filtre
+        </button>
+        <% } %>
+      </div>
+    </div>
+    <!-- Tableau de gestion alimentaire -->
     <% if (list_produit == undefined || list_produit.length == 0) {%>
     <div class="alert alert-info mt-3">Votre gestion alimentaire est vide</div>
     <% } else { %>

@@ -34,14 +34,25 @@ router.get('/admin', function (req, res) {
 
 		let sql = `SELECT * FROM users JOIN typeuser 
 		           ON users.typeAccount=typeuser.id_typeUser 
-				   ORDER BY users.user`
+				   ORDER BY users.user;
+
+				   SELECT * FROM categories;
+				   SELECT * FROM magasins;
+				   SELECT * FROM localite;`
 
 		connection.query(sql, function (erreur, resultat) {
-			let list_users = resultat;
+			let list_users = resultat[0];
+			let list_categories = resultat[1];
+			let list_magasins = resultat[2];
+			let list_localite = resultat[3];
+
 			res.render('pages/admin', {
 				title: "Admin",
 				nav,
 				list_users,
+				list_categories,
+				list_magasins,
+				list_localite,
 				password_update_success,
 				id_user,
 				password_different,
@@ -88,16 +99,25 @@ router.post('/admin', function (req, res) {
 	let sql = `SELECT * FROM users JOIN typeuser 
 	ON users.typeAccount=typeuser.id_typeUser 
 	WHERE users.user like '%${username_search}%' OR users.email like '%${username_search}%' OR typeuser.name_typeUser like '%${username_search}%'
-	ORDER BY users.user;`
+	ORDER BY users.user;
+	
+	SELECT * FROM categories;
+	SELECT * FROM magasins;
+	SELECT * FROM localite;`
 
 	if(username_search) {
 		connection.query(sql, function (erreur, resultat) {
-			let list_users = resultat;
-			
+			let list_users = resultat[0];
+			let list_categories = resultat[1];
+			let list_magasins = resultat[2];
+			let list_localite = resultat[3];
 			res.render('pages/admin', {
 				title: "Admin",
 				nav,
 				list_users,
+				list_categories,
+				list_magasins,
+				list_localite,
 				password_update_success,
 				id_user,
 				password_different,

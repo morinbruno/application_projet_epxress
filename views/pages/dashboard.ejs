@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr" data-bs-theme="dark">
-<!-- Début du Head -->
+<!-- Head -->
 <%- include('../partials/head') %>
-<!-- Fin du Head -->
 
 <body>
   <!-- Header -->
   <%- include('../partials/header') %>
-  <!-- Header -->
+  <!-- Liste des filtres -->
+  <%- include('../partials/dashboard/filtres_produit') %>
   <div class="container mt-4">
     <!-- Ajout d'un produit -->
     <%- include('../partials/dashboard/ajouter_produit') %>
@@ -16,7 +16,6 @@
   </div>
   <!-- Footer -->
   <%- include('../partials/footer') %>
-  <!-- Footer -->
   <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
