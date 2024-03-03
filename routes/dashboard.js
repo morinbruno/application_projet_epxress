@@ -35,9 +35,7 @@ function date_peremption_etat(date) {
 
 // Route
 router.get('/dashboard', function (req, res, next) {
-    let sql = `SELECT produits.nom_produit, produits_acheter.quantite, 
-	magasins.nom_magasin, produits_acheter.date_achat, produits_acheter.date_expiration, produits.id_produit, 
-	localite.nom_localite, categories.nom_categorie FROM users JOIN produits_acheter 
+    let sql = `SELECT * FROM users JOIN produits_acheter 
 	ON users.id_user=produits_acheter.id_user JOIN produits 
 	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
 	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
@@ -45,6 +43,15 @@ router.get('/dashboard', function (req, res, next) {
 	ON magasins_produits.code_postal=localite.code_postal JOIN categories
 	ON produits.code_categorie=categories.code_categorie
 	WHERE produits_acheter.id_user = ? ORDER BY produits.nom_produit;
+
+	SELECT * FROM users JOIN produits_acheter 
+	ON users.id_user=produits_acheter.id_user JOIN produits 
+	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+	ON magasins_produits.code_postal=localite.code_postal JOIN categories
+	ON produits.code_categorie=categories.code_categorie
+	WHERE produits_acheter.id_user = ${req.session.id_user};
 
 	SELECT * FROM categories ORDER BY nom_categorie;
 
@@ -66,17 +73,128 @@ router.get('/dashboard', function (req, res, next) {
                 date_local_reverse,
                 date_peremption_etat,
                 list_produit: resultat[0],
-                list_categorie: resultat[1],
-                list_magasin: resultat[2],
-                list_localite: resultat[3],
+				list_produit_user: resultat[1],
+                list_categorie: resultat[2],
+                list_magasin: resultat[3],
+                list_localite: resultat[4],
 				produit_manquant,
 				quantite_invalid,
+				filtre_categorie: [],
+				filtre_localite: [],
+				filtre_magasin: [],
                 req
             });
         } else {
             res.redirect('/');
         }
     });
+});
+
+router.post('/dashboard/filtre', function (req, res, next) {
+        if (req.session.loggedin) {
+			let sql_filtre_magasin = req.body.filtre_magasin ?? "''";
+			let sql_filtre_localite = req.body.filtre_localite ?? "''";
+			let sql_filtre_categorie = req.body.filtre_categorie ?? "''";
+
+			let filtre_categorie = null;
+			let filtre_magasin = null;
+			let filtre_localite = null;
+
+			if(typeof(req.body.filtre_categorie) != "object"){
+				filtre_categorie = [];
+				filtre_categorie.push(req.body.filtre_categorie);
+			}
+			if(typeof(req.body.filtre_magasin) != "object"){
+				filtre_magasin = [];
+				filtre_magasin.push(req.body.filtre_magasin);
+			}
+			if(typeof(req.body.filtre_localite) != "object"){
+				filtre_localite = [];
+				filtre_localite.push(req.body.filtre_localite);
+			}
+			filtre_categorie = req.body.filtre_categorie;
+			filtre_magasin = req.body.filtre_magasin;
+			filtre_localite = req.body.filtre_localite;
+		
+
+			if(typeof(req.body.filtre_magasin) != "object") {
+				sql_filtre_magasin = `'${sql_filtre_magasin}'`
+			} else {
+				sql_filtre_magasin = "'"  + req.body.filtre_magasin.join("','") + "'";
+			}
+
+			if(typeof(req.body.filtre_localite) != "object") {
+				sql_filtre_localite = `'${sql_filtre_localite}'`
+			} else {
+				sql_filtre_localite = "'"  + req.body.filtre_localite.join("','") + "'";
+			}
+
+			if(typeof(req.body.filtre_categorie) != "object") {
+				sql_filtre_categorie = `'${sql_filtre_categorie}'`
+			} else {
+				sql_filtre_categorie = "'"  + req.body.filtre_categorie.join("','") + "'";
+			}
+
+			if (sql_filtre_categorie == "''''" && sql_filtre_localite == "''''" && sql_filtre_magasin == "''''") {
+				res.redirect('/dashboard')
+		    } else {
+				let sql = `SELECT * FROM users JOIN produits_acheter 
+				ON users.id_user=produits_acheter.id_user JOIN produits 
+				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+				ON magasins_produits.code_postal=localite.code_postal JOIN categories
+				ON produits.code_categorie=categories.code_categorie
+				WHERE produits_acheter.id_user = ${req.session.id_user} 
+				AND (magasins.nom_magasin IN (${sql_filtre_magasin})
+				OR categories.nom_categorie IN (${sql_filtre_categorie})
+				OR localite.nom_localite IN (${sql_filtre_localite}))
+				ORDER BY produits.nom_produit;
+
+				SELECT * FROM users JOIN produits_acheter 
+				ON users.id_user=produits_acheter.id_user JOIN produits 
+				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+				ON magasins_produits.code_postal=localite.code_postal JOIN categories
+				ON produits.code_categorie=categories.code_categorie
+				WHERE produits_acheter.id_user = ${req.session.id_user};
+
+				SELECT * FROM categories ORDER BY nom_categorie;
+
+				SELECT * FROM magasins ORDER BY nom_magasin;
+
+				SELECT * FROM localite ORDER BY nom_localite;
+				`;
+				
+				connection.query(sql, function(erreur, resultat) {
+					let quantite_invalid = req.query.quantite_invalid;
+					let produit_manquant = req.query.produit_manquant;
+
+					res.render('pages/dashboard', {
+						title: "Dashboard",
+						nav,
+						resultat,
+						date_local,
+						date_local_reverse,
+						date_peremption_etat,
+						list_produit: resultat[0],
+						list_produit_user: resultat[1],
+						list_categorie: resultat[2],
+						list_magasin: resultat[3],
+						list_localite: resultat[4],
+						produit_manquant,
+						quantite_invalid,
+						filtre_categorie: filtre_categorie ?? [],
+						filtre_localite: filtre_localite ?? [],
+						filtre_magasin: filtre_magasin ?? [],
+						req
+					});
+				})
+			}
+        } else {
+            res.redirect('/');
+        }
 });
 
 module.exports = router;

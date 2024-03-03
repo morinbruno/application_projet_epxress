@@ -17,7 +17,7 @@ router.post('/delete-user', function (req, res) {
     let sql = `SELECT produits_acheter.id_produit FROM produits_acheter JOIN users ON produits_acheter.id_user=users.id_user WHERE produits_acheter.id_user= ?`
 
     connection.query(sql, [id_user, id_user], function(erreur, resultat) {
-        let id_produit_user = new Array();
+        let id_produit_user = [];
         let id_user = req.body.id_user;
         let sql = null;
 

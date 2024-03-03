@@ -6,16 +6,16 @@
       </div>
       <!-- Filtre -->
       <div class="p-0">
-        <% if(list_produit.length !=0) { %>
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-          <i class="fa-solid fa-filter me-2"></i>Filtre
+        <% if(list_produit_user.length !=0) { %>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#filtres" aria-controls="filtres">
+          <i class="fa-solid fa-filter me-2"></i>Filtres
         </button>
         <% } %>
       </div>
     </div>
     <!-- Tableau de gestion alimentaire -->
-    <% if (list_produit == undefined || list_produit.length == 0) {%>
-    <div class="alert alert-info mt-3">Votre gestion alimentaire est vide</div>
+    <% if (list_produit.length == 0) {%>
+      <div class="alert alert-info mt-3">Votre gestion alimentaire est vide</div>
     <% } else { %>
     <div class="table-responsive">
       <table class="table table-striped border">
@@ -43,11 +43,11 @@
                 <div class="d-flex gap-2">
                   <!-- Modifier un produit -->
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-modify-food-<%- list_produit[i]['id_produit'] %>" id="button-modify-food-<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-pen"></i></button>
-                  <div class="modal fade" id="modal-modify-food-<%- list_produit[i]['id_produit'] %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="modal-modify-food-<%- list_produit[i]['id_produit'] %>" tabindex="-1" aria-labelledby="label-modify-food-<%- list_produit[i]['id_produit'] %>" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-bell me-3"></i>Notification</h1>
+                          <h1 class="modal-title fs-5" id="label-modify-food-<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-bell me-3"></i>Notification</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">

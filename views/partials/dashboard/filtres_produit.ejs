@@ -1,16 +1,63 @@
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header border-bottom pb-3">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filtres</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <form>
-            <div class="mb-2">
-
-            </div>
-            <button type="submit" class="btn btn-bd-primary" type="button">
-                Filtrer
-            </button>
-        </form>
-    </div>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="filtres" aria-labelledby="filtresLabel">
+  <div class="offcanvas-header border-bottom pb-3">
+    <h5 class="offcanvas-title" id="filtresLabel">Filtres</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form class="form" method="post" action="/dashboard/filtre">
+      <div class="mb-3 d-flex flex-column gap-3">
+        <!-- Filtre catégorie -->
+        <div class="form-check p-0">
+            <% if (list_produit_user == undefined) { %>
+                Aucune catégorie disponible
+            <% } else { %>
+            <h5 class="h5">Choississez la catégorie</h5>
+            <% for(i=0; i < list_produit_user.length; i++){ %>
+                <div class="form-check">
+                    <input class="form-check-input" name="filtre_categorie" type="checkbox" value="<%- list_produit_user[i]['nom_categorie'] %>" id="categorie-<%- list_produit_user[i]['code_categorie'] %>"<%- filtre_categorie.includes(list_produit_user[i]['nom_categorie']) ? "checked" : "" %>>
+                    <label class="form-check-label" for="categorie-<%- list_produit_user[i]['code_categorie'] %>">
+                      <%- list_produit_user[i]['nom_categorie'] %>
+                    </label>
+                  </div>
+            <% } %>
+            <% } %>
+        </div>
+        <!-- Filtre catégorie -->
+        <div class="form-check p-0">
+            <% if (list_produit_user == undefined) { %>
+                Aucun magasin disponible
+            <% } else { %>
+            <h5>Choississez le magasin</h5>
+            <% for(i=0; i < list_produit_user.length; i++){ %>
+                <div class="form-check">
+                    <input class="form-check-input" name="filtre_magasin" type="checkbox" value="<%- list_produit_user[i]['nom_magasin'] %>" id="magasin-<%- list_produit_user[i]['id_magasin'] %>" <%- filtre_magasin.includes(list_produit_user[i]['nom_magasin']) ? "checked" : "" %>>
+                    <label class="form-check-label" for="magasin-<%- list_produit_user[i]['id_magasin'] %>">
+                      <%- list_produit_user[i]['nom_magasin'] %>
+                    </label>
+                  </div>
+            <% } %>
+            <% } %>
+        </div>
+        <!-- Filtre localité -->
+        <div class="form-check p-0">
+            <% if (list_produit_user == undefined) { %>
+                Aucune localité disponible
+            <% } else { %>
+            <h5>Choississez la localité</h5>
+            <% for(i=0; i < list_produit_user.length; i++){ %>
+                <div class="form-check">
+                    <input class="form-check-input" name="filtre_localite" type="checkbox" value="<%- list_produit_user[i]['nom_localite'] %>" id="localite-<%- list_produit_user[i]['code_postal'] %>" <%- filtre_localite.includes(list_produit_user[i]['nom_localite']) ? "checked" : "" %>>
+                    <label class="form-check-label" for="localite-<%- list_produit_user[i]['code_postal'] %>">
+                      <%- list_produit_user[i]['nom_localite'] %>
+                    </label>
+                  </div>
+            <% } %>
+            <% } %>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-bd-primary">
+        Filtrer
+      </button>
+    </form>
+  </div>
 </div>
