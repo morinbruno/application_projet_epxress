@@ -17,7 +17,7 @@ router.post('/ajouter-element', function (req, res) {
     const ajout_code_postal = req.body.ajout_code_postal;
 
     if(ajout_localite && ajout_code_postal) {
-        let sql = `INSERT INTO localite VALUES(?,?);`
+        let sql = `INSERT INTO localite VALUES(?,?);`;
 
         connection.query(sql, [ajout_code_postal,ajout_localite], function(erreur, resultat){
             res.redirect('/admin?ajout_localite=success')
