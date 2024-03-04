@@ -53,6 +53,33 @@ router.get('/dashboard', function (req, res, next) {
 	ON produits.code_categorie=categories.code_categorie
 	WHERE produits_acheter.id_user = ${req.session.id_user};
 
+	SELECT DISTINCT categories.code_categorie, categories.nom_categorie FROM users JOIN produits_acheter 
+	ON users.id_user=produits_acheter.id_user JOIN produits 
+	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+	ON magasins_produits.code_postal=localite.code_postal JOIN categories
+	ON produits.code_categorie=categories.code_categorie
+	WHERE produits_acheter.id_user = ${req.session.id_user};
+
+	SELECT DISTINCT magasins.id_magasin, magasins.nom_magasin FROM users JOIN produits_acheter 
+	ON users.id_user=produits_acheter.id_user JOIN produits 
+	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+	ON magasins_produits.code_postal=localite.code_postal JOIN categories
+	ON produits.code_categorie=categories.code_categorie
+	WHERE produits_acheter.id_user = ${req.session.id_user};
+
+	SELECT DISTINCT localite.code_postal, localite.nom_localite FROM users JOIN produits_acheter 
+	ON users.id_user=produits_acheter.id_user JOIN produits 
+	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+	ON magasins_produits.code_postal=localite.code_postal JOIN categories
+	ON produits.code_categorie=categories.code_categorie
+	WHERE produits_acheter.id_user = ${req.session.id_user};
+
 	SELECT * FROM categories ORDER BY nom_categorie;
 
 	SELECT * FROM magasins ORDER BY nom_magasin;
@@ -74,9 +101,12 @@ router.get('/dashboard', function (req, res, next) {
                 date_peremption_etat,
                 list_produit: resultat[0],
 				list_produit_user: resultat[1],
-                list_categorie: resultat[2],
-                list_magasin: resultat[3],
-                list_localite: resultat[4],
+				list_categorie_user: resultat[2],
+				list_magasin_user: resultat[3],
+				list_localite_user: resultat[4],
+                list_categorie: resultat[5],
+                list_magasin: resultat[6],
+                list_localite: resultat[7],
 				produit_manquant,
 				quantite_invalid,
 				filtre_categorie: [],
@@ -160,6 +190,33 @@ router.post('/dashboard/filtre', function (req, res, next) {
 				ON produits.code_categorie=categories.code_categorie
 				WHERE produits_acheter.id_user = ${req.session.id_user};
 
+				SELECT DISTINCT categories.code_categorie, categories.nom_categorie FROM users JOIN produits_acheter 
+				ON users.id_user=produits_acheter.id_user JOIN produits 
+				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+				ON magasins_produits.code_postal=localite.code_postal JOIN categories
+				ON produits.code_categorie=categories.code_categorie
+				WHERE produits_acheter.id_user = ${req.session.id_user};
+
+				SELECT DISTINCT magasins.id_magasin, magasins.nom_magasin FROM users JOIN produits_acheter 
+				ON users.id_user=produits_acheter.id_user JOIN produits 
+				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+				ON magasins_produits.code_postal=localite.code_postal JOIN categories
+				ON produits.code_categorie=categories.code_categorie
+				WHERE produits_acheter.id_user = ${req.session.id_user};
+
+				SELECT DISTINCT localite.code_postal, localite.nom_localite FROM users JOIN produits_acheter 
+				ON users.id_user=produits_acheter.id_user JOIN produits 
+				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
+				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
+				ON magasins_produits.code_postal=localite.code_postal JOIN categories
+				ON produits.code_categorie=categories.code_categorie
+				WHERE produits_acheter.id_user = ${req.session.id_user};
+
 				SELECT * FROM categories ORDER BY nom_categorie;
 
 				SELECT * FROM magasins ORDER BY nom_magasin;
@@ -180,9 +237,12 @@ router.post('/dashboard/filtre', function (req, res, next) {
 						date_peremption_etat,
 						list_produit: resultat[0],
 						list_produit_user: resultat[1],
-						list_categorie: resultat[2],
-						list_magasin: resultat[3],
-						list_localite: resultat[4],
+						list_categorie_user: resultat[2],
+						list_magasin_user: resultat[3],
+						list_localite_user: resultat[4],
+						list_categorie: resultat[5],
+						list_magasin: resultat[6],
+						list_localite: resultat[7],
 						produit_manquant,
 						quantite_invalid,
 						filtre_categorie: filtre_categorie ?? [],

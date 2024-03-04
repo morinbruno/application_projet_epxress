@@ -9,31 +9,31 @@
       <div class="mb-3 d-flex flex-column gap-3">
         <!-- Filtre catégorie -->
         <div class="form-check p-0">
-            <% if (list_produit_user == undefined) { %>
+            <% if (list_categorie_user == undefined) { %>
                 Aucune catégorie disponible
             <% } else { %>
             <h5 class="h5">Choississez la catégorie</h5>
-            <% for(i=0; i < list_produit_user.length; i++){ %>
+            <% for(i=0; i < list_categorie_user.length; i++){ %>
                 <div class="form-check">
-                    <input class="form-check-input" name="filtre_categorie" type="checkbox" value="<%- list_produit_user[i]['nom_categorie'] %>" id="categorie-<%- list_produit_user[i]['code_categorie'] %>"<%- filtre_categorie.includes(list_produit_user[i]['nom_categorie']) ? "checked" : "" %>>
-                    <label class="form-check-label" for="categorie-<%- list_produit_user[i]['code_categorie'] %>">
-                      <%- list_produit_user[i]['nom_categorie'] %>
+                    <input class="form-check-input" name="filtre_categorie" type="checkbox" value="<%- list_categorie_user[i]['nom_categorie'] %>" id="categorie-<%- list_categorie_user[i]['code_categorie'] %>"<%- filtre_categorie.includes(list_categorie_user[i]['nom_categorie']) ? "checked" : "" %>>
+                    <label class="form-check-label" for="categorie-<%- list_categorie_user[i]['code_categorie'] %>">
+                      <%- list_categorie_user[i]['nom_categorie'] %>
                     </label>
                   </div>
             <% } %>
             <% } %>
         </div>
-        <!-- Filtre catégorie -->
+        <!-- Filtre magasin -->
         <div class="form-check p-0">
-            <% if (list_produit_user == undefined) { %>
+            <% if (list_magasin_user == undefined) { %>
                 Aucun magasin disponible
             <% } else { %>
             <h5>Choississez le magasin</h5>
-            <% for(i=0; i < list_produit_user.length; i++){ %>
+            <% for(i=0; i < list_magasin_user.length; i++){ %>
                 <div class="form-check">
-                    <input class="form-check-input" name="filtre_magasin" type="checkbox" value="<%- list_produit_user[i]['nom_magasin'] %>" id="magasin-<%- list_produit_user[i]['id_magasin'] %>" <%- filtre_magasin.includes(list_produit_user[i]['nom_magasin']) ? "checked" : "" %>>
-                    <label class="form-check-label" for="magasin-<%- list_produit_user[i]['id_magasin'] %>">
-                      <%- list_produit_user[i]['nom_magasin'] %>
+                    <input class="form-check-input" name="filtre_magasin" type="checkbox" value="<%- list_magasin_user[i]['nom_magasin'] %>" id="magasin-<%- list_magasin_user[i]['id_magasin'] %>" <%- filtre_magasin.includes(list_magasin_user[i]['nom_magasin']) ? "checked" : "" %>>
+                    <label class="form-check-label" for="magasin-<%- list_magasin_user[i]['id_magasin'] %>">
+                      <%- list_magasin_user[i]['nom_magasin'] %>
                     </label>
                   </div>
             <% } %>
@@ -41,15 +41,15 @@
         </div>
         <!-- Filtre localité -->
         <div class="form-check p-0">
-            <% if (list_produit_user == undefined) { %>
+            <% if (list_localite_user == undefined) { %>
                 Aucune localité disponible
             <% } else { %>
             <h5>Choississez la localité</h5>
-            <% for(i=0; i < list_produit_user.length; i++){ %>
+            <% for(i=0; i < list_localite_user.length; i++){ %>
                 <div class="form-check">
-                    <input class="form-check-input" name="filtre_localite" type="checkbox" value="<%- list_produit_user[i]['nom_localite'] %>" id="localite-<%- list_produit_user[i]['code_postal'] %>" <%- filtre_localite.includes(list_produit_user[i]['nom_localite']) ? "checked" : "" %>>
-                    <label class="form-check-label" for="localite-<%- list_produit_user[i]['code_postal'] %>">
-                      <%- list_produit_user[i]['nom_localite'] %>
+                    <input class="form-check-input" name="filtre_localite" type="checkbox" value="<%- list_localite_user[i]['nom_localite'] %>" id="localite-<%- list_localite_user[i]['code_postal'] %>" <%- filtre_localite.includes(list_localite_user[i]['nom_localite']) ? "checked" : "" %>>
+                    <label class="form-check-label" for="localite-<%- list_localite_user[i]['code_postal'] %>">
+                      <%- list_localite_user[i]['nom_localite'] %>
                     </label>
                   </div>
             <% } %>
