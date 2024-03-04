@@ -4,17 +4,14 @@
 <%- include('../partials/head') %>
 
 <body>
-  <!-- Header -->
   <%- include('../partials/header') %>
-  <!-- Liste des filtres -->
+  <% if(list_produit.length != 0){ %>
   <%- include('../partials/dashboard/filtres_produit') %>
+  <% } %>
   <div class="container mt-4">
-    <!-- Ajout d'un produit -->
     <%- include('../partials/dashboard/ajouter_produit') %>
-    <!-- Gestionnaire des produits -->
     <%- include('../partials/dashboard/tableau_gestion_alimentaire') %>
   </div>
-  <!-- Footer -->
   <%- include('../partials/footer') %>
   <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

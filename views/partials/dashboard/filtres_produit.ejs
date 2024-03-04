@@ -1,3 +1,4 @@
+<!-- Liste des filtres -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="filtres" aria-labelledby="filtresLabel">
   <div class="offcanvas-header border-bottom pb-3">
     <h5 class="offcanvas-title" id="filtresLabel">Filtres</h5>
@@ -55,9 +56,14 @@
             <% } %>
         </div>
       </div>
-      <button type="submit" class="btn btn-bd-primary">
-        Filtrer
-      </button>
+      <div class="d-flex gap-3 justify-content-between">
+        <button type="submit" class="btn btn-primary">
+          Filtrer
+        </button>
+        <a href="/dashboard" class="btn btn-outline-primary">
+          Réinitialiser
+        </a>
+      </div>
     </form>
   </div>
 </div>

@@ -1,3 +1,4 @@
+<!-- Header -->
 <header class="shadow border-bottom px-lg-4 py-2 bg-body-tertiary">
   <nav class="navbar navbar-expand-lg" aria-label="Offcanvas navbar large">
     <div class="container-fluid">
@@ -20,7 +21,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
                     </li>
-                    
                 <% } else if (nav[i].type_user == req.session.typeuser && nav[i].display == true && nav[i].title == title) { %>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>

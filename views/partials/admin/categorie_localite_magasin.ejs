@@ -1,64 +1,159 @@
 <div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
-    <div class="mb-3">
-        <h1 class="mb-1"><i class="fa-solid fa-city fs-2 me-3"></i>Gestion localité</h1>
-        <h5 class="text-opacity-75 mb-3 border-bottom pb-3"><%- list_localite.length %> localite<%- list_localite.length > 1 ? "s" : "" %> répertoriées</h5>
-        <div class="table-responsive">
-            <table class="table table-striped border">
-                <thead>
-                    <tr>
-                        <th scope="col">Code postal</th>
-                        <th scope="col">Ville</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <% for(let i=0; i < list_localite.length; i++) { %>
-                        <tr>
-                            <td><%- list_localite[i]['code_postal'] %></td>
-                            <td><%- list_localite[i]['nom_localite'] %></td>
-                        </tr>
-                     <% } %>   
-                </tbody>
-            </table>
-        </div>
+  <h1 class="mb-1"><i class="fa-solid fa-city fs-2 me-3"></i>Gestion localité</h1>
+  <hr>
+  <div>
+    <h5 class="mb-3">Ajouter une localité</h5>
+    <form class="row row-cols-lg-auto g-3 align-items-center" method="post" action="/ajouter-element">
+      <div class="col-auto">
+        <input type="text" class="form-control" id="ajout_code_postal" name="ajout_code_postal" placeholder="Ex: 7700">
+      </div>
+      <div class="col-auto">
+        <input type="text" class="form-control" id="ajout_localite" name="ajout_localite" placeholder="Ex: Mouscron">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div>
+    <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-4 m-0 align-items-center">
+      <div class="p-0 m-0">
+        <h5 class="text-opacity-75 m-0"><%- list_localite.length %> localite<%- list_localite.length > 1 ? "s" : "" %> répertoriées</h5>
+      </div>
+      <div class="p-0 m-0">
+        <form class="row row-cols-lg-auto" method="post" action="#">
+          <div class="col-sm">
+            <div class="input-group">
+              <input type="search" class="form-control" id="localite_search" name="localite_search" placeholder="Rechercher..." value="">
+              <button class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="mb-3">
-        <h1 class="mb-1"><i class="fa-solid fa-shop fs-2 me-3"></i>Gestion magasin</h1>
-        <h5 class="text-opacity-75 mb-3 border-bottom pb-3"><%- list_magasins.length %> magasin<%- list_magasins.length > 1 ? "s" : "" %> répertoriés</h5>
-        <div class="table-responsive">
-            <table class="table table-striped border">
-                <thead>
-                    <tr>
-                        <th scope="col">Magasin</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <% for(let i=0; i < list_magasins.length; i++) { %>
-                        <tr>
-                            <td><%- list_magasins[i]['nom_magasin'] %></td>
-                        </tr>
-                     <% } %>   
-                </tbody>
-            </table>
-        </div>
+    <div class="table-responsive">
+      <table class="table table-striped border">
+        <thead>
+          <tr>
+            <th scope="col">Code postal</th>
+            <th scope="col">Localité</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <% for(let i=0; i < list_localite.length; i++) { %>
+          <tr class="align-middle">
+            <td><%- list_localite[i]['code_postal'] %></td>
+            <td><%- list_localite[i]['nom_localite'] %></td>
+            <td><form method="post" action="#"><button type="submit" class="btn btn-danger" disabled><i class="fa-solid fa-trash"></i></button></form></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
     </div>
-    <div>
-        <h1 class="mb-1"><i class="fa-solid fa-list fs-2 me-3"></i>Gestion catégorie</h1>
-        <h5 class="text-opacity-75 mb-3 border-bottom pb-3"><%- list_categories.length %> catégories<%- list_categories.length > 1 ? "s" : "" %> répertoriées</h5>
-        <div class="table-responsive">
-            <table class="table table-striped border">
-                <thead>
-                    <tr>
-                        <th scope="col">Catégorie</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <% for(let i=0; i < list_categories.length; i++) { %>
-                        <tr>
-                            <td><%- list_categories[i]['nom_categorie'] %></td>
-                        </tr>
-                     <% } %>   
-                </tbody>
-            </table>
-        </div>
+  </div>
+</div>
+
+<!-- Gestion magasins -->
+<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
+  <h1 class="mb-1"><i class="fa-solid fa-shop fs-2 me-3"></i>Gestion magasin</h1>
+  <hr>
+  <div>
+    <h5 class="mb-3">Ajouter un magasin</h5>
+    <form class="row row-cols-lg-auto g-3 align-items-center" method="post" action="/ajout_element">
+      <div class="col-auto">
+        <input type="text" class="form-control" id="ajout_magasin" name="ajout_magasin" placeholder="Ex: Intermarché">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div>
+    <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-4 m-0 align-items-center">
+      <div class="p-0 m-0">
+        <h5 class="text-opacity-75 m-0"><%- list_magasins.length %> magasin<%- list_magasins.length > 1 ? "s" : "" %> répertoriés</h5>
+      </div>
+      <div class="p-0 m-0">
+        <form class="row row-cols-lg-auto" method="post" action="#">
+          <div class="col-sm">
+            <div class="input-group">
+              <input type="search" class="form-control" id="magasin_search" name="magasin_search" placeholder="Rechercher..." value="">
+              <button class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+    <div class="table-responsive">
+      <table class="table table-striped border">
+        <thead>
+          <tr>
+            <th scope="col">Magasin</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <% for(let i=0; i < list_magasins.length; i++) { %>
+        <tr class="align-middle">
+            <td><%- list_magasins[i]['nom_magasin'] %></td>
+        </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Gestion catégories -->
+<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
+  <h1 class="mb-1"><i class="fa-solid fa-list fs-2 me-3"></i>Gestion catégorie</h1>
+  <hr>
+  <div>
+    <h5 class="mb-3">Ajouter une catégorie</h5>
+    <form class="row row-cols-lg-auto g-3 align-items-center" method="post" action="/ajout_element">
+      <div class="col-auto">
+        <input type="text" class="form-control" id="ajout_categorie" name="ajout_categorie" placeholder="Ex: Viande">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
+      </div>
+    </form>
+  </div>
+  <hr>
+  <div>
+    <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-4 m-0 align-items-center">
+      <div class="p-0 m-0">
+        <h5 class="text-opacity-75 mb-3"><%- list_categories.length %> catégories<%- list_categories.length > 1 ? "s" : "" %> répertoriées</h5>
+      </div>
+      <div class="p-0 m-0">
+        <form class="row row-cols-lg-auto" method="post" action="#">
+          <div class="col-sm">
+            <div class="input-group">
+              <input type="search" class="form-control" id="categorie_search" name="categorie_search" placeholder="Rechercher..." value="">
+              <button class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped border">
+        <thead>
+        <tr>
+            <th scope="col">Catégorie</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <% for(let i=0; i < list_categories.length; i++) { %>
+            <tr class="align-middle">
+            <td><%- list_categories[i]['nom_categorie'] %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
