@@ -1,9 +1,9 @@
-import { Router } from 'express';
-const router = Router();
+const express = require('express');
+const router = express.Router();
 
 router.get('/se-deconnecter', function (req, res) {
 	req.session.loggedin = false;
 	res.redirect('/');
 });
 
-export default router;
+module.exports = router;

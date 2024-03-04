@@ -1,9 +1,8 @@
 // Importation des dépendances
-import express, { json, urlencoded } from 'express';
-import session from 'express-session';
-import mysql from 'mysql2';
+const express = require('express');
+const session = require('express-session');
 const app = express();
-import bodyParser from 'body-parser';
+const bodyParser = require('body-parser');
 
 
 
@@ -21,12 +20,12 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
-app.use(json());
+app.use(express.json());
 
 
 
 // Importation des routes
-import routes from './routes.js';
+const routes = require('./routes.js');
 app.use('/', routes);
 
 

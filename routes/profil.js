@@ -1,6 +1,6 @@
-import { Router } from 'express';
-const router = Router();
-import nav from '../settings/nav_bar.json' with { type: "json" };
+const express = require('express');
+const router = express.Router();
+const nav = require('../settings/nav_bar.json');
 
 router.get('/profil', function (req, res) {
 	let password_invalid = req.query.password_invalid;
@@ -26,4 +26,4 @@ router.get('/profil', function (req, res) {
 	}
 });
 
-export default router;
+module.exports = router;

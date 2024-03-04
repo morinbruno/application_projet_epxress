@@ -1,6 +1,6 @@
-import { Router } from 'express';
-const router = Router();
-import nav from '../settings/nav_bar.json' with { type: "json" };
+const express = require('express');
+const router = express.Router();
+const nav = require('../settings/nav_bar.json')
 
 router.use((req, res, next) => {
 	if (req.session.loggedin) {
@@ -11,4 +11,4 @@ router.use((req, res, next) => {
 	res.end();
 });
 
-export default router;
+module.exports = router;
