@@ -26,7 +26,7 @@ app.use(json());
 
 
 // Importation des routes
-import routes from './routes/index.js';
+import routes from './routes.js';
 app.use('/', routes);
 
 
