@@ -12,7 +12,7 @@ const connection = createConnection({
 	multipleStatements: true
 });
 
-router.post('/ajouter-element', function (req, res) {
+router.post('/ajouter-element', function(req, res) {
     const ajout_localite = req.body.ajout_localite;
     const ajout_code_postal = req.body.ajout_code_postal;
 
