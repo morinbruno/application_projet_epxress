@@ -1,9 +1,9 @@
 // Importation des dépendances
-const express = require('express');
-const session = require('express-session');
-const mysql = require('mysql2');
+import express, { json, urlencoded } from 'express';
+import session from 'express-session';
+import mysql from 'mysql2';
 const app = express();
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 
 
 
@@ -15,21 +15,18 @@ app.set('view engine', 'ejs');
 //	Paramètres du serveur
 const port = 3000;
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(urlencoded({ extended: false }));
 app.use(session({
 	secret: 'secret',
 	resave: true,
 	saveUninitialized: true
 }));
-
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(json());
 
 
 
 // Importation des routes
-const routes = require('./routes/routes');
+import routes from './routes/routes.js';
 app.use('/', routes);
 
 

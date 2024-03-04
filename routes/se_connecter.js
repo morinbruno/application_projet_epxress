@@ -1,24 +1,25 @@
-const express = require('express');
-const router = express.Router();
-const mysql = require('mysql2');
-const db_connect = require('../settings/db_connection.json');
+import { Router } from 'express';
+const router = Router();
+import { createConnection } from 'mysql2';
+import db_connection from '../settings/db_connection.json' with { type: "json" };
 
 // Création d'une connexion à la base de données
-const connection = mysql.createConnection({
-	host: db_connect.host,
-	user: db_connect.user,
-	password: db_connect.password,
-	database: db_connect.database,
+const connection = createConnection({
+	host: db_connection.host,
+	user: db_connection.user,
+	password: db_connection.password,
+	database: db_connection.database,
 	multipleStatements: true
 });
 
-router.post('/se-connecter', function (req, res) {
+router.post('/se-connecter', function(req, res) {
 	let user_email = req.body.user_email;
 	let password = req.body.password;
 
 	if (user_email && password) {
 		let sql_username = 'SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE users.user = ?';
 		let sql_email = 'SELECT * FROM users JOIN typeuser ON users.typeAccount=typeuser.id_typeUser WHERE users.email = ?';
+		let sql = null;
 
 		if (user_email.includes('@')) {
 			sql = sql_email;
@@ -47,4 +48,4 @@ router.post('/se-connecter', function (req, res) {
 	}
 });
 
-module.exports = router;
+export default router;

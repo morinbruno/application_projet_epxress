@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 router.get('/', function (req, res) {
 	let invalid_user = req.query.invalid_user;
@@ -18,4 +18,4 @@ router.get('/', function (req, res) {
 
 });
 
-module.exports = router;
+export default router;

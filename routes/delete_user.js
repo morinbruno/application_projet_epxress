@@ -1,14 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const mysql = require('mysql2');
-const db_connect = require('../settings/db_connection.json');
+import { Router } from 'express';
+const router = Router();
+import { createConnection } from 'mysql2';
+import db_connection from '../settings/db_connection.json' with { type: "json" };
 
 // Création d'une connexion à la base de données
-const connection = mysql.createConnection({
-	host: db_connect.host,
-	user: db_connect.user,
-	password: db_connect.password,
-	database: db_connect.database,
+const connection = createConnection({
+	host: db_connection.host,
+	user: db_connection.user,
+	password: db_connection.password,
+	database: db_connection.database,
 	multipleStatements: true
 });
 
@@ -46,4 +46,4 @@ router.post('/delete-user', function (req, res) {
     })
 });
 
-module.exports = router;
+export default router;
