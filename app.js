@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 //	Paramètres du serveur
 const port = 3000;
 app.use(express.static('public'));
-app.use(urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
 	secret: 'secret',
 	resave: true,
@@ -26,7 +26,7 @@ app.use(json());
 
 
 // Importation des routes
-import routes from './routes/routes.js';
+import routes from './routes/index.js';
 app.use('/', routes);
 
 

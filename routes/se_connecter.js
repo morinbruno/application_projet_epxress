@@ -12,6 +12,23 @@ const connection = createConnection({
 	multipleStatements: true
 });
 
+router.get('/', function (req, res) {
+	let invalid_user = req.query.invalid_user;
+	let invalid_mdp = req.query.invalid_mdp;
+
+	if (req.session.loggedin) {
+		res.redirect('/dashboard');
+	} else {
+		res.render('pages/connection/se-connecter', {
+			title: "Se connecter",
+			invalid_user,
+			invalid_mdp,
+			req
+		});
+	}
+
+});
+
 router.post('/se-connecter', function(req, res) {
 	let user_email = req.body.user_email;
 	let password = req.body.password;
