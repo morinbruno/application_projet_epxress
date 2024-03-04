@@ -12,6 +12,10 @@
 git clone https://github.com/MorinoBelgotaku/application_projet_epxress.git
 ```
 
+OU
+
+Par le lien de téléchargement de l'exécutable : [Télécharger](https://github.com/MorinoBelgotaku/application_projet_epxress/releases/tag/alpha).
+
 2. Installer la base de données sur MySQL (avec son utilisateur)
    - Base de données : ```projet_expressjs```
    - Utilisateur : ```'user_expressjs'@'localhost'``` identifié par ```'Express123'```
