@@ -1,5 +1,5 @@
 <!-- Gestion localités -->
-<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
+<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle" id="list_localites">
   <h1 class="mb-1"><i class="fa-solid fa-city fs-2 me-3"></i>Gestion localité</h1>
   <hr>
   <div>
@@ -71,7 +71,7 @@
 </div>
 
 <!-- Gestion magasins -->
-<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
+<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle" id="list_magasins">
   <h1 class="mb-1"><i class="fa-solid fa-shop fs-2 me-3"></i>Gestion magasin</h1>
   <hr>
   <div>
@@ -140,7 +140,7 @@
 </div>
 
 <!-- Gestion catégories -->
-<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
+<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle" id="list_categories">
   <h1 class="mb-1"><i class="fa-solid fa-list fs-2 me-3"></i>Gestion catégorie</h1>
   <hr>
   <div>
@@ -158,7 +158,7 @@
   <div>
     <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-4 m-0 align-items-center">
       <div class="p-0 m-0">
-        <h5 class="text-opacity-75 mb-3"><%- list_categories.length %> catégories<%- list_categories.length > 1 ? "s" : "" %> répertoriées</h5>
+        <h5 class="text-opacity-75 m-0"><%- list_categories.length %> catégorie<%- list_categories.length > 1 ? "s" : "" %> répertoriées</h5>
       </div>
       <div class="p-0 m-0">
         <form class="row row-cols-lg-auto" method="post" action="#">
