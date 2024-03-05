@@ -36,8 +36,12 @@ router.post('/delete-user', function (req, res) {
         }
 
         connection.query(sql, [id_user], function(erreur, resultat) {
-            if(req.session.typeuser != 'Admin') {
+            if(req.session.lastRoute != '/admin') {
                 req.session.loggedin = false;
+                req.session.username = null;
+				req.session.typeuser = null;
+				req.session.id_user = null;
+				req.session.user_info = null;
                 res.redirect('/')
             } else {
                 res.redirect('/admin')

@@ -9,6 +9,8 @@ router.get('/profil', function (req, res) {
 	let password_long = req.query.password_long;
 	let password_update_success = req.query.password_update_success;
 
+	req.session.lastRoute = req.path;
+
 	if (req.session.loggedin) {
 		res.render('pages/profil', {
 			title: "Profil",
