@@ -43,14 +43,14 @@ router.post('/ajouter-element', function (req, res) {
     }
 
     if(ajout_magasin) {
-        let sql = `INSERT INTO categories VALUES(DEFAULT,?);`;
+        let sql = `INSERT INTO magasins VALUES(DEFAULT,?);`;
 
-        connection.query(sql, ajout_categorie, function(erreur, resultat){
+        connection.query(sql, ajout_magasin, function(erreur, resultat){
             if(erreur) {
                 res.redirect('/admin?ajout_magasin=erreur')
             } else {
                 res.redirect('/admin?ajout_magasin=success')
-            }
+            } 
         })
     }
 });
