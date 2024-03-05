@@ -117,7 +117,7 @@
             <td style="width: 550px;">
               <form class="row align-items-center" style="width: 550px;" method="post" action="/password-update">
                 <div class="col-4">
-                  <input type="password" placeholder="Mot de passe" class="form-control <%- password_different || password_short || password_long || password_invalid && id_user == list_users[i]['id_user'] ? "is-invalid" : "" %>" name="password" minlength="3" maxlength="20" required>
+                  <input type="password" placeholder="Mot de passe" class="form-control form-control-sm <%- password_different || password_short || password_long || password_invalid && id_user == list_users[i]['id_user'] ? "is-invalid" : "" %>" name="password" minlength="3" maxlength="20" required>
                   <div class="invalid-feedback mt-2 text-nowrap">
                     <% if (password_invalid && id_user==list_users[i]['id_user']) { %>
                       Mot de passe invalide !
@@ -133,7 +133,7 @@
                   </div>
                 </div>
                 <div class="col-4">
-                  <input type="password" placeholder="Répéter" class="form-control <% if(password_different || password_invalid && id_user == list_users[i]['id_user']) {"is-invalid"}%>" name="password_repeat" minlength="3" maxlength="20" required>
+                  <input type="password" placeholder="Répéter" class="form-control form-control-sm <% if(password_different || password_invalid && id_user == list_users[i]['id_user']) {"is-invalid"}%>" name="password_repeat" minlength="3" maxlength="20" required>
                   <div class="invalid-feedback mt-2">
                     <% if (password_invalid && id_user==list_users[i]['id_user']) { %>
                     &nbsp;
@@ -149,7 +149,7 @@
                   </div>
                 </div>
                 <div class="col-2">
-                  <button class="btn btn-primary" value="<%- list_users[i]['id_user'] %>" name="id_user">Modifier</button>
+                  <button class="btn btn-primary btn-sm" value="<%- list_users[i]['id_user'] %>" name="id_user">Modifier</button>
                 </div>
               </form>
               <% if (password_update_success && id_user==list_users[i]['id_user']) { %>
@@ -166,7 +166,7 @@
             <!-- Colonne supression de l'utilisateur -->
             <% if(list_users[i]['name_typeUser'] == 'Utilisateur') { %>
             <td>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-user-<%- list_users[i]['id_user'] %>" id="button-delete-user-<%- list_users[i]['id_user'] %>">Supprimer</button>
+              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-delete-user-<%- list_users[i]['id_user'] %>" id="button-delete-user-<%- list_users[i]['id_user'] %>">Supprimer</button>
               <!-- Modal de supression -->
               <div class="modal fade" id="modal-delete-user-<%- list_users[i]['id_user'] %>" tabindex="-1" aria-labelledby="exampleModalLabel-<%- list_users[i]['id_user'] %>" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
