@@ -49,13 +49,16 @@ router.use('/', se_deconnecter)
 const easter_egg = require('./routes/easter_egg.js');
 router.use('/', easter_egg)
 
-// Route erreur 404
-const erreur404 = require('./routes/erreur404.js');
-router.use('/', erreur404)
-
 // Route ajouter un élèment à la db par l'admin
 const ajouter_element = require('./routes/ajouter_element.js');
 router.use('/', ajouter_element)
 
+// Route supprimer un élèment à la db par l'admin
+const supprimer_element = require('./routes/supprimer_element.js');
+router.use('/', supprimer_element)
+
+// Route erreur 404
+const erreur404 = require('./routes/erreur404.js');
+router.use('/', erreur404)
 
 module.exports = router;
