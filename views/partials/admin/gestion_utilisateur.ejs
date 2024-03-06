@@ -90,22 +90,19 @@
     <div class="alert alert-info mt-3 user-select-none">Aucun utilisateur d'enregistré</div>
     <% } else { %>
     <div class="table-responsive">
-      <table class="table table-striped border">
+      <table class="table table-striped border table-bordered">
         <thead class="align-middle">
           <tr>
-            <th scope="col">ID</th>
             <th scope="col">Pseudo</th>
             <th scope="col">Email</th>
             <th scope="col">Rôle</th>
             <th scope="col">Modifier le mot de passe</th>
-            <th scope="col">Suppression</th>
+            <th scope="col" class="text-center">Suppression</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
           <% for(let i=0; i < list_users.length; i++) { %>
           <tr class="align-middle">
-            <!-- Colonne ID_user -->
-            <td><%- list_users[i]['id_user'] %></td>
             <!-- Colonne user -->
             <td><%- list_users[i]['user'] %></td>
             <!-- Colonne email -->
@@ -114,7 +111,7 @@
             <td><%- list_users[i]['name_typeUser'] %></td>
             <!-- Colonne modification de mot de passe -->
             <% if(list_users[i]['name_typeUser'] == 'Utilisateur') { %>
-            <td style="width: 550px;">
+            <td class="align-middle">
               <form class="row align-items-center" style="width: 550px;" method="post" action="/password-update">
                 <div class="col-4">
                   <input type="password" placeholder="Mot de passe" class="form-control form-control-sm <%- password_different || password_short || password_long || password_invalid && id_user == list_users[i]['id_user'] ? "is-invalid" : "" %>" name="password" minlength="3" maxlength="20" required>
@@ -165,7 +162,7 @@
             <% } %>
             <!-- Colonne supression de l'utilisateur -->
             <% if(list_users[i]['name_typeUser'] == 'Utilisateur') { %>
-            <td>
+            <td class="text-center">
               <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-delete-user-<%- list_users[i]['id_user'] %>" id="button-delete-user-<%- list_users[i]['id_user'] %>">Supprimer</button>
               <!-- Modal de supression -->
               <div class="modal fade" id="modal-delete-user-<%- list_users[i]['id_user'] %>" tabindex="-1" aria-labelledby="exampleModalLabel-<%- list_users[i]['id_user'] %>" aria-hidden="true">
