@@ -23,7 +23,7 @@ router.post('/ajouter-element', function (req, res) {
 
         connection.query(sql, [ajout_code_postal,ajout_localite], function(erreur, resultat){
             if(erreur) {
-                res.redirect('/admin?ajout_localite=erreur&#list_localites')
+                res.redirect('/admin?ajout_localite=erreur#list_localites')
             } else {
                 res.redirect('/admin?ajout_localite=success#list_localites')
             }
@@ -35,9 +35,9 @@ router.post('/ajouter-element', function (req, res) {
 
         connection.query(sql, ajout_categorie, function(erreur, resultat){
             if(erreur) {
-                res.redirect('/admin?ajout_categorie=erreur&#list_categories')
+                res.redirect('/admin?ajout_categorie=erreur#list_categories')
             } else {
-                res.redirect('/admin?ajout_categorie=success&#list_categories')
+                res.redirect('/admin?ajout_categorie=success#list_categories')
             }
         })
     }
@@ -47,9 +47,9 @@ router.post('/ajouter-element', function (req, res) {
 
         connection.query(sql, ajout_magasin, function(erreur, resultat){
             if(erreur) {
-                res.redirect('/admin?ajout_magasin=erreur&#list_magasins')
+                res.redirect('/admin?ajout_magasin=erreur#list_magasins')
             } else {
-                res.redirect('/admin?ajout_magasin=success&#list_magasins')
+                res.redirect('/admin?ajout_magasin=success#list_magasins')
             } 
         })
     }
