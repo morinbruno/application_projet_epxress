@@ -1,5 +1,4 @@
-<!-- Gestion localités -->
-<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle" id="list_localites">
+<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle position-sticky" id="list_localites" style="scroll-margin-top: 6rem;">
   <h1 class="mb-1"><i class="fa-solid fa-city fs-2 me-3"></i>Gestion localité</h1>
   <hr>
   <div>
@@ -43,6 +42,15 @@
               <form id="form-mod-localite-<%- list_localite[i]['code_postal'] %>" class="d-flex gap-3" method="post" action="/modifier-element">
                 <input type="text" value="<%- list_localite[i]['code_postal'] %>" class="form-control w-auto" name="mod_code_postal" minlength="4" maxlength="5" required>
                 <input type="text" value="<%- list_localite[i]['nom_localite'] %>" class="form-control w-auto" name="mod_localite" minlength="1" required>
+                <% if(stat_mod_element == `success_${list_localite[i]['code_postal']}`) { %>
+                  <div class="text-success d-flex align-items-center text-nowrap">
+                    Modification appliquée !
+                  </div>
+                <% } else if(stat_mod_element == `erreur_${list_localite[i]['code_postal']}`) { %>
+                  <div class="text-danger d-flex align-items-center text-nowrap">
+                    Une erreur est survenue !
+                  </div>
+                <% } %>
               </form>
               <% } %>
             </td>
@@ -87,7 +95,7 @@
 </div>
 
 <!-- Gestion magasins -->
-<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle" id="list_magasins">
+<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle" id="list_magasins" style="scroll-margin-top: 6rem;">
   <h1 class="mb-1"><i class="fa-solid fa-shop fs-2 me-3"></i>Gestion magasin</h1>
   <hr>
   <div>
@@ -122,8 +130,17 @@
               <% if(find_name_magasin(list_magasins[i]['nom_magasin'],nbr_magasin_use).nbr_produits_magasin > 0) { %>
                 <input type="text" value="<%- list_magasins[i]['nom_magasin'] %>" class="form-control w-auto" style="cursor: not-allowed" disabled>
               <% } else { %>
-                <form id="form-mod-magasin-<%- list_magasins[i]['id_magasin'] %>" method="post" action="/modifier-element">
+                <form id="form-mod-magasin-<%- list_magasins[i]['id_magasin'] %>" method="post" action="/modifier-element" class="d-flex gap-3">
                   <input type="text" value="<%- list_magasins[i]['nom_magasin'] %>" class="form-control w-auto" name="mod_magasin" minlength="1" required>
+                  <% if(stat_mod_element == `success_${list_magasins[i]['id_magasin']}`) { %>
+                    <div class="text-success d-flex align-items-center text-nowrap">
+                      Modification appliquée !
+                    </div>
+                  <% } else if(stat_mod_element == `erreur_${list_magasins[i]['id_magasin']}`) { %>
+                    <div class="text-danger d-flex align-items-center text-nowrap">
+                      Une erreur est survenue !
+                    </div>
+                  <% } %>
                 </form>
               <% } %>
             </td>
@@ -168,7 +185,7 @@
 </div>
 
 <!-- Gestion catégories -->
-<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle" id="list_categories">
+<div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle" id="list_categories" style="scroll-margin-top: 6rem;">
   <h1 class="mb-1"><i class="fa-solid fa-list fs-2 me-3"></i>Gestion catégorie</h1>
   <hr>
   <div>
@@ -203,8 +220,17 @@
               <% if(find_name_categorie(list_categories[i]['nom_categorie'],nbr_categorie_use).nbr_produits_categorie > 0) { %>
                 <input type="text" value="<%- list_categories[i]['nom_categorie'] %>" class="form-control w-auto" style="cursor: not-allowed" disabled>
               <% } else { %>
-                <form id="form-mod-categorie-<%- list_categories[i]['code_categorie'] %>" method="post" action="/modifier-element">
+                <form id="form-mod-categorie-<%- list_categories[i]['code_categorie'] %>" method="post" action="/modifier-element" class="d-flex gap-3">
                   <input type="text" value="<%- list_categories[i]['nom_categorie'] %>" class="form-control w-auto" name="mod_categorie" minlength="1" required>
+                  <% if(stat_mod_element == `success_${list_categories[i]['code_categorie']}`) { %>
+                    <div class="text-success d-flex align-items-center text-nowrap">
+                      Modification appliquée !
+                    </div>
+                  <% } else if(stat_mod_element == `erreur_${list_categories[i]['code_categorie']}`) { %>
+                    <div class="text-danger d-flex align-items-center text-nowrap">
+                      Une erreur est survenue !
+                    </div>
+                  <% } %>
                 </form>
               <% } %>
             </td>
