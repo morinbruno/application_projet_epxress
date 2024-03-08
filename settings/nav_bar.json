@@ -5,7 +5,8 @@
         "blank": false,
         "display": true,
         "icon": "fa-solid fa-house",
-        "type_user": "Utilisateur"
+        "type_user": "Utilisateur",
+        "dropdown": false
     },
     {
         "title": "Profil",
@@ -13,7 +14,8 @@
         "blank": false,
         "display": true,
         "icon": "fa-solid fa-user",
-        "type_user": "Utilisateur"
+        "type_user": "Utilisateur",
+        "dropdown": false
     },
     {
         "title": "Admin",
@@ -21,6 +23,25 @@
         "blank": false,
         "display": true,
         "icon": "fa-solid fa-screwdriver-wrench",
-        "type_user": "Admin"
+        "type_user": "Admin",
+        "dropdown": true,
+        "list_dropdown": [
+            {
+                "name": "Gestion utilisateur",
+                "url": "/admin#gestion_user"
+            },
+            {
+                "name": "Localités",
+                "url": "/admin#list_localites"
+            },
+            {
+                "name": "Magasins",
+                "url": "/admin#list_magasins"
+            },
+            {
+                "name": "Catégories",
+                "url": "/admin#list_categories"
+            }            
+        ]
     }
 ]

@@ -6,10 +6,10 @@
         <%- include('../partials/change_theme') %>
       </div>
       <h2 class="btn btn-success m-0 user-select-none" style="cursor: default">Session active : <%- req.session.username %></h2>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#nav_bar" aria-controls="nav_bar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="nav-bar-mobile">
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="nav_bar" aria-labelledby="nav-bar-mobile">
         <div class="offcanvas-header border-bottom">
           <h5 class="offcanvas-title" id="nav-bar-mobile">Menu</h5>
           <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -17,23 +17,63 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <% for (let i = 0; i < nav.length; i++) { %>
-                <% if(nav[i].title == title && nav[i].display == true) { %>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
-                    </li>
-                <% } else if (nav[i].type_user == req.session.typeuser && nav[i].display == true && nav[i].title == title) { %>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
-                    </li>
-                <% } else if (nav[i].type_user == req.session.typeuser && nav[i].display == true) { %>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
-                    </li>
-                <% } else if (nav[i].type_user == "Utilisateur" && nav[i].display == true) { %>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
-                    </li>
+            <!-- Lien actif -->
+            <% if(nav[i].title == title && nav[i].display == true && nav[i].dropdown == false) { %>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+            </li>
+            <!-- Page admin actif avec dropdown -->
+            <% } else if (nav[i].type_user == req.session.typeuser && nav[i].display == true && nav[i].title == title && nav[i].dropdown == true) { %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="<%- nav[i].url %>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %>
+              </a>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item" href="<%- nav[i].url %>" role="button" aria-expanded="false">
+                  <%- nav[i].title %>
+                </a>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <% for(let j = 0; j < nav[i].list_dropdown.length; j++) { %>
+                <li><a class="dropdown-item" href="<%- nav[i].list_dropdown[j].url %>"><%- nav[i].list_dropdown[j].name %></a></li>
                 <% } %>
+              </ul>
+            </li>
+            <!-- Page admin actif sans drop down -->
+            <% } else if (nav[i].type_user == req.session.typeuser && nav[i].display == true && nav[i].title == title && nav[i].dropdown == false) { %>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+            </li>
+            <!-- Page admin inactif avec drop down -->
+            <% } else if (nav[i].type_user == req.session.typeuser && nav[i].display == true && nav[i].dropdown == true) { %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="<%- nav[i].url %>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %>
+                </a>
+                <ul class="dropdown-menu">
+                  <a class="dropdown-item" href="<%- nav[i].url %>" role="button" aria-expanded="false">
+                    <%- nav[i].title %>
+                  </a>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <% for(let j = 0; j < nav[i].list_dropdown.length; j++) { %>
+                  <li><a class="dropdown-item" href="<%- nav[i].list_dropdown[j].url %>"><%- nav[i].list_dropdown[j].name %></a></li>
+                  <% } %>
+                </ul>
+              </li>
+            <!-- Page admin inactif sans drop down -->
+            <% } else if (nav[i].type_user == req.session.typeuser && nav[i].display == true && nav[i].dropdown == false) { %>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+              </li>
+            <!-- Autres pages affiché inactif -->
+            <% } else if (nav[i].type_user == "Utilisateur" && nav[i].display == true && nav[i].dropdown == false) { %>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="<%- nav[i].url %>"><i class="me-2 <%- nav[i].icon %>"></i><%- nav[i].title %></a>
+            </li>
+            <% } %>
             <% } %>
           </ul>
           <form method="get" action="/se-deconnecter" class="d-flex mt-3 mt-lg-0">
