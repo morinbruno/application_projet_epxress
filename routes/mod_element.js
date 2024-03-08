@@ -25,18 +25,19 @@ router.post('/modifier-element', function (req, res) {
 
     if (mod_code_postal != undefined && mod_localite != undefined) {
         if(mod_code_postal.length >= 4 && mod_code_postal.length <= 5 && mod_localite.length > 0 && mod_localite.includes(' ') != true) {
-            let sql = `UPDATE localite SET code_postal = ?, nom_localite = ? WHERE code_postal = ?;`;
+            let sql = `UPDATE localite SET code_postal = ?, nom_localite = ? WHERE code_postal = ?;
+                       SELECT code_postal FROM localite WHERE code_postal = LAST_INSERT_ID() OR code_postal = ? OR nom_localite = ?;`;
     
-            connection.query(sql, [mod_code_postal,mod_localite,mod_localite_id], function(erreur, resultat){
+            connection.query(sql, [mod_code_postal,mod_localite,mod_localite_id,mod_localite_id,mod_localite], function(erreur, resultat){
                 if(erreur) {
                     console.log(erreur)
-                    res.redirect('/admin?mod_localite=erreur#list_localites')
+                    res.redirect(`/admin?mod_localite=erreur_${mod_localite_id}#list_localites`)
                 } else {
-                    res.redirect('/admin?mod_localite=success#list_localites')
+                    res.redirect(`/admin?mod_localite=success_${resultat[1][0]['code_postal']}#list_localites`)
                 }
             })
         } else {
-            res.redirect('/admin?mod_localite=erreur#list_localites')
+            res.redirect(`/admin?mod_localite=erreur_${mod_localite_id}#list_localites`)
         }
     } 
 
@@ -46,13 +47,13 @@ router.post('/modifier-element', function (req, res) {
     
             connection.query(sql, [mod_categorie,mod_categorie_id], function(erreur, resultat){
                 if(erreur) {
-                    res.redirect('/admin?mod_categorie=erreur#list_categories')
+                    res.redirect(`/admin?mod_categorie=erreur_${mod_categorie_id}#list_categories`)
                 } else {
-                    res.redirect('/admin?mod_categorie=success#list_categories')
+                    res.redirect(`/admin?mod_categorie=success_${mod_categorie_id}#list_categories`)
                 }
             })
         } else {
-            res.redirect('/admin?mod_categorie=erreur#list_categories')
+            res.redirect(`/admin?mod_categorie=erreur_${mod_categorie_id}#list_categories`)
         }
     }
     
@@ -62,9 +63,9 @@ router.post('/modifier-element', function (req, res) {
     
             connection.query(sql, [mod_magasin,mod_magasin_id], function(erreur, resultat){
                 if(erreur) {
-                    res.redirect('/admin?mod_magasin=erreur#list_magasins')
+                    res.redirect(`/admin?mod_magasin=erreur_${mod_magasin_id}#list_magasins`)
                 } else {
-                    res.redirect('/admin?mod_magasin=success#list_magasins')
+                    res.redirect(`/admin?mod_magasin=success_${mod_magasin_id}#list_magasins`)
                 } 
             })
         }
