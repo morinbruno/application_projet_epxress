@@ -37,7 +37,7 @@ function date_peremption_etat(date) {
 router.get('/dashboard', function (req, res, next) {
     let sql = `SELECT * FROM users JOIN produits_acheter 
 	ON users.id_user=produits_acheter.id_user JOIN produits 
-	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 	ON magasins_produits.code_postal=localite.code_postal JOIN categories
@@ -46,7 +46,7 @@ router.get('/dashboard', function (req, res, next) {
 
 	SELECT * FROM users JOIN produits_acheter 
 	ON users.id_user=produits_acheter.id_user JOIN produits 
-	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 	ON magasins_produits.code_postal=localite.code_postal JOIN categories
@@ -55,7 +55,7 @@ router.get('/dashboard', function (req, res, next) {
 
 	SELECT DISTINCT categories.code_categorie, categories.nom_categorie FROM users JOIN produits_acheter 
 	ON users.id_user=produits_acheter.id_user JOIN produits 
-	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 	ON magasins_produits.code_postal=localite.code_postal JOIN categories
@@ -64,7 +64,7 @@ router.get('/dashboard', function (req, res, next) {
 
 	SELECT DISTINCT magasins.id_magasin, magasins.nom_magasin FROM users JOIN produits_acheter 
 	ON users.id_user=produits_acheter.id_user JOIN produits 
-	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 	ON magasins_produits.code_postal=localite.code_postal JOIN categories
@@ -73,7 +73,7 @@ router.get('/dashboard', function (req, res, next) {
 
 	SELECT DISTINCT localite.code_postal, localite.nom_localite FROM users JOIN produits_acheter 
 	ON users.id_user=produits_acheter.id_user JOIN produits 
-	ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+	ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 	ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 	ON magasins_produits.code_postal=localite.code_postal JOIN categories
@@ -170,7 +170,7 @@ router.post('/dashboard/filtre', function (req, res, next) {
 		    } else {
 				let sql = `SELECT * FROM users JOIN produits_acheter 
 				ON users.id_user=produits_acheter.id_user JOIN produits 
-				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 				ON magasins_produits.code_postal=localite.code_postal JOIN categories
@@ -183,7 +183,7 @@ router.post('/dashboard/filtre', function (req, res, next) {
 
 				SELECT * FROM users JOIN produits_acheter 
 				ON users.id_user=produits_acheter.id_user JOIN produits 
-				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 				ON magasins_produits.code_postal=localite.code_postal JOIN categories
@@ -192,7 +192,7 @@ router.post('/dashboard/filtre', function (req, res, next) {
 
 				SELECT DISTINCT categories.code_categorie, categories.nom_categorie FROM users JOIN produits_acheter 
 				ON users.id_user=produits_acheter.id_user JOIN produits 
-				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 				ON magasins_produits.code_postal=localite.code_postal JOIN categories
@@ -201,7 +201,7 @@ router.post('/dashboard/filtre', function (req, res, next) {
 
 				SELECT DISTINCT magasins.id_magasin, magasins.nom_magasin FROM users JOIN produits_acheter 
 				ON users.id_user=produits_acheter.id_user JOIN produits 
-				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 				ON magasins_produits.code_postal=localite.code_postal JOIN categories
@@ -210,7 +210,7 @@ router.post('/dashboard/filtre', function (req, res, next) {
 
 				SELECT DISTINCT localite.code_postal, localite.nom_localite FROM users JOIN produits_acheter 
 				ON users.id_user=produits_acheter.id_user JOIN produits 
-				ON produits_Acheter.id_produit=produits.id_produit JOIN magasins_produits 
+				ON produits_acheter.id_produit=produits.id_produit JOIN magasins_produits 
 				ON produits.id_produit=magasins_produits.id_produit JOIN magasins 
 				ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 				ON magasins_produits.code_postal=localite.code_postal JOIN categories
