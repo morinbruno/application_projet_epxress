@@ -27,7 +27,7 @@
           <option selected>Aucune catégorie disponible</option>
           <% } else { %>
           <option selected>Choississez la catégorie</option>
-          <% for(i = 0; i < list_categorie.length; i++){ %>
+          <% for(let i = 0; i < list_categorie.length; i++){ %>
           <option value="<%- list_categorie[i]['code_categorie'] %>"><%- list_categorie[i]['nom_categorie'] %></option>
           <% } %>
           <% } %>
@@ -51,7 +51,7 @@
           <option selected>Aucun magasin disponible</option>
           <% } else { %>
           <option selected>Choississez le magasin</option>
-          <% for(i = 0; i < list_magasin.length; i++){ %>
+          <% for(let i = 0; i < list_magasin.length; i++){ %>
           <option value="<%- list_magasin[i]['id_magasin'] %>"><%- list_magasin[i]['nom_magasin'] %></option>
           <% } %>
           <% } %>
@@ -65,7 +65,7 @@
           <option selected>Aucune ville disponible</option>
           <% } else { %>
           <option selected>Choississez la ville</option>
-          <% for(i = 0; i < list_localite.length; i++){ %>
+          <% for(let i = 0; i < list_localite.length; i++){ %>
           <option value="<%- list_localite[i]['code_postal'] %>"><%- list_localite[i]['nom_localite'] %></option>
           <% } %>
           <% } %>
