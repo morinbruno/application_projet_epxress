@@ -36,4 +36,4 @@ Lien d'accès au site : http://localhost:3000/
 
 Par défaut l'accès se fait avec l'utilisateur ```Admin``` identifié par ```Admin``` (mot de passe modifiable).
 
-Toute création de nouveau utilisateur est automatiquement un ```utilisateur```.
+Toute création de nouveau utilisateur est automatiquement un ```Utilisateur```.
