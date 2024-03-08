@@ -61,6 +61,10 @@ router.use('/', supprimer_element)
 const mod_element = require('./routes/mod_element.js');
 router.use('/', mod_element)
 
+// Route modifier un produit
+const mod_produit = require('./routes/mod_produit.js');
+router.use('/', mod_produit)
+
 // Route erreur 404
 const erreur404 = require('./routes/erreur404.js');
 router.use('/', erreur404)
