@@ -2,14 +2,14 @@
 <div class="container mb-5 shadow rounded border p-3 bg-light-subtle">
   <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-plus fs-2 me-3"></i>Ajouter un produit</h1>
   <form class="m-0 form-floating gap-3 mb-3" method="post" action="/ajouter-produit">
-    <div class="row row-cols-md-2 m-0 mb-3 gap-3">
+    <div class="row row-cols-md-auto m-0 mb-3 gap-3">
       <!-- Nom du produit -->
-      <div class="form-floating p-0 col-md-3">
+      <div class="form-floating p-0">
         <input type="text" class="form-control" placeholder="Produit" id="produit" name="produit" required>
         <label class="col-form-label" for="produit">Produit</label>
       </div>
       <!-- Quantité du produit -->
-      <div class="col-md-3 p-0">
+      <div class="p-0">
         <div class="input-group has-validation">
           <div class="form-floating <%- quantite_invalid ? "is-invalid" : "" %>">
             <input type="text" class="form-control <%- quantite_invalid ? "is-invalid" : "" %>" placeholder="Quantité" id="quantite" name="quantite" required>
@@ -21,7 +21,7 @@
         </div>
       </div>
       <!-- Catégorie du produit -->
-      <div class="form-floating p-0 col-md-3">
+      <div class="form-floating p-0">
         <select class="form-select" id="categorie" name="categorie" aria-label="Catégorie">
           <% if (list_categorie.length == 0) { %>
           <option selected>Aucune catégorie disponible</option>
@@ -35,17 +35,17 @@
         <label for="categorie">Catégorie</label>
       </div>
       <!-- Date d'achat -->
-      <div class="form-floating p-0 col-md-3">
+      <div class="form-floating p-0">
         <input type="date" class="form-control" id="date_achat" name="date_achat" required>
         <label class="col-form-label" for="date_achat">Date d'achat</label>
       </div>
       <!-- Date d'expiration -->
-      <div class="form-floating p-0 col-md-3">
+      <div class="form-floating p-0">
         <input type="date" class="form-control" id="date_expiration" name="date_expiration" required>
         <label class="col-form-label" for="date_expiration">Date d'expiration</label>
       </div>
       <!-- Magasin -->
-      <div class="form-floating p-0 col-md-3">
+      <div class="form-floating p-0">
         <select class="form-select" id="magasin" name="magasin" aria-label="Magasin">
           <% if (list_magasin.length == 0) { %>
           <option selected>Aucun magasin disponible</option>
@@ -59,7 +59,7 @@
         <label for="magasin">Magasin</label>
       </div>
       <!-- Ville du magasin -->
-      <div class="form-floating p-0 col-md-3">
+      <div class="form-floating p-0">
         <select class="form-select" id="localite" name="localite" aria-label="Localité">
           <% if (list_localite.length == 0) { %>
           <option selected>Aucune ville disponible</option>

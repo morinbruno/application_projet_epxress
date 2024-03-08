@@ -1,10 +1,11 @@
 <div class="container mb-5 shadow rounded border p-3 pb-4 bg-light-subtle">
 
     <!-- Création d'utilisateur -->
+    <div class="mb-3">
     <h1 class="mb-3 border-bottom pb-3"><i class="fa-solid fa-user-plus fs-2 me-3"></i>Créer un utilisateur</h1>
-    <form class="form-floating row m-0 mb-4 gap-3" method="post" action="/creer-compte">
+    <form class="form-floating row row-cols-sm-auto m-0 mb-2 gap-3" method="post" action="/creer-compte" id="add_user">
       <!-- Pseudo -->
-      <div class="col-sm p-0">
+      <div class="p-0">
         <div class="input-group has-validation">
           <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
           <div class="form-floating <%- pseudo_exist || pseudo_invalid || pseudo_short || pseudo_long ? "is-invalid" : "" %>">
@@ -24,7 +25,7 @@
           </div>
         </div>
         <!-- Mot de passe -->
-        <div class="col-sm p-0">
+        <div class="p-0">
           <div class="input-group has-validation">
             <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
             <div class="form-floating <%- mdp_short || mdp_long || mdp_invalid ? " is-invalid" : "" %>">
@@ -43,7 +44,7 @@
           </div>
         </div>
         <!-- Email -->
-        <div class="col-sm p-0">
+        <div class="p-0">
           <div class="input-group has-validation">
             <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
             <div class="form-floating <%= email_exist ? " is-invalid" : "" %>">
@@ -57,13 +58,15 @@
             </div>
           </div>
         </div>
-        <div class="form-text p-0">
-          Pseudo/Mot de passe égal ou compris entre 3 à 20 caractères.
-        </div>
-        <button type="submit" class="btn btn-primary col-auto">Ajouter un utilisateur</button>
+        
     </form>
-
+    <div class="form-text mb-4">
+      Pseudo/Mot de passe égal ou compris entre 3 à 20 caractères.
+    </div>
+    <button type="submit" class="btn btn-primary col-auto" form="add_user">Ajouter un utilisateur</button>
+  </div>
     <!-- Gestion utilisateur -->
+    <div>
     <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-3 border-bottom pb-3 m-0 align-items-end">
       <div class="p-0">
         <h1 class="m-0"><i class="fa-solid fa-user-gear fs-2 me-3"></i>Gestion utilisateur</h1>
@@ -193,3 +196,4 @@
     </div>
       <% } %>
   </div>
+</div>
