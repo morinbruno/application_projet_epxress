@@ -48,6 +48,8 @@ router.get('/admin', function (req, res) {
 		let pseudo_short = req.query.pseudo_short;
 		let pseudo_long = req.query.pseudo_long;
 
+		let stat_mod_element = req.query.mod_localite ?? req.query.mod_magasin ?? req.query.mod_categorie;
+		
 		req.session.lastRoute = req.path;
 
 		let sql = `SELECT * FROM users JOIN typeuser 
@@ -100,7 +102,8 @@ router.get('/admin', function (req, res) {
 				nbr_categorie_use,
 				nbr_magasin_use,
 				nbr_localite_use,
-				ajout_localite
+				ajout_localite,
+				stat_mod_element
 			})
 		})
 	} else {
