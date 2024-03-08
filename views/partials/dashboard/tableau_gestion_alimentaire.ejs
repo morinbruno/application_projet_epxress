@@ -1,84 +1,143 @@
 <!-- Gestionnaire des produits -->
 <div class="container mb-5 shadow rounded border p-3 bg-light-subtle">
-    <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-3 border-bottom pb-3 m-0 align-items-end">
-      <div class="p-0">
-        <h1 class="mb-1"><i class="fa-solid fa-pen me-3 fs-2"></i>Tableau des produits</h1>
+  <div class="row row-cols-sm-auto gx-3 gy-3 justify-content-between mb-3 border-bottom pb-3 m-0 align-items-end">
+    <div class="p-0">
+      <h1 class="mb-1"><i class="fa-solid fa-pen me-3 fs-2"></i>Tableau des produits</h1>
       <h5 class="text-opacity-75"><%- list_produit.length %> produit<%- list_produit.length > 1 ? "s" : "" %> dans votre liste</h5>
-      </div>
-      <!-- Filtre -->
-      <div class="p-0">
-        <% if(list_produit_user.length !=0) { %>
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#filtres" aria-controls="filtres">
-          <i class="fa-solid fa-filter me-2"></i>Filtres
-        </button>
-        <% } %>
-      </div>
     </div>
-    <!-- Tableau de gestion alimentaire -->
-    <% if (list_produit.length == 0) {%>
-      <div class="alert alert-info mt-3 user-select-none">Votre gestion alimentaire est vide</div>
-    <% } else { %>
-    <div class="table-responsive">
-      <table class="table table-striped border">
-        <thead class="align-middle">
-          <tr>
-            <th scope="col">Produit</th>
-            <th scope="col">Quantité</th>
-            <th scope="col">Magasin</th>
-            <th scope="col">Date d'achat</th>
-            <th scope="col">Date d'expiration</th>
-            <th scope="col">Etat du produit</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <% for(let i = 0; i < list_produit.length; i++){ %>
-          <tr class="align-middle">
-              <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- list_produit[i]['nom_categorie'] %>"><%- list_produit[i]['nom_produit'] %></span></td>
-              <td><%- list_produit[i]['quantite'] %></td>
-              <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- list_produit[i]['nom_localite'] %>"><%- list_produit[i]['nom_magasin'] %></span></td>
-              <td><%- date_local(list_produit[i]['date_achat']) %></td>
-              <td><%- date_local(list_produit[i]['date_expiration']) %></td>
-              <td><%- date_peremption_etat(list_produit[i]['date_expiration']) %></td>
-              <td>
-                <div class="d-flex gap-2">
-                  <!-- Modifier un produit -->
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-modify-food-<%- list_produit[i]['id_produit'] %>" id="button-modify-food-<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-pen"></i></button>
-                  <div class="modal fade" id="modal-modify-food-<%- list_produit[i]['id_produit'] %>" tabindex="-1" aria-labelledby="label-modify-food-<%- list_produit[i]['id_produit'] %>" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="label-modify-food-<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-bell me-3"></i>Notification</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Filtre -->
+    <div class="p-0">
+      <% if(list_produit_user.length !=0) { %>
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#filtres" aria-controls="filtres">
+        <i class="fa-solid fa-filter me-2"></i>Filtres
+      </button>
+      <% } %>
+    </div>
+  </div>
+  <!-- Tableau de gestion alimentaire -->
+  <% if (list_produit.length == 0) {%>
+  <div class="alert alert-info mt-3 user-select-none">Votre gestion alimentaire est vide</div>
+  <% } else { %>
+  <div class="table-responsive">
+    <table class="table table-striped border">
+      <thead class="align-middle">
+        <tr>
+          <th scope="col">Produit</th>
+          <th scope="col">Quantité</th>
+          <th scope="col">Magasin</th>
+          <th scope="col">Date d'achat</th>
+          <th scope="col">Date d'expiration</th>
+          <th scope="col">Etat du produit</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <% for(let i = 0; i < list_produit.length; i++){ %>
+        <tr class="align-middle">
+          <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- list_produit[i]['nom_categorie'] %>"><%- list_produit[i]['nom_produit'] %></span></td>
+          <td><%- list_produit[i]['quantite'] %></td>
+          <td><span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<%- list_produit[i]['nom_localite'] %>"><%- list_produit[i]['nom_magasin'] %></span></td>
+          <td><%- date_local(list_produit[i]['date_achat']) %></td>
+          <td><%- date_local(list_produit[i]['date_expiration']) %></td>
+          <td><%- date_peremption_etat(list_produit[i]['date_expiration']) %></td>
+          <td>
+            <div class="d-flex gap-2">
+              <!-- Modifier un produit -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-modify-food-<%- list_produit[i]['id_produit'] %>" id="button-modify-food-<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-pen"></i></button>
+              <div class="modal fade" id="modal-modify-food-<%- list_produit[i]['id_produit'] %>" tabindex="-1" aria-labelledby="label-modify-food-<%- list_produit[i]['id_produit'] %>" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="label-modify-food-<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-pen me-3"></i>Modification</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form class="row m-0 form-floating gap-3 mb-3" method="post" action="/modifier-produit" id="mod-produit-<%- list_produit[i]['id_produit'] %>">
+                        <!-- Nom du produit -->
+                        <div class="form-floating p-0">
+                          <input type="text" class="form-control" value="<%- list_produit[i]['nom_produit'] %>" placeholder="Produit" id="produit" name="produit" required>
+                          <label class="col-form-label" for="produit">Produit</label>
                         </div>
-                        <div class="modal-body">
-                          Cette fonctionnalité n'est pas encore ajouter.
+                        <!-- Quantité du produit -->
+                        <div class="p-0">
+                          <div class="input-group has-validation">
+                            <div class="form-floating <%- quantite_invalid ? "is-invalid" : "" %>">
+                              <input type="text" class="form-control <%- quantite_invalid ? "is-invalid" : "" %>" value="<%- list_produit[i]['quantite'] %>" placeholder="Quantité" id="quantite" name="quantite" required>
+                              <label for="quantite">Quantité</label>
+                            </div>
+                            <div class="invalid-feedback">
+                              Quantité invalide !
+                            </div>
+                          </div>
                         </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <!-- Catégorie du produit -->
+                        <div class="form-floating p-0">
+                          <select class="form-select" id="categorie" name="categorie" aria-label="Catégorie">
+                            <% for(let j = 0; j < list_categorie.length; j++){ %>
+                              <% if(list_categorie[j]['nom_categorie'] == list_produit[i]['nom_categorie']) { %>
+                              <option selected value="<%- list_categorie[i]['code_categorie'] %>"><%- list_produit[j]['nom_categorie'] %></option>
+                            <% } else { %>
+                              <option value="<%- list_categorie[i]['code_categorie'] %>"><%- list_categorie[j]['nom_categorie'] %></option>
+                            <% } %>
+                            <% } %>
+                          </select>
+                          <label for="categorie">Catégorie</label>
                         </div>
-                      </div>
+                        <!-- Date d'achat -->
+                        <div class="form-floating p-0">
+                          <input type="date" value="<%- date_local_reverse(list_produit[i]['date_achat']) %>" class="form-control" id="date_achat" name="date_achat" required>
+                          <label class="col-form-label" for="date_achat">Date d'achat</label>
+                        </div>
+                        <!-- Date d'expiration -->
+                        <div class="form-floating p-0">
+                          <input type="date" value="<%- date_local_reverse(list_produit[i]['date_expiration']) %>" class="form-control" id="date_expiration" name="date_expiration" required>
+                          <label class="col-form-label" for="date_expiration">Date d'expiration</label>
+                        </div>
+                        <!-- Magasin -->
+                        <div class="form-floating p-0">
+                          <select class="form-select" id="magasin" name="magasin" aria-label="Magasin">
+                            <% for(let j = 0; j < list_magasin.length; j++){ %>
+                              <% if(list_magasin[j]['nom_magasin'] == list_produit[i]['nom_magasin']) { %>
+                                <option selected value="<%- list_magasin[j]['id_magasin'] %>"><%- list_magasin[j]['nom_magasin'] %></option>
+                              <% } else { %>
+                                <option value="<%- list_magasin[j]['id_magasin'] %>"><%- list_magasin[j]['nom_magasin'] %></option>
+                              <% } %>
+                            <% } %>
+                          </select>
+                          <label for="magasin">Magasin</label>
+                        </div>
+                        <!-- Ville du magasin -->
+                        <div class="form-floating p-0">
+                          <select class="form-select" id="localite" name="localite" aria-label="Localité">
+                            <% for(let j = 0; j < list_localite.length; j++){ %>
+                              <% if(list_localite[j]['nom_localite'] == list_produit[i]['nom_localite']) { %>
+                                <option selected value="<%- list_localite[j]['code_postal'] %>"><%- list_localite[j]['nom_localite'] %></option>
+                              <% } else { %>
+                                <option value="<%- list_localite[j]['code_postal'] %>"><%- list_localite[j]['nom_localite'] %></option>
+                              <% } %>
+                            <% } %>
+                          </select>
+                          <label for="localite">Ville</label>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                      <button form="mod-produit-<%- list_produit[i]['id_produit'] %>" class="btn btn-primary" value="<%- list_produit[i]['id_produit'] %>" name="id_produit"></i>Modifier</button>
                     </div>
                   </div>
-                  <script>
-                    const modal_modify_food = document.getElementById('#modal-modify-food')
-                    const button_modify_food = document.getElementById('button-modify-food')
-              
-                    modal_modify_food.addEventListener('shown.bs.modal', () => {
-                      button_modify_food.focus()
-                    })
-                  </script>
-                  
-                  <!-- Supprimer un produit -->
-                  <form method="post" action="/supprimer-produit" id="form-delete-food-<%- list_produit[i]['id_produit'] %>">
-                    <button form="form-delete-food-<%- list_produit[i]['id_produit'] %>" class="btn btn-danger" name="id" value="<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-trash"></i></button>
-                  </form>
                 </div>
-              </td>
-          </tr>
-          <% } %>
-        </tbody>
-      </table>
-    </div>
-    <% } %>
+              </div>
+              <!-- Supprimer un produit -->
+              <form method="post" action="/supprimer-produit" id="form-delete-food-<%- list_produit[i]['id_produit'] %>">
+                <button form="form-delete-food-<%- list_produit[i]['id_produit'] %>" class="btn btn-danger" name="id" value="<%- list_produit[i]['id_produit'] %>"><i class="fa-solid fa-trash"></i></button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
   </div>
+  <% } %>
+</div>
