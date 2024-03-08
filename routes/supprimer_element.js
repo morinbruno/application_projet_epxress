@@ -21,7 +21,7 @@ router.post('/supprimer-element', function (req, res) {
         let sql = `DELETE FROM localite WHERE code_postal = ?;`;
 
         connection.query(sql, supp_localite, function(erreur, resultat){
-            res.redirect('/admin')
+            res.redirect('/admin#list_localites')
         })
     }
 
@@ -29,7 +29,7 @@ router.post('/supprimer-element', function (req, res) {
         let sql = `DELETE FROM magasins WHERE id_magasin = ?;`;
 
         connection.query(sql, supp_magasin, function(erreur, resultat){
-            res.redirect('/admin')
+            res.redirect('/admin#list_magasins')
         })
     }
 
@@ -37,7 +37,7 @@ router.post('/supprimer-element', function (req, res) {
         let sql = `DELETE FROM categories WHERE code_categorie = ?;`;
 
         connection.query(sql, supp_categorie, function(erreur, resultat){
-            res.redirect('/admin')
+            res.redirect('/admin#list_categories')
         })
     }
 });
