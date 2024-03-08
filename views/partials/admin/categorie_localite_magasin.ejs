@@ -18,47 +18,63 @@
   </div>
   <hr>
   <div>
-    <div class="row row-cols-sm-auto gap-3 justify-content-between mb-4 m-0 align-items-center">
-      <div class="p-0 m-0">
-        <h5 class="text-opacity-75 m-0"><%- list_localite.length %> localite<%- list_localite.length > 1 ? "s" : "" %> répertoriées</h5>
-      </div>
-      <div class="p-0 m-0">
-        <form class="row row-cols-lg-auto" method="post" action="#">
-          <div class="col-sm">
-            <div class="input-group">
-              <input type="search" class="form-control" id="localite_search" name="localite_search" placeholder="Rechercher..." value="">
-              <button class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+    <h5 class="text-opacity-75 m-0"><%- list_localite.length %> localite<%- list_localite.length > 1 ? "s" : "" %> répertoriée<%- list_localite.length > 1 ? "s" : "" %></h5>
     <% if(list_localite.length == 0) { %>
-      <div class="alert alert-info mt-3 user-select-none">Aucune localité d'enregistrée</div>
+    <div class="alert alert-info mt-3 user-select-none">Aucune localité d'enregistrée</div>
     <% } else { %>
     <div class="table-responsive">
       <table class="table table-striped border">
         <thead>
           <tr>
-            <th scope="col">Code postal</th>
-            <th scope="col">Localité</th>
+            <th scope="col">Code postal et Localité</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
           <% for(let i=0; i < list_localite.length; i++) { %>
           <tr class="align-middle">
-            <td><%- list_localite[i]['code_postal'] %></td>
-            <td><%- list_localite[i]['nom_localite'] %></td>
             <td>
               <% if(find_name_localite(list_localite[i]['nom_localite'],nbr_localite_use).nbr_produits_localite > 0) { %>
-              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Utilisé"><button type="submit" class="btn btn-danger" disabled><i class="fa-solid fa-trash"></i></button></span>
+              <div class="d-flex gap-3">
+                <input type="text" value="<%- list_localite[i]['code_postal'] %>" class="form-control w-auto" disabled>
+                <input type="text" value="<%- list_localite[i]['nom_localite'] %> " class="form-control w-auto" disabled>
+              </div>
               <% } else { %>
-                <form method="post" action="/supprimer-element">
-                  <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Supprimer">
-                    <button type="submit" class="btn btn-danger" value="<%- list_localite[i]['code_postal'] %>" name="supp_localite"><i class="fa-solid fa-trash"></i></button>
+              <form id="form-mod-localite-<%- list_localite[i]['code_postal'] %>" class="d-flex gap-3" method="post" action="/modifier-element">
+                <input type="text" value="<%- list_localite[i]['code_postal'] %>" class="form-control w-auto" name="mod_code_postal" minlength="4" maxlength="5" required>
+                <input type="text" value="<%- list_localite[i]['nom_localite'] %>" class="form-control w-auto" name="mod_localite" minlength="1" required>
+              </form>
+              <% } %>
+            </td>
+            <td>
+              <% if(find_name_localite(list_localite[i]['nom_localite'],nbr_localite_use).nbr_produits_localite > 0) { %>
+              <div class="d-flex gap-3">
+                <div>
+                  <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Impossible">
+                    <button class="btn btn-primary" name="mod_localite" disabled><i class="fa-solid fa-pen"></i></button>
                   </span>
-                </form>
+                </div>
+                <div>
+                  <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Impossible">
+                    <button class="btn btn-danger" name="supp_localite" disabled><i class="fa-solid fa-trash"></i></button>
+                  </span>
+                </div>
+              </div>
+              <% } else { %>
+              <div class="d-flex gap-3">
+                <div>
+                  <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Modifier">
+                    <button type="submit" form="form-mod-localite-<%- list_localite[i]['code_postal'] %>" class="btn btn-primary" value="<%- list_localite[i]['code_postal'] %>" name="mod_localite_id"><i class="fa-solid fa-pen"></i></button>
+                  </span>
+                </div>
+                <div>
+                  <form method="post" action="/supprimer-element">
+                    <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Supprimer">
+                      <button type="submit" class="btn btn-danger" value="<%- list_localite[i]['code_postal'] %>" name="supp_localite"><i class="fa-solid fa-trash"></i></button>
+                    </span>
+                  </form>
+                </div>
+              </div>
               <% } %>
             </td>
           </tr>
@@ -87,23 +103,9 @@
   </div>
   <hr>
   <div>
-    <div class="row row-cols-sm-auto gap-3 justify-content-between mb-4 m-0 align-items-center">
-      <div class="p-0 m-0">
-        <h5 class="text-opacity-75 m-0"><%- list_magasins.length %> magasin<%- list_magasins.length > 1 ? "s" : "" %> répertoriés</h5>
-      </div>
-      <div class="p-0 m-0">
-        <form class="row row-cols-lg-auto" method="post" action="#">
-          <div class="col-sm">
-            <div class="input-group">
-              <input type="search" class="form-control" id="magasin_search" name="magasin_search" placeholder="Rechercher..." value="">
-              <button class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+    <h5 class="text-opacity-75"><%- list_magasins.length %> magasin<%- list_magasins.length > 1 ? "s" : "" %> répertorié<%- list_magasins.length > 1 ? "s" : "" %></h5>
     <% if(list_magasins.length == 0) { %>
-      <div class="alert alert-info mt-3 user-select-none">Aucun magasin d'enregistré</div>
+    <div class="alert alert-info mt-3 user-select-none">Aucun magasin d'enregistré</div>
     <% } else { %>
     <div class="table-responsive">
       <table class="table table-striped border">
@@ -115,22 +117,48 @@
         </thead>
         <tbody class="table-group-divider">
           <% for(let i=0; i < list_magasins.length; i++) { %>
-        <tr class="align-middle">
-            <td><%- list_magasins[i]['nom_magasin'] %></td>
+          <tr class="align-middle">
             <td>
               <% if(find_name_magasin(list_magasins[i]['nom_magasin'],nbr_magasin_use).nbr_produits_magasin > 0) { %>
-              <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Utilisé">
-                <button type="submit" class="btn btn-danger" disabled><i class="fa-solid fa-trash"></i></button>
-              </span>
+                <input type="text" value="<%- list_magasins[i]['nom_magasin'] %>" class="form-control w-auto" disabled>
               <% } else { %>
-                <form method="post" action="/supprimer-element">
-                  <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Supprimer">
-                    <button type="submit" class="btn btn-danger" value="<%- list_magasins[i]['id_magasin'] %>" name="supp_magasin"><i class="fa-solid fa-trash"></i></button>
-                  </span>
+                <form id="form-mod-magasin-<%- list_magasins[i]['id_magasin'] %>" method="post" action="/modifier-element">
+                  <input type="text" value="<%- list_magasins[i]['nom_magasin'] %>" class="form-control w-auto" name="mod_magasin" minlength="1" required>
                 </form>
               <% } %>
             </td>
-        </tr>
+            <td>
+              <% if(find_name_magasin(list_magasins[i]['nom_magasin'],nbr_magasin_use).nbr_produits_magasin > 0) { %>
+                <div class="d-flex gap-3">
+                  <div>
+                    <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Impossible">
+                      <button class="btn btn-primary" name="mod_magasin" disabled><i class="fa-solid fa-pen"></i></button>
+                    </span>
+                  </div>
+                  <div>
+                    <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Impossible">
+                      <button class="btn btn-danger" name="supp_magasin" disabled><i class="fa-solid fa-trash"></i></button>
+                    </span>
+                  </div>
+                </div>
+              <% } else { %>
+                <div class="d-flex gap-3">
+                  <div>
+                    <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Modifier">
+                      <button type="submit" form="form-mod-magasin-<%- list_magasins[i]['id_magasin'] %>" class="btn btn-primary" value="<%- list_magasins[i]['id_magasin'] %>" name="mod_magasin_id"><i class="fa-solid fa-pen"></i></button>
+                    </span>
+                  </div>
+                  <div>
+                    <form method="post" action="/supprimer-element">
+                      <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Supprimer">
+                        <button type="submit" class="btn btn-danger" value="<%- list_magasins[i]['id_magasin'] %>" name="supp_magasin"><i class="fa-solid fa-trash"></i></button>
+                      </span>
+                    </form>
+                  </div>
+                </div>
+              <% } %>
+            </td>
+          </tr>
           <% } %>
         </tbody>
       </table>
@@ -156,48 +184,60 @@
   </div>
   <hr>
   <div>
-    <div class="row row-cols-sm-auto gap-3 justify-content-between mb-4 m-0 align-items-center">
-      <div class="p-0 m-0">
-        <h5 class="text-opacity-75 m-0"><%- list_categories.length %> catégorie<%- list_categories.length > 1 ? "s" : "" %> répertoriées</h5>
-      </div>
-      <div class="p-0 m-0">
-        <form class="row row-cols-lg-auto" method="post" action="#">
-          <div class="col-sm">
-            <div class="input-group">
-              <input type="search" class="form-control" id="categorie_search" name="categorie_search" placeholder="Rechercher..." value="">
-              <button class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+    <h5 class="text-opacity-75"><%- list_categories.length %> catégorie<%- list_categories.length > 1 ? "s" : "" %> répertoriée<%- list_categories.length > 1 ? "s" : "" %></h5>
     <% if(list_categories.length == 0) { %>
-      <div class="alert alert-info mt-3 user-select-none">Aucune catégorie d'enregistrée</div>
+    <div class="alert alert-info mt-3 user-select-none">Aucune catégorie d'enregistrée</div>
     <% } else { %>
     <div class="table-responsive">
       <table class="table table-striped border">
         <thead>
-        <tr>
+          <tr>
             <th scope="col">Catégorie</th>
             <th scope="col">Actions</th>
-        </tr>
+          </tr>
         </thead>
         <tbody class="table-group-divider">
           <% for(let i=0; i < list_categories.length; i++) { %>
-            <tr class="align-middle">
-            <td><%- list_categories[i]['nom_categorie'] %></td>
+          <tr class="align-middle">
             <td>
               <% if(find_name_categorie(list_categories[i]['nom_categorie'],nbr_categorie_use).nbr_produits_categorie > 0) { %>
-                <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Utilisé">
-                  <button type="submit" class="btn btn-danger" disabled><i class="fa-solid fa-trash"></i></button>
-                </span>
-                <% } else { %>
-                  <form method="post" action="/supprimer-element">
-                    <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Supprimer">
-                      <button type="submit" class="btn btn-danger" value="<%- list_categories[i]['code_categorie'] %>" name="supp_categorie"><i class="fa-solid fa-trash"></i></button>
+                <input type="text" value="<%- list_categories[i]['nom_categorie'] %>" class="form-control w-auto" disabled>
+              <% } else { %>
+                <form id="form-mod-categorie-<%- list_categories[i]['code_categorie'] %>" method="post" action="/modifier-element">
+                  <input type="text" value="<%- list_categories[i]['nom_categorie'] %>" class="form-control w-auto" name="mod_categorie" minlength="1" required>
+                </form>
+              <% } %>
+            </td>
+            <td>
+              <% if(find_name_categorie(list_categories[i]['nom_categorie'],nbr_categorie_use).nbr_produits_categorie > 0) { %>
+                <div class="d-flex gap-3">
+                  <div>
+                    <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Impossible">
+                      <button class="btn btn-primary" name="mod_categorie" disabled><i class="fa-solid fa-pen"></i></button>
                     </span>
-                  </form>
-                <% } %>
+                  </div>
+                  <div>
+                    <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Impossible">
+                      <button class="btn btn-danger" name="supp_categorie" disabled><i class="fa-solid fa-trash"></i></button>
+                    </span>
+                  </div>
+                </div>
+              <% } else { %>
+                <div class="d-flex gap-3">
+                  <div>
+                    <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Modifier">
+                      <button type="submit" form="form-mod-categorie-<%- list_categories[i]['code_categorie'] %>" class="btn btn-primary" value="<%- list_categories[i]['code_categorie'] %>" name="mod_categorie_id"><i class="fa-solid fa-pen"></i></button>
+                    </span>
+                  </div>
+                  <div>
+                    <form method="post" action="/supprimer-element">
+                      <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Supprimer">
+                        <button type="submit" class="btn btn-danger" value="<%- list_categories[i]['code_categorie'] %>" name="supp_categorie"><i class="fa-solid fa-trash"></i></button>
+                      </span>
+                    </form>
+                  </div>
+                </div>
+              <% } %>
             </td>
           </tr>
           <% } %>

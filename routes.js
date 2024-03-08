@@ -57,6 +57,10 @@ router.use('/', ajouter_element)
 const supprimer_element = require('./routes/supprimer_element.js');
 router.use('/', supprimer_element)
 
+// Route modifier un élèment à la db par l'admin
+const mod_element = require('./routes/mod_element.js');
+router.use('/', mod_element)
+
 // Route erreur 404
 const erreur404 = require('./routes/erreur404.js');
 router.use('/', erreur404)
