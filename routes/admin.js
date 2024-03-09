@@ -130,6 +130,8 @@ router.post('/admin', function (req, res) {
 	let pseudo_short = req.query.pseudo_short;
 	let pseudo_long = req.query.pseudo_long;
 
+	let stat_mod_element = req.query.mod_localite ?? req.query.mod_magasin ?? req.query.mod_categorie;
+
 	let username_search = req.body.username_search;
 	
 	let sql = `SELECT * FROM users JOIN typeuser 
@@ -183,7 +185,8 @@ router.post('/admin', function (req, res) {
 				find_name_categorie,
 				nbr_categorie_use,
 				nbr_magasin_use,
-				nbr_localite_use
+				nbr_localite_use,
+				stat_mod_element
 			})
 		})
 	} else {
