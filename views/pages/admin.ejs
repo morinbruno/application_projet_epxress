@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr" data-bs-theme="dark">
+<html lang="fr" class="h-100" data-bs-theme="dark">
 <%- include('../partials/head') %>
 
-<body>
+<body class="d-flex flex-column h-100">
   <%- include('../partials/header') %>
-  <div class="container mt-4" data-bs-spy="scroll">
+  <main class="container mt-4" data-bs-spy="scroll">
     <%- include('../partials/admin/gestion_utilisateur') %>
     <%- include('../partials/admin/categorie_localite_magasin') %>
-    </div>
-    <%- include('../partials/footer') %>
+  </main>
+  <%- include('../partials/footer') %>
 </body>
 
 </html>

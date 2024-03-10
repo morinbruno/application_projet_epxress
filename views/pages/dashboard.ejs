@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="fr" data-bs-theme="dark">
-<!-- Head -->
+<html lang="fr" class="h-100" data-bs-theme="dark">
+
 <%- include('../partials/head') %>
 
-<body>
+<body class="d-flex flex-column h-100">
   <%- include('../partials/header') %>
   <% if(list_produit.length != 0){ %>
   <%- include('../partials/dashboard/filtres_produit') %>
   <% } %>
-  <div class="container mt-4">
-    <%- include('../partials/dashboard/ajouter_produit') %>
-    <%- include('../partials/dashboard/tableau_gestion_alimentaire') %>
-  </div>
+  <main class="container mt-4">
+      <%- include('../partials/dashboard/ajouter_produit') %>
+      <%- include('../partials/dashboard/tableau_gestion_alimentaire') %>
+  </main>
+  
   <%- include('../partials/footer') %>
 </body>
 
