@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr" class="h-100" data-bs-theme="dark">
-    <!-- Début du Head -->
-      <%- include('../../partials/head') %>
-    <!-- Fin du Head -->    
+<!-- Début du Head -->
+<%- include('../../partials/head') %>
+<!-- Fin du Head -->
+
 <body class="d-flex h-100 justify-content-center align-items-center">
   <div class="p-4 rounded border shadow mx-5 bg-light-subtle" style="width: 400px;">
     <h2 class="mb-4 text-center">Se connecter</h2>
@@ -16,7 +17,7 @@
         </div>
         <div class="invalid-feedback">
           <% if(invalid_user) { %>
-            L'utilisateur n'existe pas
+          L'utilisateur n'existe pas
           <% } %>
         </div>
       </div>
@@ -29,21 +30,20 @@
         </div>
         <div class="invalid-feedback">
           <% if(invalid_mdp) { %>
-            Le mot de passe ne correspond pas
+          Le mot de passe ne correspond pas
           <% } %>
         </div>
       </div>
       <!-- Envoie de demande de connexion -->
-      <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+      <button type="submit" class="btn btn-success w-100">Se connecter</button>
     </form>
     <hr>
     <!-- Se créer un compte -->
-    <div class="mt-2">
+    <div class="d-flex gap-2">
       <a href="/creer-compte" class="btn btn-outline-primary fw-medium border-2 w-100">Créer un compte</a>
-    </div>
-    </div>
-    <div class="position-absolute bottom-0 end-0 me-5 mb-5">
       <%- include('../../partials/change_theme') %>
     </div>
+  </div>
 </body>
+
 </html>
