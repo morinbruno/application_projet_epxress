@@ -6,8 +6,7 @@
 
 <body class="d-flex h-100 justify-content-center align-items-center">
   <div class="p-4 mx-5 rounded border shadow bg-light-subtle" style="width: 600px;">
-    <a href="/" class="link"><i class="fa-solid fa-arrow-left-long me-2 mb-4"></i>Revenir en arrière</a>
-    <h2 class="mb-4 pb-3 border-bottom text-center">Créer un compte</h2>
+    <h2 class="mb-4 text-center">Créer un compte</h2>
     <form class="form-floating" method="post" action="/creer-compte">
       <div class="row g-2">
         <!-- Pseudo -->
@@ -69,6 +68,11 @@
       </div>
       <button type="submit" class="btn btn-primary w-100">Créer un compte</button>
     </form>
+    <hr>
+    <!-- Se connecter à un compte -->
+    <div class="mt-2">
+      <a href="/se-connecter" class="btn btn-success w-100">Se connecter</a>
+    </div>
   </div>
   <div class="position-absolute bottom-0 end-0 me-5 mb-5">
     <%- include('../../partials/change_theme') %>
