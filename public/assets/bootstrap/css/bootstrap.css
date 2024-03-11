@@ -12112,7 +12112,7 @@ textarea.form-control-lg {
 
 .btn-bd-primary {
   --bd-blue-bg: var(--bs-blue);
-  --bd-blue-rgb: 112.520718, 44.062154, 249.437846;
+  --bd-blue-rgb: 49, 132, 253;
 
   --bs-btn-font-weight: 600;
   --bs-btn-color: var(--bs-white);
