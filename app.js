@@ -2,7 +2,6 @@
 const express = require('express');
 const session = require('express-session');
 const app = express();
-const bodyParser = require('body-parser');
 const ejs = require('ejs');
 
 
@@ -15,7 +14,7 @@ app.set('view engine', 'ejs');
 //	Paramètres du serveur
 const port = 3000;
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(session({
 	secret: 'secret',
 	resave: true,
