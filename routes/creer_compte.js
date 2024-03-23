@@ -22,18 +22,22 @@ router.get('/creer-compte', function (req, res) {
 	let pseudo_short = req.query.pseudo_short;
 	let pseudo_long = req.query.pseudo_long;
 
-	res.render('pages/connection/creer-compte', {
-		title: "Créer un compte",
-		pseudo_exist,
-		email_exist,
-		pseudo_invalid,
-		mdp_invalid,
-		mdp_short,
-		mdp_long,
-		pseudo_short,
-		pseudo_long,
-		req
-	})
+	if (req.session.loggedin) {
+		res.redirect('/dashboard')
+	} else {
+		res.render('pages/connection/creer-compte', {
+			title: "Créer un compte",
+			pseudo_exist,
+			email_exist,
+			pseudo_invalid,
+			mdp_invalid,
+			mdp_short,
+			mdp_long,
+			pseudo_short,
+			pseudo_long,
+			req
+		})
+	}
 })
 
 router.post('/creer-compte', function (req, res) {
@@ -42,6 +46,10 @@ router.post('/creer-compte', function (req, res) {
 	let password = req.body.password;
 	let sql = `SELECT email FROM users WHERE email = ?;
 			   SELECT user FROM users WHERE user = ?;`
+
+	pattern_email = RegExp(/^[a-z]+@\w+\.[a-z]+$/, "i");
+	pattern_text = RegExp(/^[a-z]+$/, "i")
+
 
 	if(req.session.id && req.session.typeuser == "Admin" && req.session.loggedin) {
 		if (pseudo.length < 3 && password.length < 3) {
