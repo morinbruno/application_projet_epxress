@@ -42,7 +42,7 @@ router.get('/dashboard', function (req, res, next) {
 	ON magasins_produits.id_magasin=magasins.id_magasin JOIN localite 
 	ON magasins_produits.code_postal=localite.code_postal JOIN categories
 	ON produits.code_categorie=categories.code_categorie
-	WHERE produits_acheter.id_user = ? ORDER BY produits.nom_produit;
+	WHERE produits_acheter.id_user = ? ORDER BY produits_acheter.date_expiration;
 
 	SELECT * FROM users JOIN produits_acheter 
 	ON users.id_user=produits_acheter.id_user JOIN produits 

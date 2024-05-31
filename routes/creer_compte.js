@@ -47,10 +47,6 @@ router.post('/creer-compte', function (req, res) {
 	let sql = `SELECT email FROM users WHERE email = ?;
 			   SELECT user FROM users WHERE user = ?;`
 
-	pattern_email = RegExp(/^[a-z]+@\w+\.[a-z]+$/, "i");
-	pattern_text = RegExp(/^[a-z]+$/, "i")
-
-
 	if(req.session.id && req.session.typeuser == "Admin" && req.session.loggedin) {
 		if (pseudo.length < 3 && password.length < 3) {
 			res.redirect('/admin?pseudo_short=true&mdp_short=true')
