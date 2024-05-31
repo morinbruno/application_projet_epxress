@@ -30,7 +30,7 @@ function find_name_categorie(value,object) {
 
 // GET
 router.get('/admin', function (req, res) {
-	if (req.session.typeuser === "Admin") {
+	if (req.session.typeuser === "Admin" && req.session.loggedin) {
 		let password_update_success = req.query.password_update_success;
 		let id_user = req.query.id_user;
 		let password_different = req.query.password_different;
