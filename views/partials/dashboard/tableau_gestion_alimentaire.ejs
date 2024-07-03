@@ -76,7 +76,7 @@
                               <% if(list_categorie[j]['nom_categorie'] == list_produit[i]['nom_categorie']) { %>
                               <option selected value="<%- list_categorie[j]['code_categorie'] %>"><%- list_categorie[j]['nom_categorie'] %></option>
                             <% } else { %>
-                              <option value="<%- list_categorie[i]['code_categorie'] %>"><%- list_categorie[j]['nom_categorie'] %></option>
+                              <option value="<%- list_categorie[j]['code_categorie'] %>"><%- list_categorie[j]['nom_categorie'] %></option>
                             <% } %>
                             <% } %>
                           </select>
