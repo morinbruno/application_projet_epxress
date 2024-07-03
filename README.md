@@ -2,7 +2,7 @@
 
 - [**NodesJS**](https://nodejs.org/en/download/current)
 - [**Git**](https://git-scm.com/)
-- [**MySQL**](https://dev.mysql.com/downloads/mysql/)
+- Un serveur MySQL
 
 # Installation
 
